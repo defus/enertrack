@@ -11,10 +11,22 @@ Enertrack is a product focuses on environment preservation
 * mbstring PHP Extension
 * Note: As of PHP 5.5, some OS distributions may require you to manually install the PHP JSON extension. When using Ubuntu, this can be done via apt-get install php5-json.
 * Activer le mod_rewrite sous apache 
+* activer php_fileinfo pour afficher le type mime d'un fichier automatiquement
 
 ## Configuration
 
 * Les fichiers de configuration sont dans le repertoire app/config
+* $queries = DB::getQueryLog(); : avoir la liste des requêtes exécutées
+
+## Migration
+* Ajouter dans la table utilisateur le champ : 
+** remember_token nvarchar(100), 
+** password (au moins nvarchar 60), 
+
+## Model
+* Mouvrage : maitre d'ouvrage
+** CategorieID : identifiant de la categorie du maitre d'ouvrage
+** roles.record_id=mouvrage.MouvrageID : pour déterminer si l'utilisateur a le droit de modifier les informations du maitre d'ouvrage. Le username dans la table role permet de savoir l'utilisateur associé au role en question.
 
 ## Laravel PHP Framework
 
