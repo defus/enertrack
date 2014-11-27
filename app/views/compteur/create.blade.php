@@ -69,38 +69,43 @@ $(document).ready(function() {
                                     <select id="patrimoine" name="patrimoine" class="form-control">
                                        <optgroup label="Batiments">
                                             @foreach($batiments as $key => $value)
-                                                <option value="batiment-{{$value->BatimentID}}">{{$value->Nom}}</option>
+                                                <option value="{{$value->BatimentID}}">{{$value->Nom}}</option>
                                             @endforeach
                                         </optgroup>
                                         <optgroup label="Eclairages">
                                             @foreach($eclairages as $key => $value)
-                                                <option value="eclairage-{{$value->EclairageID}}">{{$value->Nom}}</option>
+                                                <option value="{{$value->EclairageID}}">{{$value->Nom}}</option>
                                             @endforeach
                                         </optgroup>
                                         <optgroup label="Vehicules">
                                             @foreach($vehicules as $key => $value)
-                                                <option value="vehicule-{{$value->VehiculeID}}">{{$value->Nom}}</option>
+                                                <option value="{{$value->VehiculeID}}">{{$value->Nom}}</option>
                                             @endforeach
                                         </optgroup>
                                         <optgroup label="Postes de production">
                                             @foreach($posteproductions as $key => $value)
-                                                <option value="posteproduction-{{$value->PosteproductionID}}">{{$value->Nom}}</option>
+                                                <option value="{{$value->PosteproductionID}}">{{$value->Nom}}</option>
                                             @endforeach
                                         </optgroup>
                                         @if(count($autrepostes) >0) 
                                         <optgroup label="Autre postes">
                                             @foreach($autrepostes as $key => $value)
-                                                <option value="autreposte-{{$value->AutreposteID}}">{{$value->Nom}}</option>
+                                                <option value="{{$value->AutreposteID}}">{{$value->Nom}}</option>
                                             @endforeach
                                         </optgroup>
                                         @endif
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label>Pourcentage du compteur</label>
+                                    {{ Form::number('Pourcentage', Input::old('Pourcentage'), array('class' => 'form-control') ) }}
+                                    <span>Quel pourcentage du compteur est associé à ce patrimoine ?</span>
+                                </div>
+                                <div class="form-group">
                                     <label>Maitre d'ouvrage</label>
                                     {{  Form::select('MouvrageID', $mos, Input::old('MouvrageID'), array('class' => 'form-control')) }}
                                 </div>
-                                <div class="form-group @if($errors->first('Nom') != '') has-error" @endif">
+                                <div class="form-group @if($errors->first('Nom') != '') has-error @endif">
                                     <label>Nom du compteur *</label>
                                     {{ Form::text('Nom', Input::old('Nom'), array('class' => 'form-control', 'placeholder' => "Entrer le nom du compteur ...", 'autofocus' => '' ) ) }}
                                     {{ $errors->first('Nom', '<span class="error">:message</span>' ) }}
@@ -110,7 +115,7 @@ $(document).ready(function() {
                                     {{ Form::select('Type', array('CONSO'=>"Consommation d’énergie", 'CONSOEAU'=>"Consommation d’eau", 'CONSOLIEPROD'=>"Consommation liée à un de vos postes de production", 'MP'=>"Consommation en matière première pour fabrication", 'PROD' => "Production  d’énergie", 'PRODEAU'=> "Production d’eau chaude", 'FABRICATION'=> "Fabrication de produits manufacturés"), Input::old('Type'), array('class' => 'form-control')) }}
                                 </div>
                                 <div class="form-group">
-                                    <label>Consommable - En cas de Gaz, d'Electricité ou d'Eau, n'oubliez pas d'ajouter un Tarif a ce compteur apres l'avoir crée. <br> (Onglet Tarif, Ajouter un Tarif)</label>
+                                    <label>Consommable</label>
                                     {{ Form::select('EnergieID', $energies, Input::old('EnergieID'), array('class' => 'form-control')) }}
                                 </div>
                                 <div class="form-group">
@@ -119,7 +124,7 @@ $(document).ready(function() {
                                 </div>
                                 <div class="form-group">
                                     <label>Compteur d'énergie</label>
-                                    {{ Form::checkbox('Estenergie', Input::old('Estenergie'), array('class' => 'form-control') ) }}
+                                    {{ Form::checkbox('Estenergie', Input::old('Estenergie') ) }}
                                 </div>
                                 <div class="form-group">
                                     <label>Reférence de contrat</label>
@@ -151,7 +156,7 @@ $(document).ready(function() {
                                 </div>
                                 <div class="form-group">
                                     <label>Clos ?</label>
-                                    {{ Form::checkbox('Clos', Input::old('Clos'), array('class' => 'form-control') ) }}
+                                    {{ Form::checkbox('Clos', Input::old('Clos')) }}
                                 </div>
                                 <div class="form-group">
                                     <label>Ancienne reference (si le fournisseura modifié la reference)</label>

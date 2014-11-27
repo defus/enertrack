@@ -8,7 +8,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="{{ URL::to('/') }}">Enertrack v2.0</a>
+        <a class="navbar-brand" href="{{ URL::to('/') }}"> Jiha Tinou (Enertrack 2.0)</a>
     </div>
     <!-- /.navbar-header -->
 
@@ -21,8 +21,8 @@
                 <li>
                     <a href="#">
                         <div>
-                            <i class="fa fa-comment fa-fw"></i> New Comment
-                            <span class="pull-right text-muted small">4 minutes ago</span>
+                            <i class="fa fa-comment fa-fw"></i> Nouveau batiment
+                            <span class="pull-right text-muted small">4 minutes environ</span>
                         </div>
                     </a>
                 </li>
@@ -30,8 +30,8 @@
                 <li>
                     <a href="#">
                         <div>
-                            <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                            <span class="pull-right text-muted small">12 minutes ago</span>
+                            <i class="fa fa-twitter fa-fw"></i> 3 Nouveaux compteurs
+                            <span class="pull-right text-muted small">12 minutes environ</span>
                         </div>
                     </a>
                 </li>
@@ -39,8 +39,8 @@
                 <li>
                     <a href="#">
                         <div>
-                            <i class="fa fa-envelope fa-fw"></i> Message Sent
-                            <span class="pull-right text-muted small">4 minutes ago</span>
+                            <i class="fa fa-envelope fa-fw"></i> Nouvelle facture
+                            <span class="pull-right text-muted small">4 minutes environ</span>
                         </div>
                     </a>
                 </li>
@@ -48,8 +48,8 @@
                 <li>
                     <a href="#">
                         <div>
-                            <i class="fa fa-tasks fa-fw"></i> New Task
-                            <span class="pull-right text-muted small">4 minutes ago</span>
+                            <i class="fa fa-tasks fa-fw"></i> Nouvel éclairage
+                            <span class="pull-right text-muted small">4 minutes environ</span>
                         </div>
                     </a>
                 </li>
@@ -57,15 +57,15 @@
                 <li>
                     <a href="#">
                         <div>
-                            <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                            <span class="pull-right text-muted small">4 minutes ago</span>
+                            <i class="fa fa-upload fa-fw"></i> Serveur redemarrer
+                            <span class="pull-right text-muted small">4 minutes environ</span>
                         </div>
                     </a>
                 </li>
                 <li class="divider"></li>
                 <li>
                     <a class="text-center" href="#">
-                        <strong>See All Alerts</strong>
+                        <strong>Voir toutes les alertes</strong>
                         <i class="fa fa-angle-right"></i>
                     </a>
                 </li>
@@ -78,10 +78,10 @@
                 <i class="fa fa-user fa-fw"></i> {{ Auth::user()->Username }} <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-user">
-                <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                <li><a href="#"><i class="fa fa-user fa-fw"></i> Profile utilisateur</a>
                 </li>
                 <li class="divider"></li>
-                <li><a href="{{ URL::to('logout') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                <li><a href="{{ URL::to('logout') }}"><i class="fa fa-sign-out fa-fw"></i> Déconnection</a>
                 </li>
             </ul>
             <!-- /.dropdown-user -->
@@ -93,105 +93,74 @@
     <div class="navbar-default sidebar" role="navigation">
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
-                <li class="sidebar-search">
-                    <div class="input-group custom-search-form">
-                        <input type="text" class="form-control" placeholder="Search...">
-                        <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </span>
-                    </div>
-                    <!-- /input-group -->
+                <li >
+                    <img alt="Brand" src="/v2/public/jihatinou.jpg" width="250">
+                    
                 </li>
                 <li>
                     <a @if(Request::is('/')) class="active" @endif href="{{ URL::to('') }}"><i class="fa fa-dashboard fa-fw"></i> Tableau de bord</a>
                 </li>
-                <li @if(Request::is('mo') or Request::is('mo/create')) class="active" @endif>
-                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Maitres d'ouvrage<span class="fa arrow"></span></a>
+                <li @if(Request::is('tbge/facture') or Request::is('tbge/facture/create') or Request::is('tbge/facture/*/edit')) class="active" @endif>
+                    <a href="#"><i class="fa fa-files-o fa-fw"></i> Factures<sspan class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a @if(Request::is('mo')) class="active" @endif href="{{ URL::to('mo') }}">Liste</a>
+                            <a @if(Request::is('tbge/facture') or Request::is('tbge/facture/*/edit')) class="active" @endif href="{{ URL::to('tbge/facture') }}">Liste des factures enregistrées</a>
                         </li>
                         <li>
-                            <a @if(Request::is('mo/create')) class="active" @endif href="{{ URL::to('mo/create') }}">Nouveau</a>
+                            <a @if(Request::is('tbge/facture/create')) class="active" @endif href="{{ URL::to('tbge/facture/create') }}">Ajouter une facture</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
-                <li @if(Request::is('moan') or Request::is('moan/create')) class="active" @endif>
-                    <a href="#"><i class="fa fa-table fa-fw"></i> Budgets et fréquentations<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a @if(Request::is('moan')) class="active" @endif href="{{ URL::to('moan') }}">Liste</a>
-                        </li>
-                        <li>
-                            <a @if(Request::is('moan/create')) class="active" @endif href="{{ URL::to('moan/create') }}">Nouveau</a>
-                        </li>
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
-                <li  @if(Request::is('contact') or Request::is('contact/create')) class="active" @endif>
-                    <a href="#"><i class="fa fa-edit fa-fw"></i> Contacts<sspan class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a @if(Request::is('contact')) class="active" @endif href="{{ URL::to('contact') }}">Liste</a>
-                        </li>
-                        <li>
-                            <a @if(Request::is('contact/create')) class="active" @endif href="{{ URL::to('contact/create') }}">Nouveau</a>
-                        </li>
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
-                <li  @if(Request::is('patrimoine') or Request::is('patrimoine/create')) class="active" @endif>
-                    <a href="#"><i class="fa fa-wrench fa-fw"></i> Patrimoines<sspan class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a @if(Request::is('patrimoine')) class="active" @endif href="{{ URL::to('patrimoine') }}">Liste</a>
-                        </li>
-                        <li @if(Request::is('patrimoine') or Request::is('patrimoine/batiment/create')) class="active" @endif>
-                            <a href="#">Nouveau <span class="fa arrow"></span></a>
-                            <ul class="nav nav-third-level">
-                                <li>
-                                    <a @if(Request::is('patrimoine/batiment/create')) class="active" @endif href="{{ URL::to('patrimoine/batiment/create') }}">Nouveau batiment</a>
-                                </li>
-                                <li>
-                                    <a @if(Request::is('patrimoine/eclairage/create')) class="active" @endif href="{{ URL::to('patrimoine/eclairage/create') }}">Nouveau poste d'éclairage</a>
-                                </li>
-                                <li>
-                                    <a @if(Request::is('patrimoine/vehicule/create')) class="active" @endif href="{{ URL::to('patrimoine/vehicule/create') }}">Nouveau véhicule</a>
-                                </li>
-                                <li>
-                                    <a @if(Request::is('patrimoine/posteproduction/create')) class="active" @endif href="{{ URL::to('patrimoine/posteproduction/create') }}">Nouveau poste de production</a>
-                                </li>
-                                <li>
-                                    <a @if(Request::is('patrimoine/autreposte/create')) class="active" @endif href="{{ URL::to('patrimoine/autreposte/create') }}">Nouveau poste</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
-                <li @if(Request::is('compteur') or Request::is('compteur/create')) class="active" @endif>
+                <li @if(Request::is('tbge/compteur') or Request::is('tbge/compteur/create') or Request::is('tbge/compteur/*/edit')) class="active" @endif>
                     <a href="#"><i class="fa fa-sitemap fa-fw"></i> Compteurs<sspan class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a @if(Request::is('compteur')) class="active" @endif href="{{ URL::to('compteur') }}">Liste</a>
+                            <a @if(Request::is('tbge/compteur') or Request::is('tbge/compteur/*/edit')) class="active" @endif href="{{ URL::to('tbge/compteur') }}">Liste des compteurs enregistrés</a>
                         </li>
                         <li>
-                            <a @if(Request::is('compteur/create')) class="active" @endif href="{{ URL::to('compteur/create') }}">Nouveau</a>
+                            <a @if(Request::is('tbge/compteur/create')) class="active" @endif href="{{ URL::to('tbge/compteur/create') }}">Ajouter un compteur</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
-                <li>
-                    <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
+                <li  @if(Request::is('patrimoine') or Request::is('tbge/patrimoine/*') or Request::is('patrimoine/*/create') or Request::is('tbge/patrimoine/*/create') or Request::is('patrimoine/*/*/edit') or Request::is('tbge/patrimoine/*/*/edit')) class="active" @endif>
+                    <a href="#"><i class="fa fa-wrench fa-fw"></i> Patrimoines<sspan class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="blank.html">Blank Page</a>
+                            <a @if(Request::is('tbge/patrimoine/batiment')  or Request::is('tbge/patrimoine/batiment/*/edit')) class="active" @endif href="{{ URL::to('tbge/patrimoine/batiment') }}">Liste des batiments</a>
                         </li>
                         <li>
-                            <a href="login.html">Login Page</a>
+                            <a @if(Request::is('tbge/patrimoine/espacevert')  or Request::is('tbge/patrimoine/espacevert/*/edit')) class="active" @endif href="{{ URL::to('tbge/patrimoine/espacevert') }}">Liste des espaces verts</a>
+                        </li>
+                        <li>
+                            <a @if(Request::is('tbge/patrimoine/eclairage')  or Request::is('tbge/patrimoine/eclairage/*/edit')) class="active" @endif href="{{ URL::to('tbge/patrimoine/eclairage') }}">Liste des postes d'éclairages</a>
+                        </li>
+                        <li>
+                            <a @if(Request::is('tbge/patrimoine/vehicule')  or Request::is('tbge/patrimoine/vehicule/*/edit')) class="active" @endif href="{{ URL::to('tbge/patrimoine/vehicule') }}">Liste des véhicules</a>
+                        </li>
+                        <li>
+                            <a @if(Request::is('tbge/patrimoine/posteproduction')  or Request::is('tbge/patrimoine/posteproduction/*/edit')) class="active" @endif href="{{ URL::to('tbge/patrimoine/posteproduction') }}">Liste des postes de production</a>
+                        </li>
+                        <li @if(Request::is('tbge/patrimoine') or Request::is('tbge/patrimoine/*/create')) class="active" @endif>
+                            <a href="#">Ajouter ... <span class="fa arrow"></span></a>
+                            <ul class="nav nav-third-level">
+                                <li>
+                                    <a @if(Request::is('tbge/patrimoine/batiment/create')) class="active" @endif href="{{ URL::to('tbge/patrimoine/batiment/create') }}">Ajouter un batiment</a>
+                                </li>
+                                <li>
+                                    <a @if(Request::is('tbge/patrimoine/espacevert/create')) class="active" @endif href="{{ URL::to('tbge/patrimoine/espacevert/create') }}">Ajouter un espace vert</a>
+                                </li>
+                                <li>
+                                    <a @if(Request::is('tbge/patrimoine/eclairage/create')) class="active" @endif href="{{ URL::to('tbge/patrimoine/eclairage/create') }}">Ajouter un poste d'éclairage</a>
+                                </li>
+                                <li>
+                                    <a @if(Request::is('tbge/patrimoine/vehicule/create')) class="active" @endif href="{{ URL::to('tbge/patrimoine/vehicule/create') }}">Ajouter un véhicule</a>
+                                </li>
+                                <li>
+                                    <a @if(Request::is('tbge/patrimoine/posteproduction/create')) class="active" @endif href="{{ URL::to('tbge/patrimoine/posteproduction/create') }}">Ajouter un poste de production</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->

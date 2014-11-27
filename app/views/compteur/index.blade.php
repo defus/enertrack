@@ -19,15 +19,22 @@
 @section('css')
 <!-- DataTables CSS -->
 {{ HTML::style('assets/css/plugins/dataTables.bootstrap.css') }}
+{{ HTML::style('assets/js/plugins/dataTables/extensions/TableTools-2.2.3/css/dataTables.tableTools.min.css') }}
 @stop
 
 {{-- Page specific JS files --}}
 {{-- {{ HTML::script('--Path to js--') }} --}}
 @section('scripts')
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+{{ HTML::script('assets/js/plugins/dataTables/extensions/TableTools-2.2.3/js/dataTables.tableTools.min.js') }}
 <script>
 $(document).ready(function() {
-    $('#dataTables-example').dataTable();
+    $('#dataTables-example').dataTable({
+        "dom": 'T<"clear">lfrtip',
+        "tableTools": {
+            "sSwfPath": "assets/js/plugins/dataTables/extensions/TableTools-2.2.3/swf/copy_csv_xls_pdf.swf"
+        }
+    });
 });
 </script>
 @stop

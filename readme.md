@@ -1,8 +1,23 @@
 ## Enertrack
 
 Enertrack is a product focuses on environment preservation
-* Fuel
 
+## Todo
+* Gérer la sélection de valeur initial dans les formulairs avec select2 (OK)
+* Avoir l'affichage des dates avec le format français (OK)
+* Sur utiliser les groupes sur le formulaire de facture (OK)
+* faire une page pour chaque patrimoine
+* Créer des formualires spécifiques pour l'AO
+* remplacer nouveau par ajouter
+* Charte graphique de l'application
+* Faire la sécurité
+* Faire un composant pour aficher le mo. Permet de ne pas afficher le MO lorsque l'utilisateur n'en a qu'un seul
+* Faire les dashbords
+* recherche full texte dans la zone de recherche du menu
+* Faire les filtres au niveau des datatable
+
+# Questions
+* On ne peut associer une facture à plusieurs compteurs. Sinon, on ne peut pas faire de l'analytique dessus. C'est quoi l'objectif de ce concept 
 
 ## Installation prerequisites
 

@@ -59,7 +59,7 @@
                                     <label>Maitre d'ouvrage</label>
                                     {{  Form::select('MouvrageID', $mos, Input::old('MouvrageID'), array('class' => 'form-control')) }}
                                 </div>
-                                <div class="form-group @if($errors->first('Nom') != '') has-error" @endif">
+                                <div class="form-group @if($errors->first('Nom') != '') has-error @endif">
                                     <label>Nom du poste *</label>
                                     {{ Form::text('Nom', Input::old('Nom'), array('class' => 'form-control', 'placeholder' => "Entrer la valeur ...", 'autofocus' => '' ) ) }}
                                     {{ $errors->first('Nom', '<span class="error">:message</span>' ) }}

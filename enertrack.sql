@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Sam 22 Novembre 2014 à 12:12
+-- Généré le: Mer 26 Novembre 2014 à 08:22
 -- Version du serveur: 5.6.12-log
 -- Version de PHP: 5.4.12
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Base de données: `enertrack`
 --
-CREATE DATABASE IF NOT EXISTS `enertrack` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `enertrack`;
 
 -- --------------------------------------------------------
 
@@ -231,7 +229,7 @@ CREATE TABLE IF NOT EXISTS `autreposte` (
   KEY `MouvrageID` (`MouvrageID`),
   KEY `CoordonneeID` (`CoordonneeID`),
   KEY `CategorieID` (`CategorieID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -282,6 +280,12 @@ CREATE TABLE IF NOT EXISTS `batiment` (
   `Codepostal` int(11) DEFAULT NULL,
   `Ville` varchar(45) DEFAULT NULL,
   `Pays` varchar(45) DEFAULT NULL,
+  `NbrEtage` int(11) DEFAULT NULL,
+  `Surface` int(11) DEFAULT NULL,
+  `NbrEmployee` int(11) DEFAULT NULL,
+  `Pv` int(11) DEFAULT NULL,
+  `SystemeChauffageEau` int(11) DEFAULT NULL,
+  `Ces` int(11) DEFAULT NULL,
   PRIMARY KEY (`BatimentID`,`BaseID`),
   KEY `belong_to_Base` (`BaseID`),
   KEY `MouvrageID` (`MouvrageID`),
@@ -289,21 +293,25 @@ CREATE TABLE IF NOT EXISTS `batiment` (
   KEY `StationdjuID` (`StationdjuID`),
   KEY `StationmeteoID` (`StationmeteoID`),
   KEY `CoordonneeID` (`CoordonneeID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
 -- Contenu de la table `batiment`
 --
 
-INSERT INTO `batiment` (`BatimentID`, `MouvrageID`, `Nom`, `Anneeconstruction`, `Patrimoine`, `Voisinage`, `Orientation`, `Exposition`, `altitude`, `BaseID`, `Cadastre`, `Latitude`, `Longitude`, `StationdjuID`, `StationmeteoID`, `Commentaire`, `CoordonneeID`, `Adresse1`, `Adresse2`, `Adresse3`, `Codepostal`, `Ville`, `Pays`) VALUES
-(2, 1, 'Mairie', 1970, 2, 2, 2, 2, 700, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2 avenue  Hassan II', NULL, NULL, 10050, 'Rabat', 'MAROC'),
-(3, 1, 'CARREFOUR', 1990, 2, 3, 4, 4, 400, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, ' 114 Bab el hed  ', NULL, NULL, 10010, 'Rabat', 'MAROC'),
-(4, 1, 'IMMEUBLE', 2000, NULL, NULL, NULL, NULL, 280, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, 2, 'espace vert 1', 1900, 1, 1, 1, 1, 200, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'B.A ESPACE VERT FACE ANCIEN AEROPERT BEN', NULL, NULL, 81000, 'Agadir', 'Maroc'),
-(6, 2, 'Stade al inbiaat', 1900, 1, NULL, NULL, NULL, 200, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'STADE AL INBIAAT AV HASSAN        ', NULL, NULL, 81000, 'Agadir', NULL),
-(7, 2, 'Royal tennis club', 1900, NULL, NULL, NULL, NULL, 3, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ROYAL TENNIS CLUB AV.HASSAN II    ', NULL, NULL, 81000, 'Agadir', NULL),
-(8, 2, 'marché municipal de poissons', 1900, 2, 1, 1, NULL, 200, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'MARCHE MUNICIPAL DE POISSONS AGADIR     ', NULL, NULL, 81000, 'Agadir', NULL),
-(9, 2, 'camping municipal', 1900, NULL, NULL, NULL, NULL, 200, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'CAMPING MUNICIPAL D''AGADIR BD.MED       ', NULL, NULL, 81000, 'Agadir', NULL);
+INSERT INTO `batiment` (`BatimentID`, `MouvrageID`, `Nom`, `Anneeconstruction`, `Patrimoine`, `Voisinage`, `Orientation`, `Exposition`, `altitude`, `BaseID`, `Cadastre`, `Latitude`, `Longitude`, `StationdjuID`, `StationmeteoID`, `Commentaire`, `CoordonneeID`, `Adresse1`, `Adresse2`, `Adresse3`, `Codepostal`, `Ville`, `Pays`, `NbrEtage`, `Surface`, `NbrEmployee`, `Pv`, `SystemeChauffageEau`, `Ces`) VALUES
+(2, 1, 'Mairie', 1970, 2, 2, 2, 2, 700, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2 avenue  Hassan II', NULL, NULL, 10050, 'Rabat', 'MAROC', NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 1, 'CARREFOUR', 1990, 2, 3, 4, 4, 400, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, ' 114 Bab el hed  ', NULL, NULL, 10010, 'Rabat', 'MAROC', NULL, NULL, NULL, NULL, NULL, NULL),
+(4, 1, 'IMMEUBLE', 2000, NULL, NULL, NULL, NULL, 280, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, 2, 'espace vert 1', 1900, 1, 1, 1, 1, 200, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'B.A ESPACE VERT FACE ANCIEN AEROPERT BEN', NULL, NULL, 81000, 'Agadir', 'Maroc', NULL, NULL, NULL, NULL, NULL, NULL),
+(6, 2, 'Stade al inbiaat', 1900, 1, NULL, NULL, NULL, 200, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'STADE AL INBIAAT AV HASSAN        ', NULL, NULL, 81000, 'Agadir', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(7, 2, 'Royal tennis club', 1900, NULL, NULL, NULL, NULL, 3, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ROYAL TENNIS CLUB AV.HASSAN II    ', NULL, NULL, 81000, 'Agadir', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(8, 2, 'marché municipal de poissons', 1900, 2, 1, 1, NULL, 200, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'MARCHE MUNICIPAL DE POISSONS AGADIR     ', NULL, NULL, 81000, 'Agadir', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(9, 2, 'camping municipal', 1900, NULL, NULL, NULL, NULL, 200, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'CAMPING MUNICIPAL D''AGADIR BD.MED       ', NULL, NULL, 81000, 'Agadir', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(10, 2, 'qdqsdqsd', 1900, 1, 0, 0, 0, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, '', '', NULL, NULL, NULL, NULL, '', '', '', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0),
+(11, 2, 'qdqsdq', 123, 1, 0, 0, 0, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, '', '', NULL, NULL, NULL, NULL, '', '', '', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0),
+(12, 2, 'qdqsdq', 123, 3, 0, 0, 0, 12, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, '13', '15', NULL, NULL, NULL, NULL, 'jghjghjgj', 'hjhkh', 'hgjgj hgj', NULL, NULL, NULL, 200, 200, 200, 200, 200, 10),
+(13, 2, 'qd', 120, 1, 0, 0, 0, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, '', '', NULL, NULL, NULL, NULL, '', '', '', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -450,7 +458,7 @@ CREATE TABLE IF NOT EXISTS `compteur` (
   KEY `CompteurprodID` (`CompteurprodID`),
   KEY `CompteurprodID_2` (`CompteurprodID`),
   KEY `Reference` (`Reference`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29 ;
 
 --
 -- Contenu de la table `compteur`
@@ -474,7 +482,10 @@ INSERT INTO `compteur` (`CompteurID`, `Nom`, `Reference`, `Numero`, `EnergieID`,
 (18, 'Cpt_Marché poisson II', '3546287', '0004', 1, 3, 'Marché poisson II', NULL, NULL, NULL, NULL, NULL, 1, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, 'CONSO', NULL),
 (19, 'Cpt_placetaxi', '2624332', '0005', 1, 3, 'Place des taxis', NULL, NULL, NULL, NULL, NULL, 1, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, 'CONSO', NULL),
 (20, 'camping mu', NULL, NULL, 1, 3, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, 'CONSO', NULL),
-(21, 'dqsd qsdqsdqsd qdqsdqsd', '', NULL, 10, 8, '', NULL, '0.00', '', NULL, '0.00', 0, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 1, '', 'CONSOEAU', NULL);
+(22, 'qsd', '', NULL, 22, 8, '', NULL, '0.00', '', NULL, '0.00', 0, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 13, '', 'CONSO', NULL),
+(23, 'qsd', '', NULL, 22, 8, '', NULL, '0.00', '', NULL, '0.00', 0, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 13, '', 'CONSO', NULL),
+(24, 'qsd', '', NULL, 22, 8, '', NULL, '0.00', '', NULL, '0.00', 0, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 13, '', 'CONSO', NULL),
+(28, 'dqdqsd', '', NULL, 5, 8, '', NULL, '2000.00', 'dqsd\r\nqsdqsdqsd', NULL, '0.00', 1, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 13, '', 'CONSOEAU', NULL);
 
 -- --------------------------------------------------------
 
@@ -520,7 +531,16 @@ INSERT INTO `compteurbatiments` (`BatimentID`, `CompteurID`, `BaseID`, `Pourcent
 (6, 5, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
 (7, 4, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
 (8, 6, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
-(9, 7, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100);
+(9, 7, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(12, 5, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(12, 6, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(12, 17, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(12, 20, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(12, 28, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(13, 2, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(13, 6, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(13, 11, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(13, 20, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100);
 
 -- --------------------------------------------------------
 
@@ -548,7 +568,51 @@ INSERT INTO `compteureclairages` (`EclairageID`, `CompteurID`, `BaseID`, `Pource
 (2, 15, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
 (3, 16, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
 (4, 17, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(4, 28, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 50),
 (5, 18, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `compteurespaceverts`
+--
+
+CREATE TABLE IF NOT EXISTS `compteurespaceverts` (
+  `EspacevertID` int(11) NOT NULL DEFAULT '0',
+  `CompteurID` int(11) NOT NULL DEFAULT '0',
+  `BaseID` char(36) NOT NULL,
+  `Pourcentage` int(11) DEFAULT '100',
+  PRIMARY KEY (`EspacevertID`,`CompteurID`,`BaseID`),
+  KEY `CompteurEspacevert_belong_to_Espacevert` (`EspacevertID`),
+  KEY `CompteurEspacevert_belong_to_Compteur` (`CompteurID`),
+  KEY `belong_to_Base` (`BaseID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `compteurespaceverts`
+--
+
+INSERT INTO `compteurespaceverts` (`EspacevertID`, `CompteurID`, `BaseID`, `Pourcentage`) VALUES
+(2, 3, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(2, 28, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(5, 2, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(6, 5, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(7, 4, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(8, 6, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(9, 7, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(12, 5, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(12, 6, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(12, 17, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(12, 20, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(12, 28, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(13, 2, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(13, 6, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(13, 11, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(13, 20, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(14, 2, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(14, 6, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(14, 16, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(14, 20, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100);
 
 -- --------------------------------------------------------
 
@@ -751,7 +815,7 @@ CREATE TABLE IF NOT EXISTS `coordonnee` (
   KEY `belong_to_Base` (`BaseID`),
   KEY `MouvrageID` (`MouvrageID`),
   KEY `UtilisateurID` (`UtilisateurID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Contenu de la table `coordonnee`
@@ -2301,6 +2365,10 @@ CREATE TABLE IF NOT EXISTS `eclairage` (
   `StationmeteoID` int(11) DEFAULT NULL,
   `Commentaire` text,
   `CoordonneeID` int(11) DEFAULT NULL,
+  `TypeTechnologie` int(11) NOT NULL,
+  `MarqueLampe` varchar(200) NOT NULL,
+  `NbrJourInterrupServ` int(11) NOT NULL,
+  `NbrJourIntervServ` int(11) NOT NULL,
   PRIMARY KEY (`EclairageID`,`BaseID`),
   KEY `eclairages_bt_Categorie` (`CategorieID`),
   KEY `indexPuissance` (`Puissance`),
@@ -2309,19 +2377,20 @@ CREATE TABLE IF NOT EXISTS `eclairage` (
   KEY `MouvrageID` (`MouvrageID`),
   KEY `MouvrageID_2` (`MouvrageID`),
   KEY `CoordonneeID` (`CoordonneeID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Contenu de la table `eclairage`
 --
 
-INSERT INTO `eclairage` (`EclairageID`, `CategorieID`, `Nom`, `Puissance`, `Puissancemesuree`, `Nbrpointlumineux`, `Kmeclaires`, `NbrHeuresans`, `Declencheur`, `Luminosite`, `Descriptif`, `BaseID`, `MouvrageID`, `Anneeconstruction`, `StationdjuID`, `StationmeteoID`, `Commentaire`, `CoordonneeID`) VALUES
-(1, 17, 'Place des taxis', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL, NULL, NULL, NULL),
-(2, 17, 'E.P marché gros Av. Al Mouquaouama', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL, NULL, NULL, NULL),
-(3, 17, 'E.P poste hôtel Mabrouk	', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL, NULL, NULL, NULL),
-(4, 120, 'Jardin du parc commemoratif', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL, NULL, NULL, NULL),
-(5, 17, 'Marché poisson II ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL, NULL, NULL, NULL),
-(6, 120, 'qsdqd', '200.00', '300.00', 10, '20.00', 2000, 'auto', NULL, 'qsdqsd\r\nqsd\r\nqsdqsdqsd', '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 1, 1980, NULL, NULL, 'qsdq sdqsdqsd\r\nqsdqsdqs', 2);
+INSERT INTO `eclairage` (`EclairageID`, `CategorieID`, `Nom`, `Puissance`, `Puissancemesuree`, `Nbrpointlumineux`, `Kmeclaires`, `NbrHeuresans`, `Declencheur`, `Luminosite`, `Descriptif`, `BaseID`, `MouvrageID`, `Anneeconstruction`, `StationdjuID`, `StationmeteoID`, `Commentaire`, `CoordonneeID`, `TypeTechnologie`, `MarqueLampe`, `NbrJourInterrupServ`, `NbrJourIntervServ`) VALUES
+(1, 17, 'Place des taxis', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL, NULL, NULL, NULL, 0, '', 0, 0),
+(2, 17, 'E.P marché gros Av. Al Mouquaouama', '0.00', NULL, 10, NULL, 0, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL, NULL, NULL, NULL, 1, '', 0, 0),
+(3, 17, 'E.P poste hôtel Mabrouk	', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL, NULL, NULL, NULL, 0, '', 0, 0),
+(4, 120, 'Jardin du parc commemoratif', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL, NULL, NULL, NULL, 0, '', 0, 0),
+(5, 17, 'Marché poisson II ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL, NULL, NULL, NULL, 0, '', 0, 0),
+(6, 120, 'qsdqd', '200.00', '300.00', 10, '20.00', 2000, 'auto', NULL, 'qsdqsd\r\nqsd\r\nqsdqsdqsd', '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 1, 1980, NULL, NULL, 'qsdq sdqsdqsd\r\nqsdqsdqs', 2, 0, '', 0, 0),
+(7, 17, 'sdfs', '0.00', NULL, 0, NULL, 0, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL, NULL, NULL, NULL, 1, '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -2544,6 +2613,74 @@ INSERT INTO `equipement` (`EquipementID`, `BaseID`, `Type`, `Nom`, `Description`
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `espacevert`
+--
+
+CREATE TABLE IF NOT EXISTS `espacevert` (
+  `EspacevertID` int(11) NOT NULL AUTO_INCREMENT,
+  `MouvrageID` int(11) NOT NULL,
+  `Nom` varchar(45) NOT NULL,
+  `Anneeconstruction` int(4) DEFAULT NULL,
+  `Patrimoine` int(11) DEFAULT '0',
+  `Voisinage` int(11) DEFAULT '0',
+  `Orientation` int(11) DEFAULT '0',
+  `Exposition` int(11) DEFAULT '0',
+  `altitude` int(11) DEFAULT NULL,
+  `BaseID` char(36) NOT NULL,
+  `Cadastre` varchar(45) DEFAULT NULL,
+  `Latitude` varchar(15) DEFAULT NULL,
+  `Longitude` varchar(15) DEFAULT NULL,
+  `StationdjuID` int(11) DEFAULT NULL,
+  `StationmeteoID` int(11) DEFAULT NULL,
+  `Commentaire` text,
+  `CoordonneeID` int(11) DEFAULT NULL,
+  `Adresse1` varchar(45) DEFAULT NULL,
+  `Adresse2` varchar(45) DEFAULT NULL,
+  `Adresse3` varchar(45) DEFAULT NULL,
+  `Codepostal` int(11) DEFAULT NULL,
+  `Ville` varchar(45) DEFAULT NULL,
+  `Pays` varchar(45) DEFAULT NULL,
+  `NbrEtage` int(11) DEFAULT NULL,
+  `Surface` int(11) DEFAULT NULL,
+  `NbrEmployee` int(11) DEFAULT NULL,
+  `Pv` int(11) DEFAULT NULL,
+  `SystemeChauffageEau` int(11) DEFAULT NULL,
+  `Ces` int(11) DEFAULT NULL,
+  `SurfaceIrrigue` int(11) DEFAULT NULL,
+  `Forage` int(1) DEFAULT NULL,
+  `SystArrosage` int(1) DEFAULT NULL,
+  PRIMARY KEY (`EspacevertID`,`BaseID`),
+  KEY `belong_to_Base` (`BaseID`),
+  KEY `MouvrageID` (`MouvrageID`),
+  KEY `nom` (`Nom`),
+  KEY `StationdjuID` (`StationdjuID`),
+  KEY `StationmeteoID` (`StationmeteoID`),
+  KEY `CoordonneeID` (`CoordonneeID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+
+--
+-- Contenu de la table `espacevert`
+--
+
+INSERT INTO `espacevert` (`EspacevertID`, `MouvrageID`, `Nom`, `Anneeconstruction`, `Patrimoine`, `Voisinage`, `Orientation`, `Exposition`, `altitude`, `BaseID`, `Cadastre`, `Latitude`, `Longitude`, `StationdjuID`, `StationmeteoID`, `Commentaire`, `CoordonneeID`, `Adresse1`, `Adresse2`, `Adresse3`, `Codepostal`, `Ville`, `Pays`, `NbrEtage`, `Surface`, `NbrEmployee`, `Pv`, `SystemeChauffageEau`, `Ces`, `SurfaceIrrigue`, `Forage`, `SystArrosage`) VALUES
+(2, 2, 'Mairie', 1970, 2, 2, 2, 2, 700, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, '', '', NULL, NULL, NULL, NULL, '2 avenue  Hassan II', '', '', 10050, 'Rabat', 'MAROC', NULL, 0, NULL, NULL, NULL, NULL, 0, 0, 1),
+(3, 1, 'CARREFOUR', 1990, 2, 3, 4, 4, 400, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, ' 114 Bab el hed  ', NULL, NULL, 10010, 'Rabat', 'MAROC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, 1, 'IMMEUBLE', 2000, NULL, NULL, NULL, NULL, 280, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, 2, 'espace vert 1', 1900, 1, 1, 1, 1, 200, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'B.A ESPACE VERT FACE ANCIEN AEROPERT BEN', NULL, NULL, 81000, 'Agadir', 'Maroc', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(6, 2, 'Stade al inbiaat', 1900, 1, NULL, NULL, NULL, 200, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'STADE AL INBIAAT AV HASSAN        ', NULL, NULL, 81000, 'Agadir', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(7, 2, 'Royal tennis club', 1900, NULL, NULL, NULL, NULL, 3, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ROYAL TENNIS CLUB AV.HASSAN II    ', NULL, NULL, 81000, 'Agadir', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(8, 2, 'marché municipal de poissons', 1900, 2, 1, 1, NULL, 200, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'MARCHE MUNICIPAL DE POISSONS AGADIR     ', NULL, NULL, 81000, 'Agadir', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(9, 2, 'camping municipal', 1900, NULL, NULL, NULL, NULL, 200, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'CAMPING MUNICIPAL D''AGADIR BD.MED       ', NULL, NULL, 81000, 'Agadir', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(10, 2, 'qdqsdqsd', 1900, 1, 0, 0, 0, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, '', '', NULL, NULL, NULL, NULL, '', '', '', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL),
+(11, 2, 'qdqsdq', 123, 1, 0, 0, 0, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, '', '', NULL, NULL, NULL, NULL, '', '', '', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL),
+(12, 2, 'qdqsdq', 123, 3, 0, 0, 0, 12, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, '13', '15', NULL, NULL, NULL, NULL, 'jghjghjgj', 'hjhkh', 'hgjgj hgj', NULL, NULL, NULL, 200, 200, 200, 200, 200, 10, NULL, NULL, NULL),
+(13, 2, 'qd', 120, 1, 0, 0, 0, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, '', '', NULL, NULL, NULL, NULL, '', '', '', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL),
+(14, 2, 'dqsdqsd', NULL, 0, 0, 0, 0, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, '', '', NULL, NULL, NULL, NULL, '', '', '', NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, 0, 0, 4),
+(15, 2, 'qsdqdqsdqsd', NULL, 0, 0, 0, 0, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, '', '', NULL, NULL, NULL, NULL, '', '', '', NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, 0, 0, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `etiquette`
 --
 
@@ -2667,7 +2804,7 @@ CREATE TABLE IF NOT EXISTS `facture` (
   KEY `MouvrageID` (`MouvrageID`),
   KEY `Nom` (`Nom`),
   KEY `Debutperiode` (`Debutperiode`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=64 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=65 ;
 
 --
 -- Contenu de la table `facture`
@@ -2733,7 +2870,8 @@ INSERT INTO `facture` (`FactureID`, `CompteurID`, `Nom`, `FournisseurID`, `Debut
 (60, 19, NULL, 3, '2010-01-01', '2010-12-31', NULL, '24217.01', '36325.52', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
 (61, 19, NULL, 3, '2011-01-01', '2011-12-31', NULL, '26666.70', '40000.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
 (62, 19, NULL, 3, '2012-01-01', '2012-12-31', NULL, '16666.70', '25000.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(63, 19, NULL, 3, '2013-01-01', '2013-12-31', NULL, '20000.00', '30000.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2);
+(63, 19, NULL, 3, '2013-01-01', '2013-12-31', NULL, '20000.00', '30000.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
+(64, 15, 'Test', 4, '2014-11-10', '2014-11-25', '100.00', '10.00', '11.00', 'sdqsdqsd', '200.00', 1, NULL, '200.00', '200.00', '2000.00', '2000.00', '2000.00', '2000.00', 2000.00, '2000.00', '2000.00', '200.00', '2000.00', '2000.00', '2000.00', '2000.00', '2000.00', '2000.00', '20000.00', '2000.00', '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2);
 
 -- --------------------------------------------------------
 
@@ -2910,7 +3048,7 @@ CREATE TABLE IF NOT EXISTS `posteproduction` (
   KEY `StationmeteoID` (`StationmeteoID`),
   KEY `StationdjuID` (`StationdjuID`),
   KEY `CoordonneeID` (`CoordonneeID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Contenu de la table `posteproduction`
@@ -3273,7 +3411,7 @@ CREATE TABLE IF NOT EXISTS `resultatmo` (
 --
 
 INSERT INTO `resultatmo` (`Annee`, `MouvrageID`, `Consoenergie`, `Consoeau`, `Consoef`, `Consoep`, `Ttcenergie`, `Ttceau`, `Emissionges`, `Onucleaire`, `Orenouvelable`, `Ofossile`, `Batsommeconsoef`, `Batsommeconsoep`, `Batsommettc`, `Batsommeges`, `Batsommeconsoeau`, `Batsommettceau`, `Epsommeconsoef`, `Epsommeconsoep`, `Epsommettc`, `Epsommeges`, `Epsommeconsoeau`, `Epsommettceau`, `Vehsommeconsoef`, `Vehsommeconsoep`, `Vehsommettc`, `Vehsommeges`, `Vehsommeconsoeau`, `Vehsommettceau`, `Apsommeconsoef`, `Apsommeconsoep`, `Apsommettc`, `Apsommeges`, `Apsommeconsoeau`, `Apsommettceau`, `Prodsommeconsoef`, `Prodsommeconsoep`, `Prodsommettc`, `Prodsommeges`, `Prodsommeconsoeau`, `Prodsommettceau`, `Datemaj`, `BaseID`) VALUES
-(2013, 2, 97383, 27642, 246046, 371078, 302307, 343195, 51719, 66473, 5539, 174033, 0, 0, 30579, 0, 27642, 343195, 79135, 204167, 118700, 6650, 0, 0, 166911, 166911, 153028, 45069, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2014-11-22 10:16:20', '8e0910e0-cdee-70a1-55c3-b0f48ee8127f');
+(2013, 2, 97383, 27642, 246046, 371078, 302307, 343195, 51719, 66473, 5539, 174033, 31520, 45214, 64531, 6900, 27642, 343195, 79135, 204167, 118700, 6650, 0, 0, 166911, 166911, 153028, 45069, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2014-11-26 08:03:57', '8e0910e0-cdee-70a1-55c3-b0f48ee8127f');
 
 -- --------------------------------------------------------
 
@@ -3410,7 +3548,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
 INSERT INTO `utilisateur` (`UtilisateurID`, `Username`, `password`, `Mail`, `Menucomplet`, `isadmin`, `isbe`, `BaseID`, `remember_token`) VALUES
 (1, 'Admin', '85aac14e99386ee8f68c89372821b1ca', NULL, 1, 1, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL),
 (2, 'Utilisateur_test', 'd8578edf8458ce06fbc5bb76a58c5ca4', NULL, NULL, 0, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL),
-(3, 'cua', 'c8520774f9240cfe9d240d2ee7b9fb1f', NULL, NULL, 0, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 'a79YEzs5wUvPF7PjlhqQQfkocFhJLJSC3Alf04wM746iYRxfHGNy1yx8uKNp');
+(3, 'cua', 'c8520774f9240cfe9d240d2ee7b9fb1f', NULL, NULL, 0, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 'amKaQxlAQehxlHfNsHtXLrSjr7Hy8oXyOoxiUipTDfrKJTDzNFRiv7SiPkhV');
 
 -- --------------------------------------------------------
 
@@ -4063,6 +4201,14 @@ ALTER TABLE `compteureclairages`
   ADD CONSTRAINT `compteureclairages_ibfk_8` FOREIGN KEY (`CompteurID`) REFERENCES `compteur` (`CompteurID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Contraintes pour la table `compteurespaceverts`
+--
+ALTER TABLE `compteurespaceverts`
+  ADD CONSTRAINT `compteurespaceverts_ibfk_4` FOREIGN KEY (`EspacevertID`) REFERENCES `espacevert` (`EspacevertID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `compteurespaceverts_ibfk_5` FOREIGN KEY (`CompteurID`) REFERENCES `compteur` (`CompteurID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `compteurespaceverts_ibfk_6` FOREIGN KEY (`BaseID`) REFERENCES `base` (`BaseID`) ON UPDATE CASCADE;
+
+--
 -- Contraintes pour la table `compteurposteproductions`
 --
 ALTER TABLE `compteurposteproductions`
@@ -4144,6 +4290,14 @@ ALTER TABLE `energie`
 --
 ALTER TABLE `equipement`
   ADD CONSTRAINT `equipement_ibfk_1` FOREIGN KEY (`BaseID`) REFERENCES `base` (`BaseID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `espacevert`
+--
+ALTER TABLE `espacevert`
+  ADD CONSTRAINT `espacevert_ibfk_5` FOREIGN KEY (`BaseID`) REFERENCES `base` (`BaseID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `espacevert_ibfk_7` FOREIGN KEY (`CoordonneeID`) REFERENCES `coordonnee` (`CoordonneeID`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `espacevert_ibfk_8` FOREIGN KEY (`MouvrageID`) REFERENCES `mouvrage` (`MouvrageID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `etiquette`

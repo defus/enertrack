@@ -17,8 +17,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Enertrack, logiciel de gestion d'énergie, d'eau et d'électricité, de température">
+    <meta name="keywords" content="Energie, température, afrique, lim consulting, dsidgroup, eau, électricité">
+    <meta name="author" content="Lim Consulting, Dsidgroup, Landry DEFO KUATE, Ida KAO Fegbawe">
 
     <title>@yield('title') - Enertrack</title>
 
@@ -42,6 +43,10 @@
     <![endif]-->
 
     @yield('css')
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="icon" href="/v2/public//favicon.ico">
 
 </head>
 

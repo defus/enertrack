@@ -19,7 +19,7 @@ Route::group(array('prefix','/'), function() {
   Route::get('logout','UserController@logout');
 
   // Secure-Routes
-  Route::group(array('before' => 'auth'), function()
+  Route::group(array('before' => array('auth', 'permission')), function()
   {
       Route::get('', 'DashboardController@showDashboard');
 
@@ -43,6 +43,26 @@ Route::group(array('prefix','/'), function() {
       Route::resource('patrimoine/autreposte', 'AutreposteController');
 
       Route::resource('compteur', 'CompteurController');
+
+      Route::resource('facture', 'FactureController');
+
+      //TBGE
+      Route::get('tbge/patrimoine', 'PatrimoineTbgeController@index');
+
+      Route::resource('tbge/patrimoine/batiment', 'BatimentTbgeController');
+
+      Route::resource('tbge/patrimoine/espacevert', 'EspacevertTbgeController');
+
+      Route::resource('tbge/patrimoine/eclairage', 'EclairageTbgeController');
+
+      Route::resource('tbge/patrimoine/vehicule', 'VehiculeTbgeController');
+
+      Route::resource('tbge/patrimoine/posteproduction', 'PosteproductionTbgeController');
+
+      Route::resource('tbge/compteur', 'CompteurTbgeController');
+
+      Route::resource('tbge/facture', 'FactureTbgeController');
+
   });
 
 });

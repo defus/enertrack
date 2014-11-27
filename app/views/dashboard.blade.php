@@ -12,7 +12,7 @@
 @extends('templates.normal')
 
 {{-- Page title --}}
-@section('title') Authentification @stop
+@section('title') Tableau de bord @stop
 
 {{-- Page specific CSS files --}}
 {{-- {{ HTML::style('--Path to css--') }} --}}
@@ -38,94 +38,138 @@ $(document).ready(function() {
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Dashboard</h1>
+            <h1 class="page-header">Tableau de bord</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
     <div class="row">
-        <div class="col-lg-3 col-md-6">
+        <div class="col-lg-2 col-md-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
-                            <i class="fa fa-comments fa-5x"></i>
+                            <i class="fa fa-calculator fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge">26</div>
-                            <div>Maitre d'ouvrage</div>
+                            <div>Factures</div>
                         </div>
                     </div>
                 </div>
-                <a href="#">
+                <a href="{{ URL::to('tbge/facture') }}">
                     <div class="panel-footer">
-                        <span class="pull-left">View Details</span>
+                        <span class="pull-left">Voir détails</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                         <div class="clearfix"></div>
                     </div>
                 </a>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6">
+        <div class="col-lg-2 col-md-6">
             <div class="panel panel-green">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
-                            <i class="fa fa-tasks fa-5x"></i>
+                            <i class="fa fa-sliders fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge">12</div>
-                            <div>New Tasks!</div>
+                            <div>Compteurs</div>
                         </div>
                     </div>
                 </div>
-                <a href="#">
+                <a href="{{ URL::to('tbge/compteur') }}">
                     <div class="panel-footer">
-                        <span class="pull-left">View Details</span>
+                        <span class="pull-left">Voir détails</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                         <div class="clearfix"></div>
                     </div>
                 </a>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6">
+        <div class="col-lg-2 col-md-6">
             <div class="panel panel-yellow">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
-                            <i class="fa fa-shopping-cart fa-5x"></i>
+                            <i class="fa fa-home fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge">124</div>
-                            <div>New Orders!</div>
+                            <div>Batiments</div>
                         </div>
                     </div>
                 </div>
-                <a href="#">
+                <a href="{{ URL::to('tbge/patrimoine/batiment') }}">
                     <div class="panel-footer">
-                        <span class="pull-left">View Details</span>
+                        <span class="pull-left">Voir détails</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                         <div class="clearfix"></div>
                     </div>
                 </a>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-red">
+        <div class="col-lg-2 col-md-6">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
-                            <i class="fa fa-support fa-5x"></i>
+                            <i class="fa fa-tree fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge">13</div>
-                            <div>Support Tickets!</div>
+                            <div class="huge">26</div>
+                            <div>Espaces verts</div>
                         </div>
                     </div>
                 </div>
-                <a href="#">
+                <a href="{{ URL::to('tbge/patrimoine/espacevert') }}">
                     <div class="panel-footer">
-                        <span class="pull-left">View Details</span>
+                        <span class="pull-left">Voir détails</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-6">
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-plug fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">12</div>
+                            <div>Postes d'éclairage</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="{{ URL::to('tbge/patrimoine/eclairage') }}">
+                    <div class="panel-footer">
+                        <span class="pull-left">Voir détails</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-6">
+            <div class="panel panel-yellow">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-gears fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">124</div>
+                            <div>Postes de productions</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="{{ URL::to('tbge/patrimoine/posteproduction') }}">
+                    <div class="panel-footer">
+                        <span class="pull-left">Voir détails</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                         <div class="clearfix"></div>
                     </div>

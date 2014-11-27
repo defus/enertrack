@@ -63,7 +63,7 @@
                                     <label>Maitre d'ouvrage</label>
                                     {{  Form::select('MouvrageID', $mos, Input::old('MouvrageID'), array('class' => 'form-control')) }}
                                 </div>
-                                <div class="form-group @if($errors->first('Nom') != '') has-error" @endif">
+                                <div class="form-group @if($errors->first('Nom') != '') has-error @endif">
                                     <label>Nom *</label>
                                     {{ Form::text('Nom', Input::old('Nom'), array('class' => 'form-control', 'placeholder' => "Entrer la valeur ...", 'autofocus' => '' ) ) }}
                                     {{ $errors->first('Nom', '<span class="error">:message</span>' ) }}
@@ -100,7 +100,7 @@
                                     <label>Contact</label>
                                     {{  Form::select('CoordonneeID', $contacts, Input::old('CoordonneeID'), array('class' => 'form-control')) }}
                                 </div>
-                                <div class="form-group @if($errors->first('Anneeconstruction') != '') has-error" @endif">
+                                <div class="form-group @if($errors->first('Anneeconstruction') != '') has-error @endif">
                                     <label>Année de construction *</label>
                                     {{ Form::number('Anneeconstruction', Input::old('Anneeconstruction'), array('class' => 'form-control' ) ) }}
                                     {{ $errors->first('Anneeconstruction', '<span class="error">:message</span>' ) }}

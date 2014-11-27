@@ -12,7 +12,7 @@
 @extends('templates.normal')
 
 {{-- Page title --}}
-@section('title') Modifier un comp @stop
+@section('title') Modifier un compteur @stop
 
 {{-- Page specific CSS files --}}
 {{-- {{ HTML::style('--Path to css--') }} --}}
@@ -24,7 +24,6 @@
 {{-- {{ HTML::script('--Path to js--') }} --}}
 @section('scripts')
 
-</script>
 @stop
 
 {{-- Page content --}}
@@ -60,7 +59,7 @@
                                     <label>Maitre d'ouvrage</label>
                                     {{  Form::select('MouvrageID', $mos, Input::old('MouvrageID'), array('class' => 'form-control')) }}
                                 </div>
-                                <div class="form-group @if($errors->first('Nom') != '') has-error" @endif">
+                                <div class="form-group @if($errors->first('Nom') != '') has-error @endif">
                                     <label>Nom du compteur *</label>
                                     {{ Form::text('Nom', Input::old('Nom'), array('class' => 'form-control', 'placeholder' => "Entrer le nom du compteur ...", 'autofocus' => '' ) ) }}
                                     {{ $errors->first('Nom', '<span class="error">:message</span>' ) }}
@@ -79,7 +78,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Compteur d'énergie</label>
-                                    {{ Form::checkbox('Estenergie', Input::old('Estenergie'), array('class' => 'form-control') ) }}
+                                    {{ Form::checkbox('Estenergie', Input::old('Estenergie') ) }}
                                 </div>
                                 <div class="form-group">
                                     <label>Reférence de contrat</label>
@@ -111,7 +110,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Clos ?</label>
-                                    {{ Form::checkbox('Clos', Input::old('Clos'), array('class' => 'form-control') ) }}
+                                    {{ Form::checkbox('Clos', Input::old('Clos')) }}
                                 </div>
                                 <div class="form-group">
                                     <label>Ancienne reference (si le fournisseura modifié la reference)</label>

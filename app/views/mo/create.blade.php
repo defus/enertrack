@@ -61,7 +61,7 @@ $(document).ready(function() {
                                 @endforeach
                             @endif
                             {{ Form::open(array('url' => URL::to('mo') , 'role' => 'form', 'files' => true )) }}
-                                <div class="form-group @if($errors->first('Societe') != '') has-error" @endif">
+                                <div class="form-group @if($errors->first('Societe') != '') has-error @endif">
                                     <label>Maitre d'ouvrage *</label>
                                     {{ Form::text('Societe', Input::old('Societe'), array('class' => 'form-control', 'placeholder' => 'Entrer le nom du maitre d\'ouvrage ...', 'autofocus' => '' ) ) }}
                                     {{ $errors->first('Societe', '<span class="error">:message</span>' ) }}

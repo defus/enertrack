@@ -65,7 +65,7 @@ $(document).ready(function() {
                                     <label>Maitre d'ouvrage</label>
                                     {{  Form::select('MouvrageID', $mos, Input::old('MouvrageID'), array('class' => 'form-control')) }}
                                 </div>
-                                <div class="form-group @if($errors->first('Annee') != '') has-error" @endif">
+                                <div class="form-group @if($errors->first('Annee') != '') has-error @endif">
                                     <label>Anneé *</label>
                                     {{ Form::number('Annee', Input::old('Annee'), array('class' => 'form-control', 'placeholder' => "Entrer l'année ...", 'autofocus' => '' ) ) }}
                                     {{ $errors->first('Annee', '<span class="error">:message</span>' ) }}
