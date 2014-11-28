@@ -89,9 +89,15 @@ Route::filter('csrf', function()
 	}
 });
 
+$securityCheck = new SecurityCheck($app);
 
-Route::filter('permission', function()
-{
-	return Response::make('Forbidden', 403);
-	
-});
+$securityCheck->routeNeedsRole( 'patrimoine/batiment*', array('PATRIMOINE') );
+$securityCheck->routeNeedsRole( 'patrimoine/eclairage*', array('ECLAIRAGE') );
+$securityCheck->routeNeedsRole( 'patrimoine/espacevert*', array('ESPACEVERT') );
+$securityCheck->routeNeedsRole( 'patrimoine/posteproduction*', array('POSTEPRODUCTION') );
+$securityCheck->routeNeedsRole( 'patrimoine/vehicule*', array('VEHICULE') );
+
+$securityCheck->routeNeedsRole( 'patrimoine/compteur*', array('COMPTEUR') );
+$securityCheck->routeNeedsRole( 'patrimoine/facture*', array('FACTURE') );
+
+$securityCheck->routeNeedsRole( 'admin/user*', array('USER') );

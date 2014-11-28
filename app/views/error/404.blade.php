@@ -12,24 +12,16 @@
 @extends('templates.normal')
 
 {{-- Page title --}}
-@section('title') Tableau de bord @stop
+@section('title') Erreur 404 @stop
 
 {{-- Page specific CSS files --}}
 {{-- {{ HTML::style('--Path to css--') }} --}}
 @section('css')
-<!-- DataTables CSS -->
-{{ HTML::style('assets/css/plugins/dataTables.bootstrap.css') }}
 @stop
 
 {{-- Page specific JS files --}}
 {{-- {{ HTML::script('--Path to js--') }} --}}
 @section('scripts')
-<!-- Page-Level Demo Scripts - Tables - Use for reference -->
-<script>
-$(document).ready(function() {
-    $('#dataTables-example').dataTable();
-});
-</script>
 @stop
 
 {{-- Page content --}}
@@ -38,36 +30,27 @@ $(document).ready(function() {
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Nous avons besoin d'une carte, apparament nous nous sommes perdu !</h1>
+            <h1 class="page-header text-danger"> Erreur 404 : Page inexistante sur le serveur</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
     <div class="row">
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Erreur 404 - La page que vous avez demandé n'existe pas sur le serveur !
-                </div>
-                <!-- /.panel-heading -->
-                <div class="panel-body">
-                    <h3>Quelle page souhaitez-vous consulter ?</h3>
-
-                    <p>
-                      We couldn't find the page you requested on our servers. We're really sorry
-                      about that. It's our fault, not yours. We'll work hard to get this page
-                      back online as soon as possible.
-                    </p>
-
-                    <p>
-                      Peut-être souhaitez-vous aller à <a href="{{{ URL::to('/') }}}">l'acceil de l'application</a>?
-                    </p>
-                </div>
-                <!-- /.panel-body -->
-            </div>
-            <!-- /.panel -->
+        <div class="col-lg-1">
+            <i class="fa fa-warning fa-5x"></i> 
         </div>
-        <!-- /.col-lg-4 -->
+        <div class="col-lg-11">
+            <p class="text-danger">
+                Impossible d'afficher la page que vous demandez. 
+                Nous en sommes désolé !
+            </p>
+            <p class="text-danger">
+                Nous faisons de nôtre mieux pour que cette page soit à nouveau disponible.
+            </p>
+            <p class="text-success">
+              Peut-être souhaitez-vous aller à <a href="{{{ URL::to('/') }}}" >l'acceil de l'application</a>?
+            </p>
+        </div>
     </div>
     <!-- /.row -->
 
