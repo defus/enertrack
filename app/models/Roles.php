@@ -9,4 +9,8 @@
 
       public $timestamps = false;
       
+      public function Mo()
+      {
+        return $this->belongsTo('Mos', 'record_id', 'MouvrageID');
+      }
     }

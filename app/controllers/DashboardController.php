@@ -40,7 +40,8 @@ class DashboardController extends BaseController {
 
     // pour chaque Mo sur lequel cet utilisateur à les droits d'ecriture ou de lecture
     foreach ($Z1res as $Z1row) {
-
+      $finperiode = '';
+      
       //on recupere les données du MO
       $mouvrageid= $Z1row->MouvrageID;
       $baseid = $Z1row->BaseID;
@@ -94,7 +95,7 @@ class DashboardController extends BaseController {
       }
 
       //s'il n'y a pas de facture pour l'année n-1, on le rentre dans le tableau B
-      if ($anneeperiode < $cetteannee)  {
+      if (!isset($anneeperiode) || $anneeperiode < $cetteannee)  {
         $montableau[] = (array('MouvrageID' => $mouvrageid,'BaseID' => $baseid,'Libelle' => $libelle,'Societe' => $societe,'Codepostal' => $cp,'Ville' => $ville, 'Datefacture'=> $finperiode));
       }
       //s'il y a une facture, on verifie qu'il y a des donnees

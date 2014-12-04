@@ -91,13 +91,22 @@ Route::filter('csrf', function()
 
 $securityCheck = new SecurityCheck($app);
 
-$securityCheck->routeNeedsRole( 'patrimoine/batiment*', array('PATRIMOINE') );
+$securityCheck->routeNeedsRole( 'patrimoine/batiment*', array('BATIMENT') );
 $securityCheck->routeNeedsRole( 'patrimoine/eclairage*', array('ECLAIRAGE') );
 $securityCheck->routeNeedsRole( 'patrimoine/espacevert*', array('ESPACEVERT') );
 $securityCheck->routeNeedsRole( 'patrimoine/posteproduction*', array('POSTEPRODUCTION') );
 $securityCheck->routeNeedsRole( 'patrimoine/vehicule*', array('VEHICULE') );
+$securityCheck->routeNeedsRole( 'compteur*', array('COMPTEUR') );
+$securityCheck->routeNeedsRole( 'facture*', array('FACTURE') );
 
-$securityCheck->routeNeedsRole( 'patrimoine/compteur*', array('COMPTEUR') );
-$securityCheck->routeNeedsRole( 'patrimoine/facture*', array('FACTURE') );
+$securityCheck->routeNeedsRole( 'tbge/patrimoine/batiment*', array('BATIMENT') );
+$securityCheck->routeNeedsRole( 'tbge/patrimoine/eclairage*', array('ECLAIRAGE') );
+$securityCheck->routeNeedsRole( 'tbge/patrimoine/espacevert*', array('ESPACEVERT') );
+$securityCheck->routeNeedsRole( 'tbge/patrimoine/posteproduction*', array('POSTEPRODUCTION') );
+$securityCheck->routeNeedsRole( 'tbge/patrimoine/vehicule*', array('VEHICULE') );
+$securityCheck->routeNeedsRole( 'tbge/compteur*', array('COMPTEUR') );
+$securityCheck->routeNeedsRole( 'tbge/facture*', array('FACTURE') );
 
-$securityCheck->routeNeedsRole( 'admin/user*', array('USER') );
+$securityCheck->routeNeedsRole( 'contact*', array('SUPERUTILISATEUR') );
+
+$securityCheck->routeNeedsRole( 'admin*', array('ADMIN') );

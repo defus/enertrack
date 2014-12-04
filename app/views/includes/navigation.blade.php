@@ -87,6 +87,10 @@
             <!-- /.dropdown-user -->
         </li>
         <!-- /.dropdown -->
+        <li>
+            <img src="/v2/public/cua.png" alt="Logo Commune Urbaine Agadir" style="height:35px;" />
+        </li>
+        <!-- /.dropdown -->
     </ul>
     <!-- /.navbar-top-links -->
 
@@ -100,6 +104,7 @@
                 <li>
                     <a @if(Request::is('/')) class="active" @endif href="{{ URL::to('') }}"><i class="fa fa-dashboard fa-fw"></i> Tableau de bord</a>
                 </li>
+                @if(Auth::user()->hasRole('FACTURE'))
                 <li @if(Request::is('tbge/facture') or Request::is('tbge/facture/create') or Request::is('tbge/facture/*/edit')) class="active" @endif>
                     <a href="#"><i class="fa fa-files-o fa-fw"></i> Factures<sspan class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
@@ -112,6 +117,8 @@
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
+                @endif
+                @if(Auth::user()->hasRole('COMPTEUR'))
                 <li @if(Request::is('tbge/compteur') or Request::is('tbge/compteur/create') or Request::is('tbge/compteur/*/edit')) class="active" @endif>
                     <a href="#"><i class="fa fa-sitemap fa-fw"></i> Compteurs<sspan class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
@@ -124,47 +131,84 @@
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
+                @endif
+                @if(Auth::user()->hasRole('BATIMENT') || Auth::user()->hasRole('ECLAIRAGE') || Auth::user()->hasRole('ESPACEVERT') ||Auth::user()->hasRole('VEHICULE') || Auth::user()->hasRole('POSTEPRODUCTION'))
                 <li  @if(Request::is('patrimoine') or Request::is('tbge/patrimoine/*') or Request::is('patrimoine/*/create') or Request::is('tbge/patrimoine/*/create') or Request::is('patrimoine/*/*/edit') or Request::is('tbge/patrimoine/*/*/edit')) class="active" @endif>
                     <a href="#"><i class="fa fa-wrench fa-fw"></i> Patrimoines<sspan class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
+                        @if(Auth::user()->hasRole('BATIMENT'))
                         <li>
                             <a @if(Request::is('tbge/patrimoine/batiment')  or Request::is('tbge/patrimoine/batiment/*/edit')) class="active" @endif href="{{ URL::to('tbge/patrimoine/batiment') }}">Liste des batiments</a>
                         </li>
+                        @endif
+                        @if(Auth::user()->hasRole('ESPACEVERT'))
                         <li>
                             <a @if(Request::is('tbge/patrimoine/espacevert')  or Request::is('tbge/patrimoine/espacevert/*/edit')) class="active" @endif href="{{ URL::to('tbge/patrimoine/espacevert') }}">Liste des espaces verts</a>
                         </li>
+                        @endif
+                        @if(Auth::user()->hasRole('ECLAIRAGE'))
                         <li>
                             <a @if(Request::is('tbge/patrimoine/eclairage')  or Request::is('tbge/patrimoine/eclairage/*/edit')) class="active" @endif href="{{ URL::to('tbge/patrimoine/eclairage') }}">Liste des postes d'éclairages</a>
                         </li>
+                        @endif
+                        @if(Auth::user()->hasRole('VEHICULE'))
                         <li>
                             <a @if(Request::is('tbge/patrimoine/vehicule')  or Request::is('tbge/patrimoine/vehicule/*/edit')) class="active" @endif href="{{ URL::to('tbge/patrimoine/vehicule') }}">Liste des véhicules</a>
                         </li>
+                        @endif
+                        @if(Auth::user()->hasRole('POSTEPRODUCTION'))
                         <li>
                             <a @if(Request::is('tbge/patrimoine/posteproduction')  or Request::is('tbge/patrimoine/posteproduction/*/edit')) class="active" @endif href="{{ URL::to('tbge/patrimoine/posteproduction') }}">Liste des postes de production</a>
                         </li>
+                        @endif
                         <li @if(Request::is('tbge/patrimoine') or Request::is('tbge/patrimoine/*/create')) class="active" @endif>
                             <a href="#">Ajouter ... <span class="fa arrow"></span></a>
                             <ul class="nav nav-third-level">
+                                @if(Auth::user()->hasRole('BATIMENT'))
                                 <li>
                                     <a @if(Request::is('tbge/patrimoine/batiment/create')) class="active" @endif href="{{ URL::to('tbge/patrimoine/batiment/create') }}">Ajouter un batiment</a>
                                 </li>
+                                @endif
+                                @if(Auth::user()->hasRole('ESPACEVERT'))
                                 <li>
                                     <a @if(Request::is('tbge/patrimoine/espacevert/create')) class="active" @endif href="{{ URL::to('tbge/patrimoine/espacevert/create') }}">Ajouter un espace vert</a>
                                 </li>
+                                @endif
+                                @if(Auth::user()->hasRole('ECLAIRAGE'))
                                 <li>
                                     <a @if(Request::is('tbge/patrimoine/eclairage/create')) class="active" @endif href="{{ URL::to('tbge/patrimoine/eclairage/create') }}">Ajouter un poste d'éclairage</a>
                                 </li>
+                                @endif
+                                @if(Auth::user()->hasRole('VEHICULE'))
                                 <li>
                                     <a @if(Request::is('tbge/patrimoine/vehicule/create')) class="active" @endif href="{{ URL::to('tbge/patrimoine/vehicule/create') }}">Ajouter un véhicule</a>
                                 </li>
+                                @endif
+                                @if(Auth::user()->hasRole('POSTEPRODUCTION'))
                                 <li>
                                     <a @if(Request::is('tbge/patrimoine/posteproduction/create')) class="active" @endif href="{{ URL::to('tbge/patrimoine/posteproduction/create') }}">Ajouter un poste de production</a>
                                 </li>
+                                @endif
                             </ul>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
+                @endif
+                @if(Auth::user()->hasRole('ADMIN'))
+                <li @if(Request::is('admin/user') or Request::is('admin/user/create') or Request::is('admin/user/*/edit')) class="active" @endif>
+                    <a href="#"><i class="fa fa-sitemap fa-fw"></i> Utilisateurs<sspan class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a @if(Request::is('admin/user') or Request::is('admin/user/*/edit')) class="active" @endif href="{{ URL::to('admin/user') }}">Liste des utilisateurs</a>
+                        </li>
+                        <li>
+                            <a @if(Request::is('admin/user/create')) class="active" @endif href="{{ URL::to('admin/user/create') }}">Ajouter un utilisateur</a>
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+                @endif
             </ul>
         </div>
         <!-- /.sidebar-collapse -->

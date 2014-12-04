@@ -3,11 +3,13 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mer 26 Novembre 2014 à 08:22
+-- Généré le: Mer 03 Décembre 2014 à 18:55
 -- Version du serveur: 5.6.12-log
 -- Version de PHP: 5.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -15,11 +17,6 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-
---
--- Base de données: `enertrack`
---
-
 -- --------------------------------------------------------
 
 --
@@ -306,8 +303,8 @@ INSERT INTO `batiment` (`BatimentID`, `MouvrageID`, `Nom`, `Anneeconstruction`, 
 (5, 2, 'espace vert 1', 1900, 1, 1, 1, 1, 200, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'B.A ESPACE VERT FACE ANCIEN AEROPERT BEN', NULL, NULL, 81000, 'Agadir', 'Maroc', NULL, NULL, NULL, NULL, NULL, NULL),
 (6, 2, 'Stade al inbiaat', 1900, 1, NULL, NULL, NULL, 200, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'STADE AL INBIAAT AV HASSAN        ', NULL, NULL, 81000, 'Agadir', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (7, 2, 'Royal tennis club', 1900, NULL, NULL, NULL, NULL, 3, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ROYAL TENNIS CLUB AV.HASSAN II    ', NULL, NULL, 81000, 'Agadir', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8, 2, 'marché municipal de poissons', 1900, 2, 1, 1, NULL, 200, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'MARCHE MUNICIPAL DE POISSONS AGADIR     ', NULL, NULL, 81000, 'Agadir', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(9, 2, 'camping municipal', 1900, NULL, NULL, NULL, NULL, 200, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'CAMPING MUNICIPAL D''AGADIR BD.MED       ', NULL, NULL, 81000, 'Agadir', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(8, 2, 'marché municipal de poissons', 1900, 2, 1, 1, NULL, 200, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, '', '', NULL, NULL, NULL, NULL, 'MARCHE MUNICIPAL DE POISSONS AGADIR     ', '', '', 81000, 'Agadir', NULL, 0, 0, 0, 0, 0, 0),
+(9, 2, 'camping municipal', 1900, 1, NULL, NULL, NULL, 200, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, '', '', NULL, NULL, NULL, NULL, 'CAMPING MUNICIPAL D''AGADIR BD.MED       ', '', '', 81000, 'Agadir', NULL, 0, 0, 0, 0, 0, 0),
 (10, 2, 'qdqsdqsd', 1900, 1, 0, 0, 0, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, '', '', NULL, NULL, NULL, NULL, '', '', '', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0),
 (11, 2, 'qdqsdq', 123, 1, 0, 0, 0, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, '', '', NULL, NULL, NULL, NULL, '', '', '', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0),
 (12, 2, 'qdqsdq', 123, 3, 0, 0, 0, 12, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, '13', '15', NULL, NULL, NULL, NULL, 'jghjghjgj', 'hjhkh', 'hgjgj hgj', NULL, NULL, NULL, 200, 200, 200, 200, 200, 10),
@@ -458,7 +455,7 @@ CREATE TABLE IF NOT EXISTS `compteur` (
   KEY `CompteurprodID` (`CompteurprodID`),
   KEY `CompteurprodID_2` (`CompteurprodID`),
   KEY `Reference` (`Reference`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=30 ;
 
 --
 -- Contenu de la table `compteur`
@@ -485,7 +482,8 @@ INSERT INTO `compteur` (`CompteurID`, `Nom`, `Reference`, `Numero`, `EnergieID`,
 (22, 'qsd', '', NULL, 22, 8, '', NULL, '0.00', '', NULL, '0.00', 0, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 13, '', 'CONSO', NULL),
 (23, 'qsd', '', NULL, 22, 8, '', NULL, '0.00', '', NULL, '0.00', 0, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 13, '', 'CONSO', NULL),
 (24, 'qsd', '', NULL, 22, 8, '', NULL, '0.00', '', NULL, '0.00', 0, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 13, '', 'CONSO', NULL),
-(28, 'dqdqsd', '', NULL, 5, 8, '', NULL, '2000.00', 'dqsd\r\nqsdqsdqsd', NULL, '0.00', 1, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 13, '', 'CONSOEAU', NULL);
+(28, 'dqdqsd', '', NULL, 5, 8, '', NULL, '2000.00', 'dqsd\r\nqsdqsdqsd', NULL, '0.00', 1, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 13, '', 'CONSOEAU', NULL),
+(29, 'sqdqsd', '', '', 15, 8, 'qsdqd', NULL, '0.00', '', NULL, '0.00', 0, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 1, '', 'CONSO', NULL);
 
 -- --------------------------------------------------------
 
@@ -532,6 +530,7 @@ INSERT INTO `compteurbatiments` (`BatimentID`, `CompteurID`, `BaseID`, `Pourcent
 (7, 4, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
 (8, 6, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
 (9, 7, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(9, 29, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
 (12, 5, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
 (12, 6, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
 (12, 17, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
@@ -630,6 +629,16 @@ CREATE TABLE IF NOT EXISTS `compteurposteproductions` (
   KEY `Compteurposteproduction_belong_to_Compteur` (`CompteurID`),
   KEY `belong_to_Base` (`BaseID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `compteurposteproductions`
+--
+
+INSERT INTO `compteurposteproductions` (`PosteproductionID`, `CompteurID`, `BaseID`, `Pourcentage`) VALUES
+(2, 15, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(2, 17, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(3, 16, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100),
+(3, 17, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 100);
 
 -- --------------------------------------------------------
 
@@ -1002,7 +1011,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_actionengagee_0d4f97da70e2bc89fa5e91b
 ,`Cout` decimal(11,2)
 ,`Surface` int(11)
 ,`Commentaire` text
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1019,7 +1028,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_actionengagee_712e1e78f6e1c4e13b93d65
 ,`Cout` decimal(11,2)
 ,`Surface` int(11)
 ,`Commentaire` text
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1046,7 +1055,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_autreposte_c1566a2a24da30de02d3828003
 ,`Puissance` decimal(11,2)
 ,`Descriptif` text
 ,`BaseID` char(36)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1073,7 +1082,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_autreposte_c421863e3d91d75472fac12f54
 ,`Puissance` decimal(11,2)
 ,`Descriptif` text
 ,`BaseID` char(36)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1104,7 +1113,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_batiment_4a3369a9c22eeeb49520da4b66c4
 ,`Codepostal` int(11)
 ,`Ville` varchar(45)
 ,`Pays` varchar(45)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1135,7 +1144,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_batiment_12c411a70a79a2bd94b7632c7837
 ,`Codepostal` int(11)
 ,`Ville` varchar(45)
 ,`Pays` varchar(45)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1166,7 +1175,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_batiment_434b21e9bf46389cd4e33fb6ce67
 ,`Codepostal` int(11)
 ,`Ville` varchar(45)
 ,`Pays` varchar(45)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1206,7 +1215,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_compteur_8bf742c12cda589979d01913d751
 ,`Reference2` varchar(45)
 ,`Type` enum('CONSO','CONSOEAU','CONSOLIEPROD','MP','PROD','PRODEAU','FABRICATION')
 ,`CompteurprodID` int(11)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1233,7 +1242,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_compteur_26c107b172a7ed615129b0259bdf
 ,`Reference2` varchar(45)
 ,`Type` enum('CONSO','CONSOEAU','CONSOLIEPROD','MP','PROD','PRODEAU','FABRICATION')
 ,`CompteurprodID` int(11)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1260,7 +1269,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_compteur_898a1f385c185fc387c0f9c71721
 ,`Reference2` varchar(45)
 ,`Type` enum('CONSO','CONSOEAU','CONSOLIEPROD','MP','PROD','PRODEAU','FABRICATION')
 ,`CompteurprodID` int(11)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1288,7 +1297,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_coordonnee_864c78aa1ccc92fe0e8519f381
 ,`MouvrageID` int(11)
 ,`UtilisateurID` int(11)
 ,`BaseID` char(36)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1316,7 +1325,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_coordonnee_885a4136bc1092cdfe6024ea2c
 ,`MouvrageID` int(11)
 ,`UtilisateurID` int(11)
 ,`BaseID` char(36)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1341,7 +1350,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_decoupagevirtuel_9b5ba870d89527015436
 ,`Pourcentage6` int(3)
 ,`BaseID` char(36)
 ,`MouvrageID` int(11)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1366,7 +1375,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_decoupagevirtuel_460e77297c62819facea
 ,`Pourcentage6` int(3)
 ,`BaseID` char(36)
 ,`MouvrageID` int(11)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1409,7 +1418,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_descriptif_ac371d52a1ed58a5890cc3bcc5
 ,`Industrielpuissance` int(11)
 ,`Precisionequipement` text
 ,`Photo` varchar(45)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1452,7 +1461,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_descriptif_f44ad248a637e15c6d0d3369ee
 ,`Industrielpuissance` int(11)
 ,`Precisionequipement` text
 ,`Photo` varchar(45)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1483,7 +1492,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_diagnostique_7a9576b3932313b8f0acb120
 ,`Etancheite` tinyint(4)
 ,`Acoustique` tinyint(4)
 ,`Commentaire` text
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1514,7 +1523,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_diagnostique_a238feee333d75c0bc9e62c3
 ,`Etancheite` tinyint(4)
 ,`Acoustique` tinyint(4)
 ,`Commentaire` text
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1540,7 +1549,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_eclairage_6df0542b09f13aebeea9f123d8e
 ,`StationmeteoID` int(11)
 ,`Commentaire` text
 ,`CoordonneeID` int(11)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1566,7 +1575,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_eclairage_55a4190ab5a25411019976e08dc
 ,`StationmeteoID` int(11)
 ,`Commentaire` text
 ,`CoordonneeID` int(11)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1582,7 +1591,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_exemplarite_60692de20b116ba490381e70f
 ,`Date` date
 ,`AccordMO` tinyint(1)
 ,`Commentaire` text
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1598,7 +1607,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_exemplarite_d29e0375c1bcf991ebdddd32f
 ,`Date` date
 ,`AccordMO` tinyint(1)
 ,`Commentaire` text
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1639,7 +1648,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_facture_340c3a19a66b6bac5536e40956430
 ,`Tangeante` decimal(11,2)
 ,`BaseID` char(36)
 ,`MouvrageID` int(11)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1680,7 +1689,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_facture_c21410caa637c2c25a5a2ea2c1818
 ,`Tangeante` decimal(11,2)
 ,`BaseID` char(36)
 ,`MouvrageID` int(11)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1704,7 +1713,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_label_065cdced51be1d3a33be7acd689f5ba
 ,`BatimentID` int(11)
 ,`MouvrageID` int(11)
 ,`BaseID` char(36)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1728,7 +1737,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_label_9e52a3dc34e827b7932801e642c676b
 ,`BatimentID` int(11)
 ,`MouvrageID` int(11)
 ,`BaseID` char(36)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1744,7 +1753,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_moan_3ed2c22553d1dfb24887652ccd30a144
 ,`Budget` decimal(11,2)
 ,`Objectif` decimal(11,2)
 ,`BaseID` char(36)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1760,7 +1769,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_moan_6e6d9d8ec7c903b395635929da51cdaa
 ,`Budget` decimal(11,2)
 ,`Objectif` decimal(11,2)
 ,`BaseID` char(36)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1780,7 +1789,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_mouvrage_02faeb78a6d3d7b7f8fead5d1587
 ,`StationdjuID` int(11)
 ,`StationmeteoID` int(11)
 ,`Estmodifie` tinyint(4)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1800,7 +1809,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_mouvrage_67c18b470d468662b4f3e4a62a66
 ,`StationdjuID` int(11)
 ,`StationmeteoID` int(11)
 ,`Estmodifie` tinyint(4)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1820,7 +1829,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_mouvrage_edec652162f8dc1f5ecf7839c9ef
 ,`StationdjuID` int(11)
 ,`StationmeteoID` int(11)
 ,`Estmodifie` tinyint(4)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1850,7 +1859,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_posteproduction_08575c5718b7bd6d41d3b
 ,`Codepostal` int(11)
 ,`Ville` varchar(45)
 ,`Pays` varchar(45)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1880,7 +1889,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_posteproduction_6583aefb8611bc459f58f
 ,`Codepostal` int(11)
 ,`Ville` varchar(45)
 ,`Pays` varchar(45)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1907,7 +1916,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_psouscrite_5bcb074267888ad422694477d9
 ,`Tarif` int(11)
 ,`Zonetarif` varchar(255)
 ,`Commentaires` text
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1934,7 +1943,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_psouscrite_9a0f14b892391b8abb60ed16b9
 ,`Tarif` int(11)
 ,`Zonetarif` varchar(255)
 ,`Commentaires` text
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1961,7 +1970,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_resultatbatiment_11f8ad56f45f303f6ab4
 ,`Ttceaum2` decimal(11,2)
 ,`Datemaj` timestamp
 ,`BaseID` char(36)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -1988,7 +1997,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_resultatbatiment_cea84ec126486e1f648d
 ,`Ttceaum2` decimal(11,2)
 ,`Datemaj` timestamp
 ,`BaseID` char(36)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -2015,7 +2024,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_resultatbatiment_d4527356e7581dbf2706
 ,`Ttceaum2` decimal(11,2)
 ,`Datemaj` timestamp
 ,`BaseID` char(36)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -2030,7 +2039,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_souscompteur_2e41636f6cdaf32a67765d55
 ,`Localisation` varchar(45)
 ,`BaseID` char(36)
 ,`MouvrageID` int(11)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -2045,7 +2054,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_souscompteur_3d2037567a2e7e2376b3c9a0
 ,`Localisation` varchar(45)
 ,`BaseID` char(36)
 ,`MouvrageID` int(11)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -2066,7 +2075,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_vehicule_58e520bf1a0e7b40eb119fd90fb9
 ,`Commentaire` text
 ,`CoordonneeID` int(11)
 ,`BaseID` char(36)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -2087,7 +2096,7 @@ CREATE TABLE IF NOT EXISTS `dataface__view_vehicule_9087105cef5f5e6b6d6cd0dc89c4
 ,`Commentaire` text
 ,`CoordonneeID` int(11)
 ,`BaseID` char(36)
-,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE')
+,`Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE')
 );
 -- --------------------------------------------------------
 
@@ -2670,7 +2679,7 @@ INSERT INTO `espacevert` (`EspacevertID`, `MouvrageID`, `Nom`, `Anneeconstructio
 (6, 2, 'Stade al inbiaat', 1900, 1, NULL, NULL, NULL, 200, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'STADE AL INBIAAT AV HASSAN        ', NULL, NULL, 81000, 'Agadir', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (7, 2, 'Royal tennis club', 1900, NULL, NULL, NULL, NULL, 3, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ROYAL TENNIS CLUB AV.HASSAN II    ', NULL, NULL, 81000, 'Agadir', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8, 2, 'marché municipal de poissons', 1900, 2, 1, 1, NULL, 200, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'MARCHE MUNICIPAL DE POISSONS AGADIR     ', NULL, NULL, 81000, 'Agadir', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(9, 2, 'camping municipal', 1900, NULL, NULL, NULL, NULL, 200, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'CAMPING MUNICIPAL D''AGADIR BD.MED       ', NULL, NULL, 81000, 'Agadir', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(9, 2, 'camping municipal', 1900, NULL, NULL, NULL, NULL, 200, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, '', '', NULL, NULL, NULL, NULL, 'CAMPING MUNICIPAL D''AGADIR BD.MED       ', '', '', 81000, 'Agadir', NULL, NULL, 0, NULL, NULL, NULL, NULL, 0, 0, 2),
 (10, 2, 'qdqsdqsd', 1900, 1, 0, 0, 0, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, '', '', NULL, NULL, NULL, NULL, '', '', '', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL),
 (11, 2, 'qdqsdq', 123, 1, 0, 0, 0, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, '', '', NULL, NULL, NULL, NULL, '', '', '', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL),
 (12, 2, 'qdqsdq', 123, 3, 0, 0, 0, 12, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, '13', '15', NULL, NULL, NULL, NULL, 'jghjghjgj', 'hjhkh', 'hgjgj hgj', NULL, NULL, NULL, 200, 200, 200, 200, 200, 10, NULL, NULL, NULL),
@@ -2792,6 +2801,8 @@ CREATE TABLE IF NOT EXISTS `facture` (
   `Tangeante` decimal(11,2) DEFAULT NULL,
   `BaseID` char(36) NOT NULL,
   `MouvrageID` int(11) NOT NULL,
+  `ValeurObservation` int(11) DEFAULT NULL,
+  `DateObservation` date DEFAULT NULL,
   PRIMARY KEY (`FactureID`,`BaseID`),
   KEY `Factures_belong_to_Compteur` (`CompteurID`),
   KEY `Factures_belong_to_Fournisseurs` (`FournisseurID`),
@@ -2804,74 +2815,75 @@ CREATE TABLE IF NOT EXISTS `facture` (
   KEY `MouvrageID` (`MouvrageID`),
   KEY `Nom` (`Nom`),
   KEY `Debutperiode` (`Debutperiode`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=65 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=66 ;
 
 --
 -- Contenu de la table `facture`
 --
 
-INSERT INTO `facture` (`FactureID`, `CompteurID`, `Nom`, `FournisseurID`, `Debutperiode`, `Finperiode`, `Abonnement`, `Consommation`, `Totalttc`, `Commentaire`, `Prixunitaire`, `Estimation`, `Consokwh`, `Coefficient`, `Consohpleines`, `Consohcreuses`, `Consopete`, `Consocete`, `Consophiver`, `Consochiver`, `HN`, `HPM`, `Consopointe`, `Hygro`, `Patteintepointe`, `Patteintehp`, `Patteintehc`, `Eactivehp`, `Eactivehc`, `Ereactive`, `Tangeante`, `BaseID`, `MouvrageID`) VALUES
-(3, 2, NULL, 3, '2010-01-01', '2010-12-31', NULL, '3251.00', '40278.70', NULL, NULL, 0, NULL, '1.00', '9.00', '9.00', '9.00', '9.00', '9.00', 9.00, '9.00', '9.00', '10.00', '9.00', '10.00', '10.00', '10.00', '10.00', '7.00', '8.00', '9.00', '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(4, 4, NULL, 3, '2010-01-01', '2010-12-31', NULL, '2192.00', '27104.74', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(5, 5, NULL, 3, '2010-01-01', '2010-12-31', NULL, '5317.00', '65979.74', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(6, 6, NULL, 3, '2010-01-01', '2010-12-31', NULL, '2940.00', '36409.86', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(7, 7, NULL, 3, '2010-01-01', '2010-12-31', NULL, '2487.00', '30774.54', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(8, 5, NULL, 3, '2011-01-01', '2011-12-31', NULL, '15999.00', '198864.34', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(9, 5, NULL, 3, '2012-01-01', '2012-12-31', NULL, '19612.00', '243810.06', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(10, 5, NULL, 3, '2013-01-01', '2013-12-31', NULL, '13841.00', '172009.32', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(11, 2, NULL, 3, '2011-01-01', '2011-12-31', NULL, '6393.00', '79365.70', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(12, 2, NULL, 3, '2012-01-01', '2012-12-31', NULL, '4831.00', '59934.42', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(13, 2, NULL, 3, '2013-01-01', '2013-12-31', NULL, '5902.00', '73256.24', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(14, 7, NULL, 3, '2011-01-01', '2011-12-31', NULL, '23734.02', '1921.00', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(15, 7, NULL, 3, '2012-01-01', '2012-12-31', NULL, '2672.00', '33076.46', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(16, 7, NULL, 3, '2013-01-01', '2013-12-31', NULL, '6880.00', '85415.94', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(17, 6, NULL, 3, '2011-01-01', '2011-12-31', NULL, '2087.00', '257999.06', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(18, 6, NULL, 3, '2012-01-01', '2012-12-31', NULL, '1271.00', '15648.02', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(19, 6, NULL, 3, '2013-01-01', '2013-12-31', NULL, '1019.00', '12511.72', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(20, 4, NULL, 3, '2011-01-01', '2011-12-31', NULL, '3426.00', '42456.22', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(21, 4, NULL, 3, '2012-01-01', '2012-12-31', NULL, '3241.00', '40154.82', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(22, 4, NULL, 3, '2013-01-01', '2013-12-31', NULL, '2472.00', '30578.96', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(23, 10, NULL, 4, '2010-01-01', '2010-12-31', NULL, '2240.00', '21728.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(24, 10, NULL, 4, '2011-01-01', '2011-12-31', NULL, '1960.00', '19012.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(25, 10, NULL, 4, '2012-01-01', '2012-12-31', NULL, '1120.00', '10864.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(26, 10, NULL, 4, '2013-01-01', '2013-12-31', NULL, '1400.00', '13580.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(27, 11, NULL, 5, '2010-01-01', '2010-12-31', NULL, '3600.00', '34920.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(28, 11, NULL, 5, '2011-01-01', '2011-12-31', NULL, '3330.00', '32301.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(29, 11, NULL, 5, '2012-01-01', '2012-12-31', NULL, '1710.00', '16587.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(30, 11, NULL, 5, '2013-01-01', '2013-12-31', NULL, '2160.00', '20952.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(31, 12, NULL, 8, '2010-01-01', '2010-12-31', NULL, '1554.00', '15073.80', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(32, 12, NULL, 8, '2011-01-01', '2011-12-31', NULL, '4440.00', '43068.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(33, 12, NULL, 8, '2013-01-01', '2013-12-31', NULL, '2516.00', '24405.20', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(34, 12, NULL, 8, '2012-01-01', '2012-12-31', NULL, '3626.00', '35172.20', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(36, 13, NULL, NULL, '2010-01-01', '2010-12-31', NULL, '7350.00', '71295.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(37, 13, NULL, NULL, '2011-01-01', '2011-12-31', NULL, '5250.00', '50925.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(38, 13, NULL, NULL, '2012-01-01', '2012-12-31', NULL, '12775.00', '123917.50', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(39, 13, NULL, NULL, '2013-01-01', '2013-12-31', NULL, '5950.00', '57715.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(40, 14, NULL, 8, '2010-01-01', '2010-12-31', NULL, '9125.00', '88512.50', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(41, 14, NULL, 8, '2011-01-01', '2011-12-31', NULL, '5000.00', '48500.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(42, 14, NULL, 8, '2012-01-01', '2012-12-31', NULL, '11250.00', '109125.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(43, 14, NULL, 8, '2013-01-01', '2013-12-31', NULL, '3750.00', '36375.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(44, 15, NULL, 3, '2010-01-01', '2010-12-31', NULL, '287.22', '430.83', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(45, 15, NULL, 3, '2011-01-01', '2011-12-31', NULL, '400.00', '600.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(46, 15, NULL, 3, '2012-01-01', '2012-12-31', NULL, '300.00', '450.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(47, 15, NULL, 3, '2013-01-01', '2013-12-31', NULL, '466.67', '700.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(48, 16, NULL, 3, '2010-01-01', '2010-12-31', NULL, '34021.06', '51031.59', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(49, 16, NULL, 3, '2011-01-01', '2011-12-31', NULL, '26840.40', '40260.60', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(50, 16, NULL, 3, '2012-01-01', '2012-12-31', NULL, '30000.00', '45000.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(51, 16, NULL, 3, '2013-01-01', '2013-12-31', NULL, '23333.30', '35000.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(52, 17, NULL, 3, '2010-01-01', '2010-12-31', NULL, '10425.36', '15638.04', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(53, 17, NULL, 3, '2011-01-01', '2011-12-31', NULL, '9367.38', '14051.07', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(54, 17, NULL, 3, '2012-01-01', '2012-12-31', NULL, '10666.70', '16000.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(55, 17, NULL, 3, '2013-01-01', '2013-12-31', NULL, '8666.70', '13000.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(56, 18, NULL, 3, '2010-01-01', '2010-12-31', NULL, '14580.54', '21870.81', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(57, 18, NULL, 3, '2011-01-01', '2011-12-31', NULL, '18666.70', '28000.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(58, 18, NULL, 3, '2012-01-01', '2012-12-31', NULL, '23333.30', '35000.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(59, 18, NULL, 3, '2013-01-01', '2013-12-31', NULL, '26666.70', '40000.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(60, 19, NULL, 3, '2010-01-01', '2010-12-31', NULL, '24217.01', '36325.52', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(61, 19, NULL, 3, '2011-01-01', '2011-12-31', NULL, '26666.70', '40000.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(62, 19, NULL, 3, '2012-01-01', '2012-12-31', NULL, '16666.70', '25000.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(63, 19, NULL, 3, '2013-01-01', '2013-12-31', NULL, '20000.00', '30000.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2),
-(64, 15, 'Test', 4, '2014-11-10', '2014-11-25', '100.00', '10.00', '11.00', 'sdqsdqsd', '200.00', 1, NULL, '200.00', '200.00', '2000.00', '2000.00', '2000.00', '2000.00', 2000.00, '2000.00', '2000.00', '200.00', '2000.00', '2000.00', '2000.00', '2000.00', '2000.00', '2000.00', '20000.00', '2000.00', '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2);
+INSERT INTO `facture` (`FactureID`, `CompteurID`, `Nom`, `FournisseurID`, `Debutperiode`, `Finperiode`, `Abonnement`, `Consommation`, `Totalttc`, `Commentaire`, `Prixunitaire`, `Estimation`, `Consokwh`, `Coefficient`, `Consohpleines`, `Consohcreuses`, `Consopete`, `Consocete`, `Consophiver`, `Consochiver`, `HN`, `HPM`, `Consopointe`, `Hygro`, `Patteintepointe`, `Patteintehp`, `Patteintehc`, `Eactivehp`, `Eactivehc`, `Ereactive`, `Tangeante`, `BaseID`, `MouvrageID`, `ValeurObservation`, `DateObservation`) VALUES
+(3, 2, NULL, 3, '2010-01-01', '2010-12-31', NULL, '3251.00', '40278.70', NULL, NULL, 0, NULL, '1.00', '9.00', '9.00', '9.00', '9.00', '9.00', 9.00, '9.00', '9.00', '10.00', '9.00', '10.00', '10.00', '10.00', '10.00', '7.00', '8.00', '9.00', '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(4, 4, NULL, 3, '2010-01-01', '2010-12-31', NULL, '2192.00', '27104.74', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(5, 5, NULL, 3, '2010-01-01', '2010-12-31', NULL, '5317.00', '65979.74', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(6, 6, NULL, 3, '2010-01-01', '2010-12-31', NULL, '2940.00', '36409.86', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(7, 7, NULL, 3, '2010-01-01', '2010-12-31', NULL, '2487.00', '30774.54', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(8, 5, NULL, 3, '2011-01-01', '2011-12-31', NULL, '15999.00', '198864.34', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(9, 5, NULL, 3, '2012-01-01', '2012-12-31', NULL, '19612.00', '243810.06', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(10, 5, NULL, 3, '2013-01-01', '2013-12-31', NULL, '13841.00', '172009.32', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(11, 2, NULL, 3, '2011-01-01', '2011-12-31', NULL, '6393.00', '79365.70', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(12, 2, NULL, 3, '2012-01-01', '2012-12-31', NULL, '4831.00', '59934.42', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(13, 2, NULL, 3, '2013-01-01', '2013-12-31', NULL, '5902.00', '73256.24', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(14, 7, NULL, 3, '2011-01-01', '2011-12-31', NULL, '23734.02', '1921.00', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(15, 7, NULL, 3, '2012-01-01', '2012-12-31', NULL, '2672.00', '33076.46', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(16, 7, NULL, 3, '2013-01-01', '2013-12-31', NULL, '6880.00', '85415.94', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(17, 6, NULL, 3, '2011-01-01', '2011-12-31', NULL, '2087.00', '257999.06', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(18, 6, NULL, 3, '2012-01-01', '2012-12-31', NULL, '1271.00', '15648.02', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(19, 6, NULL, 3, '2013-01-01', '2013-12-31', NULL, '1019.00', '12511.72', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(20, 4, NULL, 3, '2011-01-01', '2011-12-31', NULL, '3426.00', '42456.22', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(21, 4, NULL, 3, '2012-01-01', '2012-12-31', NULL, '3241.00', '40154.82', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(22, 4, NULL, 3, '2013-01-01', '2013-12-31', NULL, '2472.00', '30578.96', NULL, NULL, NULL, NULL, '0.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(23, 10, NULL, 4, '2010-01-01', '2010-12-31', NULL, '2240.00', '21728.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(24, 10, NULL, 4, '2011-01-01', '2011-12-31', NULL, '1960.00', '19012.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(25, 10, NULL, 4, '2012-01-01', '2012-12-31', NULL, '1120.00', '10864.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(26, 10, NULL, 4, '2013-01-01', '2013-12-31', NULL, '1400.00', '13580.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(27, 11, NULL, 5, '2010-01-01', '2010-12-31', NULL, '3600.00', '34920.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(28, 11, NULL, 5, '2011-01-01', '2011-12-31', NULL, '3330.00', '32301.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(29, 11, NULL, 5, '2012-01-01', '2012-12-31', NULL, '1710.00', '16587.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(30, 11, NULL, 5, '2013-01-01', '2013-12-31', NULL, '2160.00', '20952.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(31, 12, NULL, 8, '2010-01-01', '2010-12-31', NULL, '1554.00', '15073.80', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(32, 12, NULL, 8, '2011-01-01', '2011-12-31', NULL, '4440.00', '43068.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(33, 12, NULL, 8, '2013-01-01', '2013-12-31', NULL, '2516.00', '24405.20', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(34, 12, NULL, 8, '2012-01-01', '2012-12-31', NULL, '3626.00', '35172.20', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(36, 13, NULL, NULL, '2010-01-01', '2010-12-31', NULL, '7350.00', '71295.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(37, 13, NULL, NULL, '2011-01-01', '2011-12-31', NULL, '5250.00', '50925.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(38, 13, NULL, NULL, '2012-01-01', '2012-12-31', NULL, '12775.00', '123917.50', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(39, 13, NULL, NULL, '2013-01-01', '2013-12-31', NULL, '5950.00', '57715.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(40, 14, NULL, 8, '2010-01-01', '2010-12-31', NULL, '9125.00', '88512.50', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(41, 14, NULL, 8, '2011-01-01', '2011-12-31', NULL, '5000.00', '48500.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(42, 14, NULL, 8, '2012-01-01', '2012-12-31', NULL, '11250.00', '109125.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(43, 14, NULL, 8, '2013-01-01', '2013-12-31', NULL, '3750.00', '36375.00', NULL, NULL, NULL, NULL, '10.58', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(44, 15, NULL, 3, '2010-01-01', '2010-12-31', NULL, '287.22', '430.83', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(45, 15, NULL, 3, '2011-01-01', '2011-12-31', NULL, '400.00', '600.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(46, 15, NULL, 3, '2012-01-01', '2012-12-31', NULL, '300.00', '450.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(47, 15, NULL, 3, '2013-01-01', '2013-12-31', NULL, '466.67', '700.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(48, 16, NULL, 3, '2010-01-01', '2010-12-31', NULL, '34021.06', '51031.59', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(49, 16, NULL, 3, '2011-01-01', '2011-12-31', NULL, '26840.40', '40260.60', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(50, 16, NULL, 3, '2012-01-01', '2012-12-31', NULL, '30000.00', '45000.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(51, 16, NULL, 3, '2013-01-01', '2013-12-31', NULL, '23333.30', '35000.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(52, 17, NULL, 3, '2010-01-01', '2010-12-31', NULL, '10425.36', '15638.04', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(53, 17, NULL, 3, '2011-01-01', '2011-12-31', NULL, '9367.38', '14051.07', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(54, 17, NULL, 3, '2012-01-01', '2012-12-31', NULL, '10666.70', '16000.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(55, 17, NULL, 3, '2013-01-01', '2013-12-31', NULL, '8666.70', '13000.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(56, 18, NULL, 3, '2010-01-01', '2010-12-31', NULL, '14580.54', '21870.81', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(57, 18, NULL, 3, '2011-01-01', '2011-12-31', NULL, '18666.70', '28000.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(58, 18, NULL, 3, '2012-01-01', '2012-12-31', NULL, '23333.30', '35000.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(59, 18, NULL, 3, '2013-01-01', '2013-12-31', NULL, '26666.70', '40000.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(60, 19, NULL, 3, '2010-01-01', '2010-12-31', NULL, '24217.01', '36325.52', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(61, 19, NULL, 3, '2011-01-01', '2011-12-31', NULL, '26666.70', '40000.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(62, 19, NULL, 3, '2012-01-01', '2012-12-31', NULL, '16666.70', '25000.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(63, 19, NULL, 3, '2013-01-01', '2013-12-31', NULL, '20000.00', '30000.00', NULL, NULL, NULL, NULL, '1.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(64, 15, 'Test', 4, '2014-11-10', '2014-11-25', '100.00', '10.00', '11.00', 'sdqsdqsd', '200.00', 1, NULL, '200.00', '200.00', '2000.00', '2000.00', '2000.00', '2000.00', 2000.00, '2000.00', '2000.00', '200.00', '2000.00', '2000.00', '2000.00', '2000.00', '2000.00', '2000.00', '20000.00', '2000.00', '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, NULL, NULL),
+(65, 2, 'qdqsd / qdqsdqs', NULL, '2014-10-10', '2014-10-20', NULL, '2000.00', '200.00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 2, 20000, '2014-02-10');
 
 -- --------------------------------------------------------
 
@@ -2999,17 +3011,9 @@ CREATE TABLE IF NOT EXISTS `mouvrage` (
 --
 
 INSERT INTO `mouvrage` (`MouvrageID`, `CategorieID`, `BureauetudeID`, `Logo`, `Commentaire`, `Societe`, `Codepostal`, `Ville`, `BaseID`, `StationdjuID`, `StationmeteoID`, `Estmodifie`) VALUES
-(1, 37, 1, NULL, '', 'Commune urbaine 1', 10000, 'Rabat', '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL),
+(1, 37, 1, NULL, '', 'Commune urbaine 1', 10000, 'Rabat', '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, 0),
 (2, 37, 1, 'logo-agence-urbaine-agadir.png', '<p>&nbsp;Usdqsd qsdq dqsdqsdqsd qsdqsdqsdqsdqsd qsdqsd qsd qsd qsdqsd</p>\r\n<p>qsdqs dqs dqsdqsdqsd qs dq sd</p>\r\n<p>&nbsp;Usdqsd qsdq dqsdqsdqsd qsdqsdqsdqsdqsd qsdqsd qsd qsd qsdqsd</p>\r\n<p>qsdqs dqs dqsdqsdqsd qs dq sd</p>\r\n<p>&nbsp;Usdqsd qsdq dqsdqsdqsd qsdqsdqsdqsdqsd qsdqsd qsd qsd qsdqsd</p>\r\n<p>qsdqs dqs dqsdqsdqsd qs dq sd</p>\r\n<p>&nbsp;Usdqsd qsdq dqsdqsdqsd qsdqsdqsdqsdqsd qsdqsd qsd qsd qsdqsd</p>\r\n<p>qsdqs dqs dqsdqsdqsd qs dq sd</p>', 'Commune Urbaine Agadir', 14000, 'Agadir', '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, 0),
-(13, 38, 1, 'conseil_slider.png', 'qsdqsd qsdqsd', 'Coucou', 12333, 'Rabbbat', '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL),
-(14, 37, 1, NULL, '', 'dqsdqsdqsd', 10000, 'Rabat', '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL),
-(17, 109, 1, NULL, '', 'dqsdqsdqsd', 0, '', '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL),
-(18, 109, 1, NULL, '', 'dqsdqsdqsd', 0, '', '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL),
-(19, 109, 1, NULL, '', 'dqsdqsdqsd', 0, '', '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL),
-(20, 109, 1, NULL, '', 'dqsdqsdqsd', 0, '', '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL),
-(21, 109, 1, NULL, '', 'dqdqdqs', 0, '', '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL),
-(22, 109, 1, NULL, '', 'qsqsdqsqsds', 0, '', '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL),
-(23, 109, 1, NULL, '', 'qdqsdqsd qsdqsdqsd qsqsdqsdq', 0, '', '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, NULL);
+(13, 38, 1, 'conseil_slider.png', 'qsdqsd qsdqsd', 'Coucou', 12333, 'Rabbbat', '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -3040,6 +3044,7 @@ CREATE TABLE IF NOT EXISTS `posteproduction` (
   `Codepostal` int(11) DEFAULT NULL,
   `Ville` varchar(45) DEFAULT NULL,
   `Pays` varchar(45) DEFAULT NULL,
+  `Energie` int(11) DEFAULT NULL,
   PRIMARY KEY (`PosteproductionID`,`BaseID`),
   KEY `posteproductions_belongto_Categorie` (`CategorieID`),
   KEY `indexprod` (`Productiontheorique`),
@@ -3048,14 +3053,17 @@ CREATE TABLE IF NOT EXISTS `posteproduction` (
   KEY `StationmeteoID` (`StationmeteoID`),
   KEY `StationdjuID` (`StationdjuID`),
   KEY `CoordonneeID` (`CoordonneeID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Contenu de la table `posteproduction`
 --
 
-INSERT INTO `posteproduction` (`PosteproductionID`, `CategorieID`, `MouvrageID`, `Nom`, `Description`, `Productiontheorique`, `Coutinitial`, `BaseID`, `Anneeconstruction`, `Cadastre`, `Latitude`, `Longitude`, `StationdjuID`, `StationmeteoID`, `Commentaire`, `CoordonneeID`, `Adresse1`, `Adresse2`, `Adresse3`, `Codepostal`, `Ville`, `Pays`) VALUES
-(1, 139, 1, 'qdqd qsdqsd', '', '0.00', 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 0, '', '', '', NULL, NULL, '', 2, '', '', '', 0, '', '');
+INSERT INTO `posteproduction` (`PosteproductionID`, `CategorieID`, `MouvrageID`, `Nom`, `Description`, `Productiontheorique`, `Coutinitial`, `BaseID`, `Anneeconstruction`, `Cadastre`, `Latitude`, `Longitude`, `StationdjuID`, `StationmeteoID`, `Commentaire`, `CoordonneeID`, `Adresse1`, `Adresse2`, `Adresse3`, `Codepostal`, `Ville`, `Pays`, `Energie`) VALUES
+(1, 139, 1, 'qdqd qsdqsd', '', '0.00', 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 0, '', '', '', NULL, NULL, '', 2, '', '', '', 0, '', '', NULL),
+(2, 138, 2, 'qdqdqsd', NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 8, NULL, '2', '9', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(3, 137, 2, 'dqqsdqsdddqs qsdqsd qsdqsd', NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 20, NULL, '10', '10', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3),
+(4, 139, 2, 'qqdqdqsd', NULL, NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 0, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -3411,7 +3419,9 @@ CREATE TABLE IF NOT EXISTS `resultatmo` (
 --
 
 INSERT INTO `resultatmo` (`Annee`, `MouvrageID`, `Consoenergie`, `Consoeau`, `Consoef`, `Consoep`, `Ttcenergie`, `Ttceau`, `Emissionges`, `Onucleaire`, `Orenouvelable`, `Ofossile`, `Batsommeconsoef`, `Batsommeconsoep`, `Batsommettc`, `Batsommeges`, `Batsommeconsoeau`, `Batsommettceau`, `Epsommeconsoef`, `Epsommeconsoep`, `Epsommettc`, `Epsommeges`, `Epsommeconsoeau`, `Epsommettceau`, `Vehsommeconsoef`, `Vehsommeconsoep`, `Vehsommettc`, `Vehsommeges`, `Vehsommeconsoeau`, `Vehsommettceau`, `Apsommeconsoef`, `Apsommeconsoep`, `Apsommettc`, `Apsommeges`, `Apsommeconsoeau`, `Apsommettceau`, `Prodsommeconsoef`, `Prodsommeconsoep`, `Prodsommettc`, `Prodsommeges`, `Prodsommeconsoeau`, `Prodsommettceau`, `Datemaj`, `BaseID`) VALUES
-(2013, 2, 97383, 27642, 246046, 371078, 302307, 343195, 51719, 66473, 5539, 174033, 31520, 45214, 64531, 6900, 27642, 343195, 79135, 204167, 118700, 6650, 0, 0, 166911, 166911, 153028, 45069, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2014-11-26 08:03:57', '8e0910e0-cdee-70a1-55c3-b0f48ee8127f');
+(2013, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2014-12-02 17:43:36', '8e0910e0-cdee-70a1-55c3-b0f48ee8127f'),
+(2013, 2, 97383, 27642, 246046, 371078, 302307, 343195, 51719, 66473, 5539, 174033, 31520, 45214, 64531, 6900, 27642, 343195, 79135, 204167, 118700, 6650, 0, 0, 166911, 166911, 153028, 45069, 0, 0, 0, 0, 0, 0, 0, 0, 32468, 83766, 48700, 2729, 0, 0, '2014-12-03 13:27:23', '8e0910e0-cdee-70a1-55c3-b0f48ee8127f'),
+(2013, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2014-12-02 17:43:36', '8e0910e0-cdee-70a1-55c3-b0f48ee8127f');
 
 -- --------------------------------------------------------
 
@@ -3420,21 +3430,26 @@ INSERT INTO `resultatmo` (`Annee`, `MouvrageID`, `Consoenergie`, `Consoeau`, `Co
 --
 
 CREATE TABLE IF NOT EXISTS `roles` (
+  `RoleID` int(11) NOT NULL AUTO_INCREMENT,
   `Username` varchar(32) NOT NULL,
-  `Role` enum('OPERATEUR','SUPERUTILISATEUR','BE') NOT NULL DEFAULT 'OPERATEUR',
+  `Role` enum('OPERATEUR','SUPERUTILISATEUR','BE','BATIMENT','ESPACEVERT','ECLAIRAGE','VEHICULE','POSTEPRODUCTION','AUTREPOSTE','COMPTEUR','FACTURE') NOT NULL DEFAULT 'OPERATEUR',
   `record_id` int(11) NOT NULL,
   `BaseID` char(36) NOT NULL,
-  PRIMARY KEY (`Username`,`record_id`,`BaseID`),
+  PRIMARY KEY (`RoleID`),
   KEY `BaseID` (`BaseID`),
-  KEY `record_id` (`record_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `record_id` (`record_id`),
+  KEY `roles_ibfk_2` (`Username`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Contenu de la table `roles`
 --
 
-INSERT INTO `roles` (`Username`, `Role`, `record_id`, `BaseID`) VALUES
-('cua', 'OPERATEUR', 2, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f');
+INSERT INTO `roles` (`RoleID`, `Username`, `Role`, `record_id`, `BaseID`) VALUES
+(1, 'aaa', 'OPERATEUR', 1, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f'),
+(5, 'aaa', 'BATIMENT', 2, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f'),
+(7, 'aaa', 'OPERATEUR', 13, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f'),
+(10, 'cua', 'OPERATEUR', 2, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f');
 
 -- --------------------------------------------------------
 
@@ -3539,16 +3554,21 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   PRIMARY KEY (`UtilisateurID`,`BaseID`),
   UNIQUE KEY `identifiant` (`Username`),
   KEY `belong_to_Base` (`BaseID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Contenu de la table `utilisateur`
 --
 
 INSERT INTO `utilisateur` (`UtilisateurID`, `Username`, `password`, `Mail`, `Menucomplet`, `isadmin`, `isbe`, `BaseID`, `remember_token`) VALUES
-(1, 'Admin', '85aac14e99386ee8f68c89372821b1ca', NULL, 1, 1, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL),
+(1, 'Admin', '85aac14e99386ee8f68c89372821b1ca', NULL, 1, 1, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 'RzRvGVlFdqyPEj9SkJJQzVPqeu1dq1hleH9yrv1HSUwCPaCjITjh2dDqr8NL'),
 (2, 'Utilisateur_test', 'd8578edf8458ce06fbc5bb76a58c5ca4', NULL, NULL, 0, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL),
-(3, 'cua', 'c8520774f9240cfe9d240d2ee7b9fb1f', NULL, NULL, 0, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 'amKaQxlAQehxlHfNsHtXLrSjr7Hy8oXyOoxiUipTDfrKJTDzNFRiv7SiPkhV');
+(3, 'cua', 'c8520774f9240cfe9d240d2ee7b9fb1f', '', NULL, 0, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 'TGaeCtBlSoGDwUfuPIZkhka4kInQESweKa9HWSvd5Rb82FwgLR4BcuUPZ6WR'),
+(5, 'test', '', NULL, NULL, 0, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL),
+(7, 'test1', '', 'me@test.com', NULL, 0, 0, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL),
+(8, 'test2', '', 'me@test.com', NULL, 1, 1, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL),
+(9, 'aaa', '08f8e0260c64418510cefb2b06eee5cd', 'me@test.com', NULL, 1, 1, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', '9CxfWZG5NdGVN2ZEkEBnQgF7TF7LdJ6f4wTXaEuxqI6kPRRasrA6FkQiQpLQ'),
+(10, 'Tree lll mmo', '361228d0a65bd2355b029b2fe0aad7c6', 'tree@tree.com', NULL, 0, 1, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', NULL);
 
 -- --------------------------------------------------------
 
@@ -3570,25 +3590,31 @@ CREATE TABLE IF NOT EXISTS `vehicule` (
   `Commentaire` text,
   `CoordonneeID` int(11) DEFAULT NULL,
   `BaseID` char(36) NOT NULL,
+  `NbrJrReparation` int(11) DEFAULT NULL,
+  `DistanceParcourue` int(11) DEFAULT NULL,
+  `Service` int(11) DEFAULT NULL,
+  `Taille` int(11) DEFAULT NULL,
   PRIMARY KEY (`VehiculeID`,`BaseID`),
   KEY `vehicules_belong_to_Categorie` (`CategorieID`),
   KEY `belong_to_Base` (`BaseID`),
   KEY `MouvrageID` (`MouvrageID`),
   KEY `CoordonneeID` (`CoordonneeID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- Contenu de la table `vehicule`
 --
 
-INSERT INTO `vehicule` (`VehiculeID`, `CategorieID`, `MouvrageID`, `Nom`, `Anneeconstruction`, `Marque`, `Modele`, `Carburant`, `Puissance`, `Conso`, `Commentaire`, `CoordonneeID`, `BaseID`) VALUES
-(1, 21, 1, 'chevrolet', 2008, 'sss', 'optra', '42', '9', NULL, 'qsdqsd', 2, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f'),
-(2, 113, 2, '116346 J', NULL, NULL, 'Benne Tasseuse', '42', NULL, '9', NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f'),
-(3, 113, 2, '163698 J', NULL, ' Benne Satellite Toyota', NULL, '42', NULL, '7.4', NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f'),
-(4, 113, 2, '62379 J', NULL, NULL, 'Camion citerne ', '42', NULL, '35', '<p>v&eacute;hicule en &nbsp;mauvais &eacute;tat</p>', NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f'),
-(5, 113, 2, '79529 J', NULL, NULL, 'Camion nacelle', '42', NULL, '25', NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f'),
-(6, 113, 2, '109742 J', NULL, ' Messersi', 'Dumper', '42', NULL, '5.6', NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f'),
-(7, 20, 1, 'qsdqdqsd qsdqsdqsd', 0, '', '', '117', '', NULL, '', 2, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f');
+INSERT INTO `vehicule` (`VehiculeID`, `CategorieID`, `MouvrageID`, `Nom`, `Anneeconstruction`, `Marque`, `Modele`, `Carburant`, `Puissance`, `Conso`, `Commentaire`, `CoordonneeID`, `BaseID`, `NbrJrReparation`, `DistanceParcourue`, `Service`, `Taille`) VALUES
+(1, 21, 2, 'chevrolet', 2008, 'sss', 'optra', '42', '9', '2323', 'qsdqsd', 2, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 0, 0, 42, 0),
+(2, 113, 2, '116346 J', NULL, NULL, 'Benne Tasseuse', '42', NULL, '9', NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 0, 0, 0, 0),
+(3, 113, 2, '163698 J', NULL, ' Benne Satellite Toyota', NULL, '42', NULL, '7.4', NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 0, 0, 0, 0),
+(4, 113, 2, '62379 J', NULL, NULL, 'Camion citerne ', '42', NULL, '35', '<p>v&eacute;hicule en &nbsp;mauvais &eacute;tat</p>', NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 0, 0, 0, 0),
+(5, 113, 2, '79529 J', NULL, NULL, 'Camion nacelle', '42', NULL, '25', NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 0, 0, 0, 0),
+(6, 113, 2, '109742 J', NULL, ' Messersi', 'Dumper', '42', NULL, '5.6', NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 0, 0, 0, 0),
+(7, 20, 1, 'qsdqdqsd qsdqsdqsd', 0, '', '', '117', '', NULL, '', 2, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 0, 0, 0, 0),
+(8, 20, 2, 'qsdqsd', NULL, '', '', '117', '', '', NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 0, 0, 117, 0),
+(9, 20, 2, 'qdq', NULL, '', '', '117', '', '', NULL, NULL, '8e0910e0-cdee-70a1-55c3-b0f48ee8127f', 0, 0, 117, 0);
 
 -- --------------------------------------------------------
 
@@ -4472,6 +4498,7 @@ ALTER TABLE `vehicule`
   ADD CONSTRAINT `vehicule_ibfk_3` FOREIGN KEY (`BaseID`) REFERENCES `base` (`BaseID`) ON UPDATE CASCADE,
   ADD CONSTRAINT `vehicule_ibfk_5` FOREIGN KEY (`MouvrageID`) REFERENCES `mouvrage` (`MouvrageID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `vehicule_ibfk_6` FOREIGN KEY (`CoordonneeID`) REFERENCES `coordonnee` (`CoordonneeID`) ON DELETE SET NULL ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

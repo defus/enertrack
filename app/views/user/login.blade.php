@@ -33,10 +33,17 @@
 
 <div class="container">
     <div class="row" style="margin-top:10%">
-        <div class="col-md-6">
+        <div class="col-md-8">
             <div class="jumbotron" >
                 <h1 class="text-center" style="margin-top: 10%">Jiha Tinou</h1>
-                <img src="/v2/public/jihatinou.jpg" class="img-responsive" alt="Logo Jihatinou" />
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="/v2/public/jihatinou.jpg" class="img-responsive" alt="Logo Jihatinou" />
+                    </div>
+                    <div class="col-md-6">
+                        <img src="/v2/public/cua.png" class="img-responsive" alt="Logo Commune Urbaine Agadir" />
+                    </div>
+                </div>
                 <p class="lead text-center">Tableau de Bord – Gestion énergétique communal</p>
             </div>
         </div>

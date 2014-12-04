@@ -51,9 +51,6 @@ App::error(function(Exception $exception, $code)
 {
 	Log::error($exception);
 
-  $pathInfo = Request::getPathInfo();
-  $message = $exception->getMessage() ?: 'Exception';
-  
   if (Config::get('app.debug')) {
     return;
   }

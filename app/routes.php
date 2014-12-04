@@ -19,16 +19,9 @@ Route::group(array('prefix','/'), function() {
   Route::get('logout','UserController@logout');
 
   // Secure-Routes
-  Route::group(array('before' => array('auth', 'permission')), function()
+  Route::group(array('before' => array('auth')), function()
   {
       Route::get('', 'DashboardController@showDashboard');
-
-      Route::resource('mo', 'MoController');
-      Route::get('mo/download/{image}', 'MoController@download');
-
-      Route::resource('moan', 'MoanController');
-
-      Route::resource('contact', 'ContactController');
 
       Route::get('patrimoine', 'PatrimoineController@index');
 
@@ -62,6 +55,20 @@ Route::group(array('prefix','/'), function() {
       Route::resource('tbge/compteur', 'CompteurTbgeController');
 
       Route::resource('tbge/facture', 'FactureTbgeController');
+
+      //Next
+      Route::resource('mo', 'MoController');
+      
+      Route::get('mo/download/{image}', 'MoController@download');
+
+      Route::resource('moan', 'MoanController');
+
+      Route::resource('contact', 'ContactController');
+
+      // Admin
+      Route::resource('admin/user', 'UserController');
+
+      Route::resource('admin/role', 'RoleController');
 
   });
 

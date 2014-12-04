@@ -62,7 +62,7 @@ class SecurityCheck
                 // check additive flag and that the array only contains false.
                 if (in_array(false, $hasARole) && ($cumulative || count(array_unique($hasARole)) == 1) ) {
                     if(! $result)
-                        Facade::getFacadeApplication()->abort(403);
+                        Facade::getFacadeApplication()->abort(403, "Vous n'avez pas le droit d'accéder à cette page sur le serveur");
 
                     return $result;
                 }
