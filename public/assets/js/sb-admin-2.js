@@ -1,7 +1,5 @@
 $(function() {
-
     $('#side-menu').metisMenu();
-
 });
 
 //Loads the correct sidebar on window load,
@@ -25,4 +23,4 @@ $(function() {
             $("#page-wrapper").css("min-height", (height) + "px");
         }
     })
-})
+});

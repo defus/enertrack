@@ -76,7 +76,7 @@ $(document).ready(function() {
                                     <th>Coût TTC</th>
                                     <th>Consommation</th>
                                     <th>Fournisseur</th>
-                                    <th>&nbsp;</th>
+                                    <th class="no-sort" style="width:17px;min-width:75px;max-width:75px;">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -89,12 +89,14 @@ $(document).ready(function() {
                                     <td>{{$value->Totalttc}}</td>
                                     <td>{{$value->Consommation}}</td>
                                     <td>{{ isset($value->Fournisseur->Societe) ? $value->Fournisseur->Societe : '' }}</td>
-                                    <td>
+                                    <td nowrap="nowrap">
                                         <div class="pull-right">
-                                            <a href="{{ URL::to('facture/' . $value->FactureID . '/edit') }}" class="btn btn-sm btn-primary">Editer</a> 
+                                            <a href="{{ URL::to('facture/' . $value->FactureID . '/edit') }}" class="btn btn-sm btn-primary"> <i class="fa fa-edit"></i></a>&nbsp;
                                             {{ Form::open(array('url' => 'facture/' . $value->FactureID, 'class' => 'pull-right')) }}
                                                 {{ Form::hidden('_method', 'DELETE') }}
-                                                {{ Form::submit("Supprimer", array('class' => 'btn btn-sm btn-danger')) }}
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
                                             {{ Form::close() }}
                                         </div>
                                       </td>

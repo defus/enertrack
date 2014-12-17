@@ -12,22 +12,29 @@
 @extends('templates.normal')
 
 {{-- Page title --}}
-@section('title') Consultation des espaces verts @stop
+@section('title') Consultation les espaces verts @stop
 
 {{-- Page specific CSS files --}}
 {{-- {{ HTML::style('--Path to css--') }} --}}
 @section('css')
 <!-- DataTables CSS -->
 {{ HTML::style('assets/css/plugins/dataTables.bootstrap.css') }}
+{{ HTML::style('assets/js/plugins/dataTables/extensions/TableTools-2.2.3/css/dataTables.tableTools.min.css') }}
 @stop
 
 {{-- Page specific JS files --}}
 {{-- {{ HTML::script('--Path to js--') }} --}}
 @section('scripts')
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+{{ HTML::script('assets/js/plugins/dataTables/extensions/TableTools-2.2.3/js/dataTables.tableTools.min.js') }}
 <script>
 $(document).ready(function() {
-    $('#dataTables-espacevert').dataTable();
+    $('#dataTables-espacevert').dataTable({
+        "dom": 'T<"clear">lfrtip',
+        "tableTools": {
+            "sSwfPath": "assets/js/plugins/dataTables/extensions/TableTools-2.2.3/swf/copy_csv_xls_pdf.swf"
+        }
+    });
 });
 </script>
 @stop
@@ -47,7 +54,7 @@ $(document).ready(function() {
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Consultation des epsaces verts enregistrés
+                    Consultation les epsaces verts enregistrés dans l'application
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -55,7 +62,7 @@ $(document).ready(function() {
                     @if ($message = Session::get('espacevert.success'))
                         <div class="alert alert-success alert-block">
                             <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            {{{ $message }}}
+                            {{ $message }}
                         </div>
                     @endif
                     <div class="table-responsive">
@@ -64,7 +71,7 @@ $(document).ready(function() {
                                 <tr>
                                     <th>Nom</th>
                                     <th>Adresse</th>
-                                    <th>&nbsp;</th>
+                                    <th class="no-sort" style="width:75px;min-width:75px;max-width:75px;">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -72,12 +79,14 @@ $(document).ready(function() {
                                 <tr>
                                     <td>{{$value->Nom}}</td>
                                     <td>{{$value->Adresse1}}</td>
-                                    <td>
+                                    <td nowrap="nowrap">
                                         <div class="pull-right">
-                                            <a href="{{ URL::to('tbge/patrimoine/espacevert/' . $value->EspacevertID . '/edit') }}" class="btn btn-sm btn-success">Editer</a> 
+                                            <a href="{{ URL::to('tbge/patrimoine/espacevert/' . $value->EspacevertID . '/edit') }}" class="btn btn-sm btn-success"> <i class="fa fa-edit"></i> </a>&nbsp;
                                             {{ Form::open(array('url' => 'tbge/patrimoine/espacevert/' . $value->EspacevertID, 'class' => 'pull-right')) }}
                                                 {{ Form::hidden('_method', 'DELETE') }}
-                                                {{ Form::submit("Supprimer", array('class' => 'btn btn-sm btn-danger')) }}
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
                                             {{ Form::close() }}
                                         </div>
                                       </td>

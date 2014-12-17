@@ -19,6 +19,6 @@
 
       public function Fournisseur()
       {
-        return $this->belongsTo('Contacts', 'CoordonneeID');
+        return $this->belongsTo('Contacts', 'FournisseurID', 'CoordonneeID');
       }
     }

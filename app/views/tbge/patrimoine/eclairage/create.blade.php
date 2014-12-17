@@ -12,7 +12,7 @@
 @extends('templates.normal')
 
 {{-- Page title --}}
-@section('title') Créer un poste d'éclairage @stop
+@section('title') Ajouter un poste d'éclairage @stop
 
 {{-- Page specific CSS files --}}
 {{-- {{ HTML::style('--Path to css--') }} --}}
@@ -43,7 +43,7 @@ $(document).ready(function() {
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Créer un poste d'éclairage </h1>
+            <h1 class="page-header">Ajouter un poste d'éclairage </h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -66,20 +66,28 @@ $(document).ready(function() {
                                 @endforeach
                             @endif
                             {{ Form::open(array('url' => URL::to('tbge/patrimoine/eclairage') , 'role' => 'form')) }}
+                                <div class="form-group">
+                                    <label>Reférence</label>
+                                    {{ Form::text('Reference', Input::old('Reference'), array('class' => 'form-control') ) }}
+                                </div>
                                 <div class="form-group @if($errors->first('Nom') != '') has-error @endif">
-                                    <label>Secteur d'éclairage *</label>
+                                    <label>Nom / Description *</label>
                                     {{ Form::text('Nom', Input::old('Nom'), array('class' => 'form-control', 'autofocus' => '' ) ) }}
                                     {{ $errors->first('Nom', '<span class="error">:message</span>' ) }}
                                 </div>
                                 <div class="form-group">
-                                    <label>Armoire/ compteur associé</label>
+                                    <label>Secteur d'éclairage</label>
+                                    {{ Form::text('Secteur', Input::old('Secteur'), array('class' => 'form-control') ) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Compteurs d'électricité associé</label>
                                     <select id="compteurElectricitesSelect2" name="compteurElectricitesID[]" class="form-control" multiple>
                                         @if(count($compteurElectricites) > 0)
+                                            <optgroup label="Compteurs d'électricité">
                                             @foreach($compteurElectricites as $key => $value)
-                                            <optgroup label="{{$value->Energie}}">
-                                                <option value="{{$value->CompteurID}}">{{$value->Nom . ' | ' . $value->Reference}}</option>
-                                            </optgroup>
+                                                <option value="{{$value->CompteurID}}">{{'N°: ' . $value->Numero . ' | Ref: ' . $value->Reference}}</option>
                                             @endforeach
+                                            </optgroup>
                                         @endif
                                     </select>
                                 </div>
@@ -90,6 +98,22 @@ $(document).ready(function() {
                                 <div class="form-group">
                                     <label>Catégorie</label>
                                     {{ Form::select('CategorieID', $categories, Input::old('CategorieID'), array('class' => 'form-control')) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Type de tarif</label>
+                                    {{ Form::select('TypeTarif', $typeTarifs, Input::old('TypeTarif'), array('class' => 'form-control')) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Puissance souscrite</label>
+                                    {{ Form::number('PuissanceSouscrite', Input::old('PuissanceSouscrite'), array('class' => 'form-control') ) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Puissance installée</label>
+                                    {{ Form::number('PuissanceInstalle', Input::old('PuissanceInstalle'), array('class' => 'form-control') ) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Puissance appelée</label>
+                                    {{ Form::number('PuissanceAppele', Input::old('PuissanceAppele'), array('class' => 'form-control') ) }}
                                 </div>
                                 <div class="form-group">
                                     <label>Puissance  consommée (en kWh) et luminosité</label>
@@ -104,7 +128,7 @@ $(document).ready(function() {
                                     {{ Form::select('TypeTechnologie', $typeTechnologies, Input::old('TypeTechnologie'), array('class' => 'form-control')) }}
                                 </div>
                                 <div class="form-group">
-                                    <label>Marque de lampes</label>
+                                    <label>Marque des lampes et ballasts</label>
                                     {{ Form::text('MarqueLampe', Input::old('MarqueLampe'), array('class' => 'form-control') ) }}
                                 </div>
                                 <div class="form-group">

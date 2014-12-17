@@ -12,7 +12,7 @@
 @extends('templates.normal')
 
 {{-- Page title --}}
-@section('title') Consultation des factures @stop
+@section('title') Liste des factures @stop
 
 {{-- Page specific CSS files --}}
 {{-- {{ HTML::style('--Path to css--') }} --}}
@@ -62,7 +62,7 @@ $(document).ready(function() {
                     @if ($message = Session::get('success'))
                         <div class="alert alert-success alert-block">
                             <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            {{{ $message }}}
+                            {{ $message }}
                         </div>
                     @endif
                     <div class="table-responsive">
@@ -75,24 +75,26 @@ $(document).ready(function() {
                                     <th>Au</th>
                                     <th>Coût TTC</th>
                                     <th>Consommation</th>
-                                    <th>&nbsp;</th>
+                                    <th class="no-sort" style="width:17px;min-width:75px;max-width:75px;">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($factures as $key => $value)
                                 <tr>
                                     <td>{{ $value->Nom }}</td>
-                                    <td>{{$value->Compteur->Nom}}</td>
+                                    <td>{{'N°: ' . $value->Compteur->Numero . ' - Ref: ' . $value->Compteur->Reference}}</td>
                                     <td>{{\Carbon\Carbon::parse($value->Debutperiode)->format('d/m/Y')}}</td>
                                     <td>{{\Carbon\Carbon::parse($value->Finperiode)->format('d/m/Y')}}</td>
                                     <td>{{$value->Totalttc}}</td>
                                     <td>{{$value->Consommation}}</td>
                                     <td>
                                         <div class="pull-right">
-                                            <a href="{{ URL::to('tbge/facture/' . $value->FactureID . '/edit') }}" class="btn btn-sm btn-success">Editer</a> 
+                                            <a href="{{ URL::to('tbge/facture/' . $value->FactureID . '/edit') }}" class="btn btn-sm btn-success"> <i class="fa fa-edit"></i></a> &nbsp;
                                             {{ Form::open(array('url' => 'tbge/facture/' . $value->FactureID, 'class' => 'pull-right')) }}
                                                 {{ Form::hidden('_method', 'DELETE') }}
-                                                {{ Form::submit("Supprimer", array('class' => 'btn btn-sm btn-danger')) }}
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
                                             {{ Form::close() }}
                                         </div>
                                       </td>

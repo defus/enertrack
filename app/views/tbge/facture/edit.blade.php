@@ -65,16 +65,41 @@ $(document).ready(function() {
                             @endif
                             {{ Form::model($facture, array('route' => array('tbge.facture.update', $facture->FactureID), 'method' => 'put', 'role' => 'form')) }}
                                 <div class="form-group">
-                                    <label>numero de facture</label>
+                                    <label>Numero de facture</label>
                                     {{ Form::text('Nom', Input::old('Nom'), array('class' => 'form-control', 'placeholder' => "Facultatif - Sert pour le classement") ) }}
                                 </div>
                                 <div class="form-group">
-                                    <label>Compteur</label>
+                                    <label>Compteur associé *</label>
                                     <select id="compteur" name="CompteurID" class="form-control">
+
+                                        @if(count($compteurs['eclairage']) > 0)
+                                        <optgroup label="Compteurs d'éclairages">
+                                            @foreach($compteurs['eclairage'] as $key => $value)
+                                                <option value="{{$value->CompteurID}}" @if($facture->CompteurID === $value->CompteurID) selected="selected" @endif>{{'N°: ' . $value->Numero . ' - Ref: ' . $value->Reference . ' - Patrimoine: ' . $value->Patrimoine}}</option>
+                                            @endforeach
+                                        </optgroup>
+                                        @endif
+                                        
+                                        @if(count($compteurs['vehicule']) > 0)
+                                       <optgroup label="Compteurs de véhicules">
+                                            @foreach($compteurs['vehicule'] as $key => $value)
+                                                <option value="{{$value->CompteurID}}" @if($facture->CompteurID === $value->CompteurID) selected="selected" @endif>{{'N°: ' . $value->Numero . ' - Ref: ' . $value->Reference . ' - Patrimoine: ' . $value->Patrimoine}}</option>
+                                            @endforeach
+                                        </optgroup>
+                                        @endif
+
                                         @if(count($compteurs['batiment']) > 0)
                                         <optgroup label="Compteurs de bâtiments">
                                             @foreach($compteurs['batiment'] as $key => $value)
-                                                <option value="{{$value->CompteurID}}" @if($facture->CompteurID === $value->CompteurID) selected="selected" @endif>{{$value->Nom . ' - ' . $value->Patrimoine}}</option>
+                                                <option value="{{$value->CompteurID}}" @if($facture->CompteurID === $value->CompteurID) selected="selected" @endif>{{'N°: ' . $value->Numero . ' - Ref: ' . $value->Reference . ' - Patrimoine: ' . $value->Patrimoine}}</option>
+                                            @endforeach
+                                        </optgroup>
+                                        @endif
+
+                                        @if(count($compteurs['arriveeau']) > 0)
+                                        <optgroup label="Compteurs de points d'arrivée d'eau">
+                                            @foreach($compteurs['arriveeau'] as $key => $value)
+                                                <option value="{{$value->CompteurID}}" @if($facture->CompteurID === $value->CompteurID) selected="selected" @endif>{{'N°: ' . $value->Numero . ' - Ref: ' . $value->Reference . ' - Patrimoine: ' . $value->Patrimoine}}</option>
                                             @endforeach
                                         </optgroup>
                                         @endif
@@ -82,23 +107,7 @@ $(document).ready(function() {
                                         @if(count($compteurs['espacevert']) > 0)
                                         <optgroup label="Compteurs d'espaces verts">
                                             @foreach($compteurs['espacevert'] as $key => $value)
-                                                <option value="{{$value->CompteurID}}" @if($facture->CompteurID === $value->CompteurID) selected="selected" @endif>{{$value->Nom . ' - ' . $value->Patrimoine}}</option>
-                                            @endforeach
-                                        </optgroup>
-                                        @endif
-
-                                        @if(count($compteurs['vehicule']) > 0)
-                                       <optgroup label="Compteurs de véhicules">
-                                            @foreach($compteurs['vehicule'] as $key => $value)
-                                                <option value="{{$value->CompteurID}}" @if($facture->CompteurID === $value->CompteurID) selected="selected" @endif>{{$value->Nom . ' - ' . $value->Patrimoine}}</option>
-                                            @endforeach
-                                        </optgroup>
-                                        @endif
-
-                                        @if(count($compteurs['eclairage']) > 0)
-                                       <optgroup label="Compteurs d'éclairages">
-                                            @foreach($compteurs['eclairage'] as $key => $value)
-                                                <option value="{{$value->CompteurID}}" @if($facture->CompteurID === $value->CompteurID) selected="selected" @endif>{{$value->Nom . ' - ' . $value->Patrimoine}}</option>
+                                                <option value="{{$value->CompteurID}}" @if($facture->CompteurID === $value->CompteurID) selected="selected" @endif>{{'N°: ' . $value->Numero . ' - Ref: ' . $value->Reference . ' - Patrimoine: ' . $value->Patrimoine}}</option>
                                             @endforeach
                                         </optgroup>
                                         @endif
@@ -106,15 +115,23 @@ $(document).ready(function() {
                                         @if(count($compteurs['posteproduction']) > 0)
                                        <optgroup label="Compteurs de postes de production">
                                             @foreach($compteurs['posteproduction'] as $key => $value)
-                                                <option value="{{$value->CompteurID}}" @if($facture->CompteurID === $value->CompteurID) selected="selected" @endif>{{$value->Nom . ' - ' . $value->Patrimoine}}</option>
+                                                <option value="{{$value->CompteurID}}" @if($facture->CompteurID === $value->CompteurID) selected="selected" @endif>{{'N°: ' . $value->Numero . ' - Ref: ' . $value->Reference . ' - Patrimoine: ' . $value->Patrimoine}}</option>
                                             @endforeach
                                         </optgroup>
                                         @endif
 
                                         @if(count($compteurs['autreposte']) > 0)
-                                       <optgroup label="Compteurs de postes (autres)">
+                                        <optgroup label="Compteurs de postes (autres)">
                                             @foreach($compteurs['autreposte'] as $key => $value)
-                                                <option value="{{$value->CompteurID}}" @if($facture->CompteurID === $value->CompteurID) selected="selected" @endif>{{$value->Nom . ' - ' . $value->Patrimoine}}</option>
+                                                <option value="{{$value->CompteurID}}" @if($facture->CompteurID === $value->CompteurID) selected="selected" @endif>{{'N°: ' . $value->Numero . ' - Ref: ' . $value->Reference . ' - Patrimoine: ' . $value->Patrimoine}}</option>
+                                            @endforeach
+                                        </optgroup>
+                                        @endif
+
+                                        @if(count($compteurs['tous']) > 0)
+                                        <optgroup label="Tous les compteurs">
+                                            @foreach($compteurs['tous'] as $key => $value)
+                                                <option value="{{$value->CompteurID}}" @if($facture->CompteurID === $value->CompteurID) selected="selected" @endif>{{'N°: ' . $value->Numero . ' - Ref: ' . $value->Reference}}</option>
                                             @endforeach
                                         </optgroup>
                                         @endif

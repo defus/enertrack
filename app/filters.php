@@ -102,6 +102,7 @@ $securityCheck->routeNeedsRole( 'facture*', array('FACTURE') );
 $securityCheck->routeNeedsRole( 'tbge/patrimoine/batiment*', array('BATIMENT') );
 $securityCheck->routeNeedsRole( 'tbge/patrimoine/eclairage*', array('ECLAIRAGE') );
 $securityCheck->routeNeedsRole( 'tbge/patrimoine/espacevert*', array('ESPACEVERT') );
+$securityCheck->routeNeedsRole( 'tbge/patrimoine/arriveeau*', array('ARRIVEEAU') );
 $securityCheck->routeNeedsRole( 'tbge/patrimoine/posteproduction*', array('POSTEPRODUCTION') );
 $securityCheck->routeNeedsRole( 'tbge/patrimoine/vehicule*', array('VEHICULE') );
 $securityCheck->routeNeedsRole( 'tbge/compteur*', array('COMPTEUR') );

@@ -12,7 +12,7 @@
 @extends('templates.normal')
 
 {{-- Page title --}}
-@section('title') Consultation des compteurs @stop
+@section('title') Liste des compteurs @stop
 
 {{-- Page specific CSS files --}}
 {{-- {{ HTML::style('--Path to css--') }} --}}
@@ -62,7 +62,7 @@ $(document).ready(function() {
                     @if ($message = Session::get('success'))
                         <div class="alert alert-success alert-block">
                             <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            {{{ $message }}}
+                            {{ $message }}
                         </div>
                     @endif
                     <div class="table-responsive">
@@ -73,7 +73,7 @@ $(document).ready(function() {
                                     <th>Numero du contrat</th>
                                     <th>Type d'énergie</th>
                                     <th>Fournisseur</th>
-                                    <th>&nbsp;</th>
+                                    <th class="no-sort" style="width:17px;min-width:75px;max-width:75px;">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -82,13 +82,15 @@ $(document).ready(function() {
                                     <td>{{$value->Numero}}</td>
                                     <td>{{$value->Reference}}</td>
                                     <td>{{ isset($value->Energie->Nom) ? $value->Energie->Nom : '' }}</td>
-                                    <td>{{ isset($value->Fournisseur->Societe) ? $value->Fournisseur->Societe : '' }}</td>
-                                    <td>
+                                    <td>{{ isset($value->Fournisseur->Nom) ? $value->Fournisseur->Nom : $value->Fournisseur }}</td>
+                                    <td nowrap="nowrap">
                                         <div class="pull-right">
-                                            <a href="{{ URL::to('tbge/compteur/' . $value->CompteurID . '/edit') }}" class="btn btn-sm btn-primary">Editer</a> 
+                                            <a href="{{ URL::to('tbge/compteur/' . $value->CompteurID . '/edit') }}" class="btn btn-sm btn-success"> <i class="fa fa-edit"></i> </a>&nbsp;
                                             {{ Form::open(array('url' => 'tbge/compteur/' . $value->CompteurID, 'class' => 'pull-right')) }}
                                                 {{ Form::hidden('_method', 'DELETE') }}
-                                                {{ Form::submit("Supprimer", array('class' => 'btn btn-sm btn-danger')) }}
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
                                             {{ Form::close() }}
                                         </div>
                                       </td>

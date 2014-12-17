@@ -83,7 +83,7 @@ $(document).ready(function() {
                                     <th>Ville</th>
                                     <th>Contact</th>
                                     <th>Année de construction</th>
-                                    <th>&nbsp;</th>
+                                    <th class="no-sort" style="width:17px;min-width:75px;max-width:75px;">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -96,12 +96,14 @@ $(document).ready(function() {
                                     <td>{{$value->Ville}}</td>
                                     <td>{{$value->Contact}}</td>
                                     <td>{{$value->Anneeconstruction}}</td>
-                                    <td>
+                                    <td nowrap="nowrap">
                                         <div class="pull-right">
-                                            <a href="{{ URL::to('patrimoine/batiment/' . $value->BatimentID . '/edit') }}" class="btn btn-sm btn-primary">Editer</a> 
+                                            <a href="{{ URL::to('patrimoine/batiment/' . $value->BatimentID . '/edit') }}" class="btn btn-sm btn-primary"> <i class="fa fa-edit"></i> </a>&nbsp;
                                             {{ Form::open(array('url' => 'patrimoine/batiment/' . $value->BatimentID, 'class' => 'pull-right')) }}
                                                 {{ Form::hidden('_method', 'DELETE') }}
-                                                {{ Form::submit("Supprimer", array('class' => 'btn btn-sm btn-danger')) }}
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
                                             {{ Form::close() }}
                                         </div>
                                       </td>
@@ -138,7 +140,7 @@ $(document).ready(function() {
                                     <th>Kms eclairés</th>
                                     <th>Declencheur</th>
                                     <th>Contact</th>
-                                    <th>&nbsp;</th>
+                                    <th class="no-sort" style="width:17px;min-width:75px;max-width:75px;">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -151,12 +153,14 @@ $(document).ready(function() {
                                     <td>{{$value->Kmeclaires}}</td>
                                     <td>{{$value->Declencheur}}</td>
                                     <td>{{$value->Contact}}</td>
-                                    <td>
+                                    <td nowrap="nowrap">
                                         <div class="pull-right">
-                                            <a href="{{ URL::to('patrimoine/eclairage/' . $value->EclairageID . '/edit') }}" class="btn btn-sm btn-primary">Editer</a> 
+                                            <a href="{{ URL::to('patrimoine/eclairage/' . $value->EclairageID . '/edit') }}" class="btn btn-sm btn-primary"> <i class="fa fa-edit"></i> </a>&nbsp;
                                             {{ Form::open(array('url' => 'patrimoine/eclairage/' . $value->EclairageID, 'class' => 'pull-right')) }}
                                                 {{ Form::hidden('_method', 'DELETE') }}
-                                                {{ Form::submit("Supprimer", array('class' => 'btn btn-sm btn-danger')) }}
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
                                             {{ Form::close() }}
                                         </div>
                                       </td>
@@ -195,7 +199,7 @@ $(document).ready(function() {
                                     <th>Puissance fiscale</th>
                                     <th>Année de construction</th>
                                     <th>Contact</th>
-                                    <th>&nbsp;</th>
+                                    <th class="no-sort" style="width:17px;min-width:75px;max-width:75px;">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -210,12 +214,14 @@ $(document).ready(function() {
                                     <td>{{$value->Puissance}}</td>
                                     <td>{{$value->Anneeconstruction}}</td>
                                     <td>{{$value->Contact}}</td>
-                                    <td>
+                                    <td nowrap="nowrap">
                                         <div class="pull-right">
-                                            <a href="{{ URL::to('patrimoine/vehicule/' . $value->VehiculeID . '/edit') }}" class="btn btn-sm btn-primary">Editer</a> 
+                                            <a href="{{ URL::to('patrimoine/vehicule/' . $value->VehiculeID . '/edit') }}" class="btn btn-sm btn-primary"> <i class="fa fa-edit"></i> </a>&nbsp;
                                             {{ Form::open(array('url' => 'patrimoine/vehicule/' . $value->VehiculeID, 'class' => 'pull-right')) }}
                                                 {{ Form::hidden('_method', 'DELETE') }}
-                                                {{ Form::submit("Supprimer", array('class' => 'btn btn-sm btn-danger')) }}
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
                                             {{ Form::close() }}
                                         </div>
                                       </td>
@@ -252,7 +258,7 @@ $(document).ready(function() {
                                     <th>Année de mise en service</th>
                                     <th>Production théorique</th>
                                     <th>Contact</th>
-                                    <th>&nbsp;</th>
+                                    <th class="no-sort" style="width:17px;min-width:75px;max-width:75px;">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -265,12 +271,14 @@ $(document).ready(function() {
                                     <td>{{$value->Anneeconstruction}}</td>
                                     <td>{{$value->Productiontheorique}}</td>
                                     <td>{{$value->Contact}}</td>
-                                    <td>
+                                    <td nowrap="nowrap">
                                         <div class="pull-right">
-                                            <a href="{{ URL::to('patrimoine/posteproduction/' . $value->PosteproductionID . '/edit') }}" class="btn btn-sm btn-primary">Editer</a> 
+                                            <a href="{{ URL::to('patrimoine/posteproduction/' . $value->PosteproductionID . '/edit') }}" class="btn btn-sm btn-primary"> <i class="fa fa-edit"></i> </a>&nbsp;
                                             {{ Form::open(array('url' => 'patrimoine/posteproduction/' . $value->PosteproductionID, 'class' => 'pull-right')) }}
                                                 {{ Form::hidden('_method', 'DELETE') }}
-                                                {{ Form::submit("Supprimer", array('class' => 'btn btn-sm btn-danger')) }}
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
                                             {{ Form::close() }}
                                         </div>
                                       </td>
@@ -305,7 +313,7 @@ $(document).ready(function() {
                                     <th>Catégorie</th>
                                     <th>Année de construction</th>
                                     <th>Contact</th>
-                                    <th>&nbsp;</th>
+                                    <th class="no-sort" style="width:17px;min-width:75px;max-width:75px;">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -316,12 +324,14 @@ $(document).ready(function() {
                                     <td>{{$value->categorie}}</td>
                                     <td>{{$value->Anneeconstruction}}</td>
                                     <td>{{$value->Contact}}</td>
-                                    <td>
+                                    <td nowrap="nowrap">
                                         <div class="pull-right">
-                                            <a href="{{ URL::to('patrimoine/autreposte/' . $value->AutreposteID . '/edit') }}" class="btn btn-sm btn-primary">Editer</a> 
+                                            <a href="{{ URL::to('patrimoine/autreposte/' . $value->AutreposteID . '/edit') }}" class="btn btn-sm btn-primary"> <i class="fa fa-edit"></i> </a>&nbsp;
                                             {{ Form::open(array('url' => 'patrimoine/autreposte/' . $value->AutreposteID, 'class' => 'pull-right')) }}
                                                 {{ Form::hidden('_method', 'DELETE') }}
-                                                {{ Form::submit("Supprimer", array('class' => 'btn btn-sm btn-danger')) }}
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
                                             {{ Form::close() }}
                                         </div>
                                       </td>

@@ -19,15 +19,22 @@
 @section('css')
 <!-- DataTables CSS -->
 {{ HTML::style('assets/css/plugins/dataTables.bootstrap.css') }}
+{{ HTML::style('assets/js/plugins/dataTables/extensions/TableTools-2.2.3/css/dataTables.tableTools.min.css') }}
 @stop
 
 {{-- Page specific JS files --}}
 {{-- {{ HTML::script('--Path to js--') }} --}}
 @section('scripts')
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+{{ HTML::script('assets/js/plugins/dataTables/extensions/TableTools-2.2.3/js/dataTables.tableTools.min.js') }}
 <script>
 $(document).ready(function() {
-    $('#dataTables-batiments').dataTable();
+    $('#dataTables-batiments').dataTable({
+        "dom": 'T<"clear">lfrtip',
+        "tableTools": {
+            "sSwfPath": "assets/js/plugins/dataTables/extensions/TableTools-2.2.3/swf/copy_csv_xls_pdf.swf"
+        }
+    });
 });
 </script>
 @stop
@@ -38,7 +45,7 @@ $(document).ready(function() {
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Batiments <a href="{{ URL::to('tbge/patrimoine/batiment/create') }}" class="btn btn-success pull-right">Ajouter une batiment</a></h1>
+            <h1 class="page-header">Batiments <a href="{{ URL::to('tbge/patrimoine/batiment/create') }}" class="btn btn-success pull-right">Ajouter un batiment</a></h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -47,7 +54,7 @@ $(document).ready(function() {
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Liste des batiments
+                    Consultation de la liste des batiments enregistrés dans l'application
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -55,31 +62,43 @@ $(document).ready(function() {
                     @if ($message = Session::get('batiment.success'))
                         <div class="alert alert-success alert-block">
                             <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            {{{ $message }}}
+                            {{ $message }}
+                        </div>
+                    @endif
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success alert-block">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{ $message }}
                         </div>
                     @endif
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered table-hover" id="dataTables-batiments">
                             <thead>
                                 <tr>
-                                    <th>Nom</th>
+                                    <th>Reférence</th>
+                                    <th>Nom / Description</th>
+                                    <th>Sous-catégorie</th>
                                     <th>Adresse</th>
                                     <th>Année de construction</th>
-                                    <th>&nbsp;</th>
+                                    <th class="no-sort" style="width:17px;min-width:75px;max-width:75px;">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($batiments as $key => $value)
                                 <tr>
+                                    <td>{{$value->Reference}}</td>
                                     <td>{{$value->Nom}}</td>
+                                    <td>{{$patrimoines[$value->Patrimoine]}}</td>
                                     <td>{{$value->Adresse1}}</td>
                                     <td>{{$value->Anneeconstruction}}</td>
-                                    <td>
+                                    <td nowrap="nowrap">
                                         <div class="pull-right">
-                                            <a href="{{ URL::to('tbge/patrimoine/batiment/' . $value->BatimentID . '/edit') }}" class="btn btn-sm btn-success">Editer</a> 
+                                            <a href="{{ URL::to('tbge/patrimoine/batiment/' . $value->BatimentID . '/edit') }}" class="btn btn-sm btn-success"> <i class="fa fa-edit"></i> </a>&nbsp; 
                                             {{ Form::open(array('url' => 'tbge/patrimoine/batiment/' . $value->BatimentID, 'class' => 'pull-right')) }}
                                                 {{ Form::hidden('_method', 'DELETE') }}
-                                                {{ Form::submit("Supprimer", array('class' => 'btn btn-sm btn-danger')) }}
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
                                             {{ Form::close() }}
                                         </div>
                                       </td>

@@ -90,6 +90,10 @@
         <li>
             <img src="/v2/public/cua.png" alt="Logo Commune Urbaine Agadir" style="height:35px;" />
         </li>
+        <li >
+            <img alt="Brand" src="/v2/public/jihatinou.jpg" style="height:35px;width:35px;" >
+            
+        </li>
         <!-- /.dropdown -->
     </ul>
     <!-- /.navbar-top-links -->
@@ -97,10 +101,6 @@
     <div class="navbar-default sidebar" role="navigation">
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
-                <li >
-                    <img alt="Brand" src="/v2/public/jihatinou.jpg" width="250">
-                    
-                </li>
                 <li>
                     <a @if(Request::is('/')) class="active" @endif href="{{ URL::to('') }}"><i class="fa fa-dashboard fa-fw"></i> Tableau de bord</a>
                 </li>
@@ -141,6 +141,11 @@
                             <a @if(Request::is('tbge/patrimoine/batiment')  or Request::is('tbge/patrimoine/batiment/*/edit')) class="active" @endif href="{{ URL::to('tbge/patrimoine/batiment') }}">Liste des batiments</a>
                         </li>
                         @endif
+                        @if(Auth::user()->hasRole('ARRIVEEAU'))
+                        <li>
+                            <a @if(Request::is('tbge/patrimoine/arriveeau')  or Request::is('tbge/patrimoine/arriveeau/*/edit')) class="active" @endif href="{{ URL::to('tbge/patrimoine/arriveeau') }}">Liste des points d'arrivée d'eau</a>
+                        </li>
+                        @endif
                         @if(Auth::user()->hasRole('ESPACEVERT'))
                         <li>
                             <a @if(Request::is('tbge/patrimoine/espacevert')  or Request::is('tbge/patrimoine/espacevert/*/edit')) class="active" @endif href="{{ URL::to('tbge/patrimoine/espacevert') }}">Liste des espaces verts</a>
@@ -167,6 +172,11 @@
                                 @if(Auth::user()->hasRole('BATIMENT'))
                                 <li>
                                     <a @if(Request::is('tbge/patrimoine/batiment/create')) class="active" @endif href="{{ URL::to('tbge/patrimoine/batiment/create') }}">Ajouter un batiment</a>
+                                </li>
+                                @endif
+                                @if(Auth::user()->hasRole('ARRIVEEAU'))
+                                <li>
+                                    <a @if(Request::is('tbge/patrimoine/arriveeau/create')) class="active" @endif href="{{ URL::to('tbge/patrimoine/arriveeau/create') }}">Ajouter un point d'arrivée d'eau</a>
                                 </li>
                                 @endif
                                 @if(Auth::user()->hasRole('ESPACEVERT'))

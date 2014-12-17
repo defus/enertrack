@@ -43,18 +43,37 @@ Route::group(array('prefix','/'), function() {
       Route::get('tbge/patrimoine', 'PatrimoineTbgeController@index');
 
       Route::resource('tbge/patrimoine/batiment', 'BatimentTbgeController');
+      Route::get('tbge/patrimoine/batiment/import/csv', 'BatimentTbgeController@importCsv');
+      Route::post('tbge/patrimoine/batiment/import/csv/post', 'BatimentTbgeController@importCsvPosted');
+      Route::post('tbge/patrimoine/batiment/import/csv/doimport', 'BatimentTbgeController@doImport');
 
       Route::resource('tbge/patrimoine/espacevert', 'EspacevertTbgeController');
 
+      Route::resource('tbge/patrimoine/arriveeau', 'ArriveeauTbgeController');
+      Route::get('tbge/patrimoine/arriveeau/import/csv', 'ArriveeauTbgeController@importCsv');
+      Route::post('tbge/patrimoine/arriveeau/import/csv/post', 'ArriveeauTbgeController@importCsvPosted');
+      Route::post('tbge/patrimoine/arriveeau/import/csv/doimport', 'ArriveeauTbgeController@doImport');
+
       Route::resource('tbge/patrimoine/eclairage', 'EclairageTbgeController');
+      Route::get('tbge/patrimoine/eclairage/import/csv', 'EclairageTbgeController@importCsv');
+      Route::post('tbge/patrimoine/eclairage/import/csv/post', 'EclairageTbgeController@importCsvPosted');
+      Route::post('tbge/patrimoine/eclairage/import/csv/doimport', 'EclairageTbgeController@doImport');
 
       Route::resource('tbge/patrimoine/vehicule', 'VehiculeTbgeController');
+      Route::get('tbge/patrimoine/vehicule/import/csv', 'VehiculeTbgeController@importCsv');
+      Route::post('tbge/patrimoine/vehicule/import/csv/post', 'VehiculeTbgeController@importCsvPosted');
+      Route::post('tbge/patrimoine/vehicule/import/csv/doimport', 'VehiculeTbgeController@doImport');
 
       Route::resource('tbge/patrimoine/posteproduction', 'PosteproductionTbgeController');
 
       Route::resource('tbge/compteur', 'CompteurTbgeController');
+      Route::get('tbge/compteur/import/csv', 'CompteurTbgeController@importCsv');
+      Route::post('tbge/compteur/import/csv/post', 'CompteurTbgeController@importCsvPosted');
+      Route::post('tbge/compteur/import/csv/doimport', 'CompteurTbgeController@doImport');
 
       Route::resource('tbge/facture', 'FactureTbgeController');
+
+      Route::get('tbge/indicateur/electricite/global', 'IndicateurTbgeController@electriciteGlobal');
 
       //Next
       Route::resource('mo', 'MoController');

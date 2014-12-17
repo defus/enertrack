@@ -2,6 +2,8 @@
 
 class CompteurTbgeController extends \BaseController {
 
+    public static $typeCompteurs = array('CONSO'=>"Consommation d'énergie", 'CONSOEAU'=>"Consommation d'eau", 'CONSOLIEPROD'=>"Consommation liée à un de vos postes de production", 'MP'=>"Consommation en matière première pour fabrication", 'PROD' => "Production  d'énergie", 'PRODEAU'=> "Production d'eau chaude", 'FABRICATION'=> "Fabrication de produits manufacturés");
+
     public function index()
     {
       $baseid = Auth::user()->BaseID; 
@@ -22,6 +24,7 @@ class CompteurTbgeController extends \BaseController {
       $posteproductions = DB::select("select CONCAT('posteproduction-' , PosteproductionID) as PosteproductionID, Nom from posteproduction WHERE `BaseID` = '".$baseid."' order by Nom");
       $autrepostes = DB::select("select CONCAT('autrepostes-' , AutreposteID) as AutreposteID, Nom from autreposte WHERE `BaseID` = '".$baseid."' order by Nom");
       $espaceverts = DB::select("select CONCAT('espacevert-' , EspacevertID) as EspacevertID, Nom from espacevert WHERE `BaseID` = '".$baseid."' order by Nom");
+      $arriveeaux = DB::select("select CONCAT('arriveeau-' , ArriveeauID) as ArriveeauID, Nom from arriveeau WHERE `BaseID` = '".$baseid."' order by Nom");
       
       $energies = DB::select("select EnergieID, Nom from energie WHERE `BaseID` = '".$baseid."' order by Nom");
       $energies = $this->objectsToArray($energies, 'EnergieID', 'Nom');
@@ -45,7 +48,9 @@ class CompteurTbgeController extends \BaseController {
         ->with('eclairages', $eclairages)
         ->with('posteproductions', $posteproductions)
         ->with('autrepostes', $autrepostes)
-        ->with('espaceverts', $espaceverts);
+        ->with('espaceverts', $espaceverts)
+        ->with('arriveeaux', $arriveeaux)
+        ->with('typeCompteurs', self::$typeCompteurs);
     }
 
     public function store(){
@@ -71,7 +76,8 @@ class CompteurTbgeController extends \BaseController {
               && 'vehicule' !== $patrimoineType 
               && 'posteproduction' !== $patrimoineType 
               && 'autreposte' !== $patrimoineType
-              && 'espacevert' !== $patrimoineType){
+              && 'espacevert' !== $patrimoineType
+              && 'arriveeau' !== $patrimoineType){
             return false;
           }
           return true;
@@ -79,14 +85,12 @@ class CompteurTbgeController extends \BaseController {
 
       $validation = Validator::make(\Input::all(), 
         array(
-          'Numero' => 'required',
-          'Type' => 'required',
+          'Reference' => 'required',
           'EnergieID' => 'required',
           'patrimoine' => 'required|patrimoineTypeValide'
           ), 
         array(
-          'Numero.required' => "Le numero de compteur est obligatoire !",
-          'Type.required' => "Le type est obligatoire !",
+          'Reference.required' => "Le numero de contrat du compteur est obligatoire !",
           'EnergieID.required' => "Le type d'énergie est obligatoire !",
           'patrimoine.required' => "Le patrimoine est obligatoire !",
           'patrimoine.patrimoine_type_valide' => "Choisissez un type de patrimoine valide"
@@ -164,9 +168,17 @@ class CompteurTbgeController extends \BaseController {
             $espacevert->BaseID = $baseid;
             $espacevert->Pourcentage = $pourcentage;
             $espacevert->save(); 
+          }else if('arriveeau' === $patrimoineType){
+            $arriveeau = new Compteurarriveeaux();
+            $arriveeau->ArriveeauID = $patrimoineId;
+            $arriveeau->CompteurID = $compteur->CompteurID;
+            $arriveeau->BaseID = $baseid;
+            $arriveeau->Pourcentage = $pourcentage;
+            $arriveeau->save(); 
           }
 
-          Session::flash('success', "Création du compteur effectué avec succès");
+          $modifierUrl = URL::to('tbge/compteur/' . $compteur->CompteurID . '/edit');
+          Session::flash('success', "<p>Création du compteur effectué avec succès ! <a href='{$modifierUrl}' class='btn btn-success'>Modifier le compteur</a></p>");
           return Redirect::to('tbge/compteur');
         }
     }
@@ -195,19 +207,20 @@ class CompteurTbgeController extends \BaseController {
         ->with('energies', $energies)
         ->with('fournisseurs', $fournisseurs)
         ->with('compteurexistants', $compteurexistants)
-        ->with('compteurprods', $compteurprods);
+        ->with('compteurprods', $compteurprods)
+        ->with('typeCompteurs', self::$typeCompteurs);
     }
 
     public function update($id){
 
       $validation = Validator::make(\Input::all(), 
         array(
-          'Numero' => 'required',
+          'Reference' => 'required',
           'Type' => 'required',
           'EnergieID' => 'required'
           ), 
         array(
-          'Numero.required' => "Le numero de compteur est obligatoire !",
+          'Reference.required' => "La référence du compteur est obligatoire !",
           'Type.required' => "Le type est obligatoire !",
           'EnergieID.required' => "Le type d'énergie est obligatoire !"
         )
@@ -230,7 +243,8 @@ class CompteurTbgeController extends \BaseController {
 
           $compteur->save();
 
-          Session::flash('success', "Mise-à-jour du compteur effectuée avec succès");
+          $modifierUrl = URL::to('tbge/compteur/' . $compteur->CompteurID . '/edit');
+          Session::flash('success', "<p>Mise-à-jour du compteur effectuée avec succès ! <a href='{$modifierUrl}' class='btn btn-success'>Modifier le compteur</a></p>");
           return Redirect::to('tbge/compteur');
         }
     }
@@ -244,6 +258,180 @@ class CompteurTbgeController extends \BaseController {
       Session::flash('success', "Compteur supprimé avec succès !");
       return Redirect::to('tbge/compteur');
     }
+
+    public function importCsv()
+    {
+      $baseid = Auth::user()->BaseID; 
+
+      return  View::make('tbge.compteur.importcsv');
+    }
+
+
+    public function importCsvPosted()
+    {
+      $baseid = Auth::user()->BaseID; 
+
+      if (Input::hasFile('csvFile')) {
+        $file            = Input::file('csvFile');
+        $extension = $file->getClientOriginalExtension();
+        if('csv' !== $extension){
+          return Redirect::to('tbge/compteur/import/csv')
+              ->with('message.error', "Le fichier à importer doit-être de type CSV !");
+        }
+
+        $file_name = $file->getClientOriginalName();
+        $file_path = $file->getRealPath();
+
+        if (($handle = fopen($file_path, "r")) === FALSE) {
+          return Redirect::to('tbge/compteur/import/csv')
+              ->with('message.error', "Erreur fatale lors de l'ouverture du fichier importé !");
+        }
+
+        $tableau_data = array();
+        $tableau_head = array();
+        while(($data = fgetcsv($handle, 0, ";")) !== FALSE){
+          if(empty($tableau_head)){
+            $tableau_head = $data;
+          }else{
+            $tableau_data[] = $data;
+          }
+        }
+        fclose($handle);
+        return  View::make('tbge.compteur.importcsvimported')
+          ->with('header', $tableau_head)
+          ->with('data', $tableau_data);
+      }
+
+      return  View::make('tbge.compteur.importcsv');
+    }
+
+    public function doImport(){
+      $baseid = Auth::user()->BaseID; 
+
+      DB::beginTransaction();
+
+      DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
+      DB::table('compteurarriveeaux')->truncate();
+      DB::table('compteurautrepostes')->truncate();
+      DB::table('compteurbatiments')->truncate();
+      DB::table('compteureclairages')->truncate();
+      DB::table('compteurespaceverts')->truncate();
+      DB::table('compteurposteproductions')->truncate();
+      DB::table('Compteurvehicules')->truncate();
+      DB::table('arriveeau')->truncate();
+      DB::table('autreposte')->truncate();
+      DB::table('batiment')->truncate();
+      DB::table('eclairage')->truncate();
+      DB::table('espacevert')->truncate();
+      DB::table('posteproduction')->truncate();
+      DB::table('vehicule')->truncate();
+      DB::table('compteur')->truncate();
+
+      DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+      
+      Validator::extend('fournisseurValide', function($attribute, $value, $parameters)
+      {
+          if(empty($value)){
+            return false;
+          }
+          $fournisseurs = Contacts::where('Type', 'Fournisseur')->where('Nom', $value)->get();
+
+          if(count($fournisseurs) <= 0){
+            return false;
+          }
+          return true;
+      });
+
+      Validator::extend('typeCompteurValide', function($attribute, $value, $parameters)
+      {
+          if(empty($value)){
+            return false;
+          }
+          
+          if(in_array($value, self::$typeCompteurs)){
+            return true;
+          }
+          return false;
+      });
+
+      Validator::extend('typeEnergieValide', function($attribute, $value, $parameters)
+      {
+          $baseid = Auth::user()->BaseID; 
+
+          if(empty($value)){
+            return false;
+          }
+          $energies = DB::select("select EnergieID, Nom from energie WHERE `BaseID` = '".$baseid."' And Nom like '" . $value . "' order by Nom");
+          if(count($energies) <= 0){
+            return false;
+          }
+          return true;
+      });
+
+      $selected = \Input::get('selecte');
+      $data = \Input::get('col');
+
+      $nombreLigneImportee = 0;
+
+      foreach ($selected as $rowIndex => $rowChecked) {
+        if($rowChecked === '1'){
+          $row = $data[$rowIndex];
+          
+          $validation = Validator::make($row, 
+            array(
+              'Numero' => 'required',
+              'Reference' => 'required',
+              'Type' => 'required|typeCompteurValide',
+              "EnergieID" => 'required|typeEnergieValide',
+              "Fournisseur" => 'required|fournisseurValide'
+              ), array(
+                'required' => "Le champ :attribute est obligatoire"
+              )
+          );
+
+          if ($validation->fails()) {
+              return Redirect::to('tbge/compteur/import/csv')
+                  ->withErrors($validation);
+          } else {
+            $fournisseurs = Contacts::where('Type', 'Fournisseur')->where('Nom', $row['Fournisseur'])->get();
+            
+            $energies = DB::select("select EnergieID, Nom from energie WHERE `BaseID` = '".$baseid."' And Nom like '" . $row["EnergieID"] . "' order by Nom");
+
+            $typeCompteurKey = "";
+            foreach (self::$typeCompteurs as $key => $value) {
+              if($value == $row["Type"]){
+                $typeCompteurKey = $key;
+                break;
+              }
+            }
+
+            $compteur = new Compteurs();
+            $compteur->MouvrageID = Config::get('enertrack.MouvrageID');
+            $compteur->BaseID = $baseid;
+            $compteur->Reference = $row["Reference"];
+            $compteur->Numero = $row["Numero"];
+            $compteur->EnergieID = $energies[0]->EnergieID;
+            $compteur->Type = $typeCompteurKey;
+            $compteur->FournisseurID = $fournisseurs[0]->CoordonneeID;
+            $compteur->Seuil = $row["Seuil"];
+            $compteur->Objectif = $row["Objectif"];
+            $compteur->Clos = 0;
+
+            $compteur->save();
+
+            $nombreLigneImportee = $nombreLigneImportee + 1;
+          }
+        }
+      }
+
+
+      DB::commit();
+
+      Session::flash('success', "<p>Compteurs importés avec succès ! $nombreLigneImportee lignes importées </p>");
+      return Redirect::to('tbge/compteur');
+    }
+    
 
     private function objectsToArray($objs, $key, $val){
       $arr = array();

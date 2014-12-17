@@ -87,7 +87,8 @@ class EspacevertTbgeController extends \BaseController {
             }
           }
 
-          Session::flash('espacevert.success', "Création de l'espace vert effectuée avec succès");
+          $modifierUrl = URL::to('tbge/patrimoine/espacevert/' . $espacevert->EspacevertID . '/edit');
+          Session::flash('espacevert.success', "<p>Création de l'espace vert effectuée avec succès  ! <a href='{$modifierUrl}' class='btn btn-success'>Modifier le point d'arrivée d'eau</a></p>");
           return Redirect::to('tbge/patrimoine/espacevert');
         }
     }
@@ -202,7 +203,8 @@ class EspacevertTbgeController extends \BaseController {
             }
           }
 
-          Session::flash('espacevert.success', "Mise-à-jour du espacevert effectuée avec succès");
+          $modifierUrl = URL::to('tbge/patrimoine/espacevert/' . $espacevert->EspacevertID . '/edit');
+          Session::flash('espacevert.success', "<p>Mise-à-jour du espacevert effectuée avec succès ! <a href='{$modifierUrl}' class='btn btn-success'>Modifier le point d'arrivée d'eau</a></p>");
           return Redirect::to('tbge/patrimoine/espacevert');
         }
     }
@@ -214,7 +216,7 @@ class EspacevertTbgeController extends \BaseController {
 
       // redirect
       Session::flash('espacevert.success', "Espace vert supprimé avec succès !");
-      return Redirect::to('tbge.patrimoine/espacevert');
+      return Redirect::to('tbge/patrimoine/espacevert');
     }
 
     private function objectsToArray($objs, $key, $val){

@@ -24,11 +24,14 @@ class VehiculeController extends \BaseController {
       $carburants = DB::select("select CategorieID, Libelle from categorie WHERE `CategorieparenteID` =39 AND `BaseID` = '".$baseid."' order by Libelle");
       $carburants = $this->objectsToArray($carburants, 'CategorieID', 'Libelle');
 
+      $fonctions = array(0 => 'Utilitaire', 1 => 'De service', 3 => 'Particulier');
+
       return View::make('patrimoine.vehicule.create')
         ->with('mos', $mos)
         ->with('contacts', $contacts)
         ->with('categories', $categories)
-        ->with('carburants', $carburants);
+        ->with('carburants', $carburants)
+        ->with('fonctions', $fonctions);
     }
 
     public function store(){
@@ -91,13 +94,16 @@ class VehiculeController extends \BaseController {
 
       $carburants = DB::select("select CategorieID, Libelle from categorie WHERE `CategorieparenteID` =39 AND `BaseID` = '".$baseid."' order by Libelle");
       $carburants = $this->objectsToArray($carburants, 'CategorieID', 'Libelle');
+
+      $fonctions = array(0 => 'Utilitaire', 1 => 'De service', 3 => 'Particulier');
       
       return View::make('patrimoine.vehicule.edit')
         ->with('vehicule', $vehicule)
         ->with('mos', $mos)
         ->with('contacts', $contacts)
         ->with('categories', $categories)
-        ->with('carburants', $carburants);
+        ->with('carburants', $carburants)
+        ->with('fonctions', $fonctions);
     }
 
     public function update($id){

@@ -30,13 +30,15 @@
 $(document).ready(function() {
     $('#compteurEauxSelect2').select2({
         allowClear: true,
-        placeholder: "Sélectionner un compteur d'eau",
-        closeOnSelect : false
+        placeholder: "Sélectionner un compteur d'eau"
     });
     $('#compteurElectricitesSelect2').select2({
         allowClear: true,
-        placeholder: "Sélectionner un compteur d'électricité",
-        closeOnSelect : false
+        placeholder: "Sélectionner un compteur d'électricité"
+    });
+    $('#patrimoineSelect2').select2({
+        allowClear: true,
+        placeholder: "Sélectionner la catégorie"
     });
 });
 </script>
@@ -71,13 +73,55 @@ $(document).ready(function() {
                                 @endforeach
                             @endif
                             {{ Form::model($batiment, array('route' => array('tbge.patrimoine.batiment.update', $batiment->BatimentID), 'method' => 'put', 'role' => 'form')) }}
+                                <div class="form-group">
+                                    <label>Référence</label>
+                                    {{ Form::text('Reference', Input::old('Reference'), array('class' => 'form-control') ) }}
+                                </div>
                                 <div class="form-group @if($errors->first('Nom') != '') has-error @endif">
-                                    <label>Nom *</label>
+                                    <label>Nom / Desription *</label>
                                     {{ Form::text('Nom', Input::old('Nom'), array('class' => 'form-control', 'placeholder' => "Entrer la valeur ...", 'autofocus' => '' ) ) }}
                                     {{ $errors->first('Nom', '<span class="error">:message</span>' ) }}
                                 </div>
                                 <div class="form-group">
-                                    <label>Adresse</label>
+                                    <label>Catégorie de bâtiment</label>
+                                    <select id="patrimoineSelect2" name="Patrimoine" class="form-control">
+                                        @if(count($patrimoines) > 0)
+                                            @foreach($patrimoines as $categorie => $sousCategories)
+                                            <optgroup label="{{$categorie}}">
+                                                @foreach($sousCategories as $sousCAtegorieKey => $sousCategorieLabel)
+                                                    <option value="{{$sousCAtegorieKey}}" @if($sousCAtegorieKey == $batiment->Patrimoine) selected="selected" @endif>{{$sousCategorieLabel}}</option>
+                                                @endforeach
+                                            </optgroup>
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Compteurs d’électricité associés</label>
+                                    <select id="compteurElectricitesSelect2" name="compteurElectricitesID[]" class="form-control" multiple>
+                                        @if(count($compteurElectricites) > 0)
+                                            <optgroup label="Compteurs d'électricité">
+                                            @foreach($compteurElectricites as $key => $value)
+                                                <option value="{{$value->CompteurID}}" @if(in_array($value->CompteurID, $compteurElectricitesSelected)) selected="selected" @endif>{{'N°: ' . $value->Numero . ' | Ref: ' . $value->Reference}}</option>
+                                            @endforeach
+                                            </optgroup>
+                                        @endif
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Compteurs d’eau associés</label>
+                                    <select id="compteurEauxSelect2" name="compteurEauxID[]" class="form-control" multiple>
+                                        @if(count($compteurEaux) > 0)
+                                            <optgroup label="Compteurs d'eau">
+                                            @foreach($compteurEaux as $key => $value)
+                                                <option value="{{$value->CompteurID}}" @if(in_array($value->CompteurID, $compteurEauxSelected)) selected="selected" @endif>{{'N°: ' . $value->Numero . ' | Ref: ' . $value->Reference}}</option>
+                                            @endforeach
+                                            </optgroup>
+                                        @endif
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Adresse postale</label>
                                     {{ Form::text('Adresse1', Input::old('Adresse1'), array('class' => 'form-control') ) }}
                                 </div>
                                 <div class="form-group">
@@ -101,13 +145,8 @@ $(document).ready(function() {
                                     {{ Form::number('Longitude', Input::old('Longitude'), array('class' => 'form-control') ) }}
                                 </div>
                                 <div class="form-group">
-                                    <label>Catégorie de batiment</label>
-                                    {{ Form::select('Patrimoine', $patrimoines, Input::old('Patrimoine'), array('class' => 'form-control')) }}
-                                </div>
-                                <div class="form-group @if($errors->first('Anneeconstruction') != '') has-error @endif">
-                                    <label>Année de construction *</label>
+                                    <label>Année de construction</label>
                                     {{ Form::number('Anneeconstruction', Input::old('Anneeconstruction'), array('class' => 'form-control' ) ) }}
-                                    {{ $errors->first('Anneeconstruction', '<span class="error">:message</span>' ) }}
                                 </div>
                                 <div class="form-group">
                                     <label>Nombre d'étages</label>
@@ -118,44 +157,44 @@ $(document).ready(function() {
                                     {{ Form::number('Surface', Input::old('Surface'), array('class' => 'form-control') ) }}
                                 </div>
                                 <div class="form-group">
+                                    <label>Surface brute (m²)</label>
+                                    {{ Form::number('SurfaceBrute', Input::old('SurfaceBrute'), array('class' => 'form-control') ) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Surface nette (m²)</label>
+                                    {{ Form::number('SurfaceNette', Input::old('SurfaceNette'), array('class' => 'form-control') ) }}
+                                </div>
+                                <div class="form-group">
                                     <label>Nombre d’employés qui travaillent dans le bâtiment de manière régulière</label>
                                     {{ Form::number('NbrEmployee', Input::old('NbrEmployee'), array('class' => 'form-control') ) }}
-                                </div>
-                                <div class="form-group">
-                                    <label>Compteurs d’électricité</label>
-                                    <select id="compteurElectricitesSelect2" name="compteurElectricitesID[]" class="form-control" multiple>
-                                        @if(count($compteurElectricites) > 0)
-                                            @foreach($compteurElectricites as $key => $value)
-                                            <optgroup label="{{$value->Energie}}">
-                                                <option value="{{$value->CompteurID}}" @if(in_array($value->CompteurID, $compteurElectricitesSelected)) selected="selected" @endif>{{$value->Nom . ' | ' . $value->Reference}}</option>
-                                            </optgroup>
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Capacité installée/ surface couverte en panneaux, pour la production d’électricité (PV)</label>
-                                    {{ Form::number('Pv', Input::old('Pv'), array('class' => 'form-control') ) }}
-                                </div>
-                                <div class="form-group">
-                                    <label>Compteurs d’eau associés et consommation</label>
-                                    <select id="compteurEauxSelect2" name="compteurEauxID[]" class="form-control" multiple>
-                                        @if(count($compteurEaux) > 0)
-                                            @foreach($compteurEaux as $key => $value)
-                                            <optgroup label="{{$value->Energie}}">
-                                                <option value="{{$value->CompteurID}}" @if(in_array($value->CompteurID, $compteurEauxSelected)) selected="selected" @endif>{{$value->Nom . ' | ' . $value->Reference}}</option>
-                                            </optgroup>
-                                            @endforeach
-                                        @endif
-                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Système de chauffage d’eau (le cas échéant)</label>
                                     {{ Form::text('SystemeChauffageEau', Input::old('SystemeChauffageEau'), array('class' => 'form-control') ) }}
                                 </div>
                                 <div class="form-group">
+                                    <label>Capacité installée/ surface couverte en panneaux, pour la production d’électricité (PV)</label>
+                                    {{ Form::number('Pv', Input::old('Pv'), array('class' => 'form-control') ) }}
+                                </div>
+                                <div class="form-group">
                                     <label>Capacité installée/ surface couverte en panneaux, pour la production d’eau chaude (CES)</label>
                                     {{ Form::number('Ces', Input::old('Ces'), array('class' => 'form-control') ) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Adoption mesures  Efficacité énergétique (EE)</label>
+                                    {{ Form::checkbox('MesuresEE', Input::old('MesuresEE') ) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Description Mesures EE</label>
+                                    {{ Form::text('MesuresEEDesc', Input::old('MesuresEEDesc'), array('class' => 'form-control') ) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Adoption mesures  Gestion Rationnelle Eau(GRE)</label>
+                                    {{ Form::checkbox('MesuresGRE', Input::old('MesuresGRE') ) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Description Mesures GRE</label>
+                                    {{ Form::text('MesuresEEDesc', Input::old('MesuresEEDesc'), array('class' => 'form-control') ) }}
                                 </div>
                                 {{ Form::submit('Enregistrer', array('class'=>'btn btn-primary')) }}
                                 {{ link_to(URL::previous(), 'Annuler', ['class' => 'btn btn-default']) }}

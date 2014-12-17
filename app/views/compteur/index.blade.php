@@ -25,7 +25,6 @@
 {{-- Page specific JS files --}}
 {{-- {{ HTML::script('--Path to js--') }} --}}
 @section('scripts')
-<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 {{ HTML::script('assets/js/plugins/dataTables/extensions/TableTools-2.2.3/js/dataTables.tableTools.min.js') }}
 <script>
 $(document).ready(function() {
@@ -62,7 +61,7 @@ $(document).ready(function() {
                     @if ($message = Session::get('success'))
                         <div class="alert alert-success alert-block">
                             <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            {{{ $message }}}
+                            {{ $message }}
                         </div>
                     @endif
                     <div class="table-responsive">
@@ -77,7 +76,7 @@ $(document).ready(function() {
                                     <th>Numéro</th>
                                     <th>Localisation</th>
                                     <th>Fournisseur</th>
-                                    <th>&nbsp;</th>
+                                    <th class="no-sort" style="width:75px;min-width:75px;max-width:75px;">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -91,15 +90,17 @@ $(document).ready(function() {
                                     <td>{{$value->Numero}}</td>
                                     <td>{{$value->Localisation}}</td>
                                     <td>{{ isset($value->Fournisseur->Societe) ? $value->Fournisseur->Societe : '' }}</td>
-                                    <td>
+                                    <td nowrap="nowrap">
                                         <div class="pull-right">
-                                            <a href="{{ URL::to('compteur/' . $value->CompteurID . '/edit') }}" class="btn btn-sm btn-primary">Editer</a> 
+                                            <a href="{{ URL::to('compteur/' . $value->CompteurID . '/edit') }}" class="btn btn-sm btn-success"> <i class="fa fa-edit"></i> </a>&nbsp;
                                             {{ Form::open(array('url' => 'compteur/' . $value->CompteurID, 'class' => 'pull-right')) }}
                                                 {{ Form::hidden('_method', 'DELETE') }}
-                                                {{ Form::submit("Supprimer", array('class' => 'btn btn-sm btn-danger')) }}
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
                                             {{ Form::close() }}
                                         </div>
-                                      </td>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>

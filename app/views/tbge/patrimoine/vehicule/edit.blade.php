@@ -75,11 +75,11 @@ $(document).ready(function() {
                                     <label>Compteurs associés</label>
                                     <select id="compteurElectricitesSelect2" name="compteurElectricitesID[]" class="form-control" multiple>
                                         @if(count($compteurElectricites) > 0)
+                                            <optgroup label="Compteurs d'électricité">
                                             @foreach($compteurElectricites as $key => $value)
-                                            <optgroup label="{{$value->Energie}}">
-                                                <option value="{{$value->CompteurID}}" @if(in_array($value->CompteurID, $compteurElectricitesSelected)) selected="selected" @endif>{{$value->Nom . ' | ' . $value->Reference}}</option>
-                                            </optgroup>
+                                                <option value="{{$value->CompteurID}}" @if(in_array($value->CompteurID, $compteurElectricitesSelected)) selected="selected" @endif>{{'N°:' . $value->Numero . ' | Ref: ' . $value->Reference}}</option>
                                             @endforeach
+                                            </optgroup>
                                         @endif
                                     </select>
                                 </div>
@@ -88,8 +88,16 @@ $(document).ready(function() {
                                     {{ Form::select('CategorieID', $categories, Input::old('CategorieID'), array('class' => 'form-control')) }}
                                 </div>
                                 <div class="form-group">
+                                    <label>Fonction</label>
+                                    {{ Form::select('Fonction', $fonctions, Input::old('Fonction'), array('class' => 'form-control')) }}
+                                </div>
+                                <div class="form-group">
                                     <label>Service</label>
                                     {{ Form::select('Service', $services, Input::old('Service'), array('class' => 'form-control')) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Unité administrative</label>
+                                    {{ Form::text('UniteAdministrative', Input::old('UniteAdministrative'), array('class' => 'form-control') ) }}
                                 </div>
                                 <div class="form-group">
                                     <label>Marque du véhicule ou engin</label>
@@ -100,7 +108,7 @@ $(document).ready(function() {
                                     {{ Form::text('Modele', Input::old('Modele'), array('class' => 'form-control') ) }}
                                 </div>
                                 <div class="form-group">
-                                    <label>Taille</label>
+                                    <label>Taille du moteur</label>
                                     {{ Form::text('Taille', Input::old('Taille'), array('class' => 'form-control') ) }}
                                 </div>
                                 <div class="form-group">

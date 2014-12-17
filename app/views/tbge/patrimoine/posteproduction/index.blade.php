@@ -19,6 +19,7 @@
 @section('css')
 <!-- DataTables CSS -->
 {{ HTML::style('assets/css/plugins/dataTables.bootstrap.css') }}
+{{ HTML::style('assets/js/plugins/dataTables/extensions/TableTools-2.2.3/css/dataTables.tableTools.min.css') }}
 @stop
 
 {{-- Page specific JS files --}}
@@ -27,7 +28,12 @@
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 <script>
 $(document).ready(function() {
-    $('#dataTables-posteproductions').dataTable();
+    $('#dataTables-posteproductions').dataTable({
+        "dom": 'T<"clear">lfrtip',
+        "tableTools": {
+            "sSwfPath": "assets/js/plugins/dataTables/extensions/TableTools-2.2.3/swf/copy_csv_xls_pdf.swf"
+        }
+    });
 });
 </script>
 @stop
@@ -47,7 +53,7 @@ $(document).ready(function() {
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Consultation des postes de production
+                    Consultation des postes de production enregistrés dans l'application
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -65,7 +71,7 @@ $(document).ready(function() {
                                     <th>Nom du poste</th>
                                     <th>Catégorie</th>
                                     <th>Année de mise en service</th>
-                                    <th>&nbsp;</th>
+                                    <th class="no-sort" style="width:75px;min-width:75px;max-width:75px;">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -74,12 +80,14 @@ $(document).ready(function() {
                                     <td>{{$value->Nom}}</td>
                                     <td>{{$value->categorie}}</td>
                                     <td>{{$value->Anneeconstruction}}</td>
-                                    <td>
+                                    <td nowrap="nowrap">
                                         <div class="pull-right">
-                                            <a href="{{ URL::to('tbge/patrimoine/posteproduction/' . $value->PosteproductionID . '/edit') }}" class="btn btn-sm btn-success">Editer</a> 
+                                            <a href="{{ URL::to('tbge/patrimoine/posteproduction/' . $value->PosteproductionID . '/edit') }}" class="btn btn-sm btn-success"> <i class="fa fa-edit"></i> </a>&nbsp;
                                             {{ Form::open(array('url' => 'tbge/patrimoine/posteproduction/' . $value->PosteproductionID, 'class' => 'pull-right')) }}
                                                 {{ Form::hidden('_method', 'DELETE') }}
-                                                {{ Form::submit("Supprimer", array('class' => 'btn btn-sm btn-danger')) }}
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
                                             {{ Form::close() }}
                                         </div>
                                       </td>
