@@ -128,7 +128,7 @@ $(document).ready(function() {
                                 </div>
                                 <div class="form-group @if($errors->first('Totalttc') != '')) has-error @endif">
                                     <label>Cout TTC *</label>
-                                    {{ Form::number('Totalttc', Input::old('Totalttc'), array('class' => 'form-control', 'placeholder' => "Montant total de la facture en MAD ttc (Abonnement compris)") ) }}
+                                    {{ Form::number('Totalttc', Input::old('Totalttc'), array('class' => 'form-control', 'placeholder' => "Montant total de la facture en MAD TTC (Abonnement compris)") ) }}
                                     {{ $errors->first('Totalttc', '<span class="error">:message</span>' ) }}
                                 </div>
                                 <div class="form-group @if($errors->first('Consommation') != '')) has-error @endif">

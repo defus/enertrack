@@ -2,6 +2,43 @@
 
 class DashboardController extends BaseController {
   
+  public function graph(){
+
+    $startDate = \Carbon\Carbon::parse(\Input::get('start'));
+    $endDate = \Carbon\Carbon::parse(\Input::get('end'));
+    $metrics = \Input::get("metrics");
+
+    if($startDate->gte($endDate)){
+      $endDate = new \Carbon\Carbon();
+      $endDateClone = \Carbon\Carbon::parse($endDate->toDateString());
+      $startDate = $endDateClone->subYears(2);
+    }
+
+    $dateRequestes = array();
+    while($startDate->lt($endDate)){
+      $row = array($startDate->toDateString());
+      $row[] = $startDate->endOfMonth()->toDateString();
+      $dateRequestes[$row[0]] = $row[1];
+      $startDate = $startDate->startOfMonth()->addMonth();
+    }
+
+    $series = array("graph" => array(), "header" => array());
+    foreach ($metrics as $key => $metric) {
+      $series["header"][$metric] = MetricFactory::create($metric)->getHeader();
+      $series["graph"][$metric] = array();
+      foreach ($dateRequestes as $start => $end) {
+        $series["graph"][$metric][] = MetricFactory::create($metric)->getValue($start, $end);
+      }
+    }
+
+    return Response::json($series);
+
+    
+  }
+  public function showDashboard2(){
+    return \View::make('dashboard');
+  }
+
   /**
    *  entrée dans l'application juste apres la connexion
    *  - crée un tableau A regroupant les maitres d'ouvrage (MO) ayant des données pour l'année n-1

@@ -7,10 +7,78 @@ class CompteurTbgeController extends \BaseController {
     public function index()
     {
       $baseid = Auth::user()->BaseID; 
+      
+      return  View::make('tbge.compteur.index');
+    }
 
-      $compteurs = Compteurs::where('BaseID', 'like', $baseid)->get();
-      return  View::make('tbge.compteur.index')
-        ->with('compteurs', $compteurs);
+    public function datatable(){
+
+      $baseid = Auth::user()->BaseID; 
+
+      $draw = \Input::get('draw');
+      $start = \Input::get('start', 0);
+      $length = \Input::get('length', 10);
+      $search = \Input::get('search');
+      $order = \Input::get('order');
+      $columns = \Input::get('columns');
+
+      $query = Compteurs::with('Energie')->with('Fournisseur')->where('BaseID', 'like', $baseid);
+      $total = $query->count();
+      if($search['value'] != ''){
+        $query->where(DB::raw('LOWER(Reference)'), 'LIKE', Str::lower('%' . trim($search['value']) . '%' ));
+        $query->orwhere(DB::raw('LOWER(Numero)'), 'LIKE', Str::lower('%' . trim($search['value']) . '%' ));
+      }
+      $total_search = $query->count();
+      if (!is_null($start) && !is_null($length)) {
+        $query = $query->skip($start)->take($length);
+      }
+      if (is_array($order) && count($order) > 0) {
+          for ($i = 0, $c = count($order); $i < $c; $i++) {
+              $order_col = (int)$order[$i]['column'];
+              if (isset($columns[$order_col])) {
+                  if ($columns[$order_col]['orderable'] == "true") {
+                      $query->orderBy($columns[$order_col]['name'], $order[$i]['dir']);
+                  }
+              }
+          }
+      }
+      $list = $query->get();
+
+      $datatable = new DataTableResponse($draw, $total, $total_search, $list, null);
+
+      return Response::json($datatable);      
+    }
+
+    public function select2(){
+
+      $baseid = Auth::user()->BaseID; 
+
+      $page = \Input::get('page', 0);
+      $length = \Input::get('length', 10);
+      $search = \Input::get('q');
+      $order = \Input::get('order', 'Reference');
+      
+      $query = Compteurs::with('Energie')->with('Fournisseur')->where('BaseID', 'like', $baseid);
+      $total = $query->count();
+      if($search != ''){
+        $query->where(function($q) use($search){
+          $q->where(DB::raw('LOWER(Reference)'), 'LIKE', Str::lower('%' . trim($search) . '%' ));
+          $q->orwhere(DB::raw('LOWER(Numero)'), 'LIKE', Str::lower('%' . trim($search) . '%' ));
+        });
+      }
+      $total_search = $query->count();
+      if (!is_null($page) && !is_null($length)) {
+        $start = (int)(($page-1) * $length);
+        $query = $query->skip($start)->take($length);
+      }
+      
+      $query->orderBy($order, 'ASC');
+      
+      $list = $query->get();
+
+      $datatable = new DataTableResponse(1, $total, $total_search, $list, null);
+
+      return Response::json($datatable);      
     }
 
     public function create()
@@ -107,7 +175,7 @@ class CompteurTbgeController extends \BaseController {
           $patrimoineId = $patrimoine[1];
           $patrimoineType = $patrimoine[0]; //permet apr la suite de stoquer la ligne dans la table de liaison etre le compteur et le patrimoine lié
 
-          //Enregistrer les informations de base de tous les compteurs
+          //Enregistrer les informations de base de tous les query
           $compteur = new Compteurs();
           $compteur->MouvrageID = Config::get('enertrack.MouvrageID');
           $compteur->BaseID = $baseid;

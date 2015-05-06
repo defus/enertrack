@@ -12,7 +12,7 @@
 @extends('templates.normal')
 
 {{-- Page title --}}
-@section('title') Consultation des compteurs @stop
+@section('title') Liste des compteurs @stop
 
 {{-- Page specific CSS files --}}
 {{-- {{ HTML::style('--Path to css--') }} --}}
@@ -30,8 +30,34 @@
 $(document).ready(function() {
     $('#dataTables-example').dataTable({
         "dom": 'T<"clear">lfrtip',
+        "bProcessing": true,
+        "serverSide": true,
+        "ajax": "{{ URL::to('compteur/datatables') }}",
+        ,
+        "columns": [
+            { "data": "Reference" },
+            { "data": "Numero" },
+            { "data": "EnergieID" },
+            { "data": "FournisseurID" },
+            { "data": "CompteurID" }
+        ],
+        "columnDefs": [
+            {
+                // The `data` parameter refers to the data for the cell (defined by the
+                // `data` option, which defaults to the column being worked with, in
+                // this case `data: 0`.
+                "render": function ( data, type, row ) {
+                    return data +' ('+ row[3]+')';
+                },
+                "targets": 0
+            },
+            { "visible": false,  "targets": [ 3 ] }
+        ]
         "tableTools": {
-            "sSwfPath": "assets/js/plugins/dataTables/extensions/TableTools-2.2.3/swf/copy_csv_xls_pdf.swf"
+            "sSwfPath": "{{ URL::to('/')}}/assets/js/plugins/dataTables/extensions/TableTools-2.2.3/swf/copy_csv_xls_pdf.swf"
+        },
+        "language": {
+            "url": "{{ URL::to('/')}}/assets/js/plugins/dataTables/French.lang"
         }
     });
 });
@@ -53,7 +79,7 @@ $(document).ready(function() {
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Consultation des compteurs enregistrés
+                    Liste des compteurs enregistrés
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -79,31 +105,7 @@ $(document).ready(function() {
                                     <th class="no-sort" style="width:75px;min-width:75px;max-width:75px;">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach($compteurs as $key => $value)
-                                <tr>
-                                    <td>{{ isset($value->Mo->Societe) ? $value->Mo->Societe : '' }}</td>
-                                    <td>{{$value->Nom}}</td>
-                                    <td>{{$value->Type}}</td>
-                                    <td>{{ isset($value->Energie->Nom) ? $value->Energie->Nom : '' }}</td>
-                                    <td>{{$value->Reference}}</td>
-                                    <td>{{$value->Numero}}</td>
-                                    <td>{{$value->Localisation}}</td>
-                                    <td>{{ isset($value->Fournisseur->Societe) ? $value->Fournisseur->Societe : '' }}</td>
-                                    <td nowrap="nowrap">
-                                        <div class="pull-right">
-                                            <a href="{{ URL::to('compteur/' . $value->CompteurID . '/edit') }}" class="btn btn-sm btn-success"> <i class="fa fa-edit"></i> </a>&nbsp;
-                                            {{ Form::open(array('url' => 'compteur/' . $value->CompteurID, 'class' => 'pull-right')) }}
-                                                {{ Form::hidden('_method', 'DELETE') }}
-                                                <button type="submit" class="btn btn-sm btn-danger">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            {{ Form::close() }}
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
+                            
                         </table>
                     </div>
                 </div>

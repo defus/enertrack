@@ -29,15 +29,18 @@
 {{ HTML::script('assets/js/plugins/dataTables/extensions/TableTools-2.2.3/js/dataTables.tableTools.min.js') }}
 <script>
 var oTable = null;
-$(document).ready(function() {
+/*$(document).ready(function() {
     oTable = $('#dataTables-vehicules').dataTable({
         "dom": 'T<"clear">lfrtip',
         "tableTools": {
-            "sSwfPath": "assets/js/plugins/dataTables/extensions/TableTools-2.2.3/swf/copy_csv_xls_pdf.swf"
+            "sSwfPath": "{{ URL::to('/')}}/assets/js/plugins/dataTables/extensions/TableTools-2.2.3/swf/copy_csv_xls_pdf.swf"
         },
         //"sScrollY": "400px",
-        "bPaginate": false
-    });
+        "bPaginate": false,
+        "language": {
+            "url": "{{ URL::to('/')}}/assets/js/plugins/dataTables/French.lang"
+        }
+    });*/
     $('#chkAllSelect').change(function() {
        if($(this).is(':checked')) {            
             $('.chkSelect', oTable.fnGetNodes()).prop("checked", true);
@@ -71,7 +74,7 @@ $(document).ready(function() {
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Consultation de la liste des postes d'éclairage à importer dans la base de données
+                    Liste des postes d'éclairage à importer dans la base de données
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">

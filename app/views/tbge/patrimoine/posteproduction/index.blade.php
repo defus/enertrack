@@ -12,7 +12,7 @@
 @extends('templates.normal')
 
 {{-- Page title --}}
-@section('title') Consultation des postes de production @stop
+@section('title') Liste des postes de production @stop
 
 {{-- Page specific CSS files --}}
 {{-- {{ HTML::style('--Path to css--') }} --}}
@@ -31,7 +31,10 @@ $(document).ready(function() {
     $('#dataTables-posteproductions').dataTable({
         "dom": 'T<"clear">lfrtip',
         "tableTools": {
-            "sSwfPath": "assets/js/plugins/dataTables/extensions/TableTools-2.2.3/swf/copy_csv_xls_pdf.swf"
+            "sSwfPath": "{{ URL::to('/')}}/assets/js/plugins/dataTables/extensions/TableTools-2.2.3/swf/copy_csv_xls_pdf.swf"
+        },
+        "language": {
+            "url": "{{ URL::to('/')}}/assets/js/plugins/dataTables/French.lang"
         }
     });
 });
@@ -53,7 +56,7 @@ $(document).ready(function() {
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Consultation des postes de production enregistrés dans l'application
+                    Liste des postes de production enregistrés dans l'application
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -68,8 +71,8 @@ $(document).ready(function() {
                         <table class="table table-striped table-bordered table-hover" id="dataTables-posteproductions">
                             <thead>
                                 <tr>
+                                    <th>Numéro d’identification du poste</th>
                                     <th>Nom du poste</th>
-                                    <th>Catégorie</th>
                                     <th>Année de mise en service</th>
                                     <th class="no-sort" style="width:75px;min-width:75px;max-width:75px;">Actions</th>
                                 </tr>
@@ -77,8 +80,8 @@ $(document).ready(function() {
                             <tbody>
                                 @foreach($posteproductions as $key => $value)
                                 <tr>
+                                    <td>{{$value->Reference}}</td>
                                     <td>{{$value->Nom}}</td>
-                                    <td>{{$value->categorie}}</td>
                                     <td>{{$value->Anneeconstruction}}</td>
                                     <td nowrap="nowrap">
                                         <div class="pull-right">

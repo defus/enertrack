@@ -21,8 +21,9 @@ Route::group(array('prefix','/'), function() {
   // Secure-Routes
   Route::group(array('before' => array('auth')), function()
   {
-      Route::get('', 'DashboardController@showDashboard');
-
+      Route::get('', 'DashboardController@showDashboard2');
+      Route::get('api/graph', 'DashboardController@graph');
+      
       Route::get('patrimoine', 'PatrimoineController@index');
 
       Route::resource('patrimoine/batiment', 'BatimentController');
@@ -48,6 +49,9 @@ Route::group(array('prefix','/'), function() {
       Route::post('tbge/patrimoine/batiment/import/csv/doimport', 'BatimentTbgeController@doImport');
 
       Route::resource('tbge/patrimoine/espacevert', 'EspacevertTbgeController');
+      Route::get('tbge/patrimoine/espacevert/import/csv', 'EspacevertTbgeController@importCsv');
+      Route::post('tbge/patrimoine/espacevert/import/csv/post', 'EspacevertTbgeController@importCsvPosted');
+      Route::post('tbge/patrimoine/espacevert/import/csv/doimport', 'EspacevertTbgeController@doImport');
 
       Route::resource('tbge/patrimoine/arriveeau', 'ArriveeauTbgeController');
       Route::get('tbge/patrimoine/arriveeau/import/csv', 'ArriveeauTbgeController@importCsv');
@@ -67,11 +71,17 @@ Route::group(array('prefix','/'), function() {
       Route::resource('tbge/patrimoine/posteproduction', 'PosteproductionTbgeController');
 
       Route::resource('tbge/compteur', 'CompteurTbgeController');
+      Route::get('tbge/compteur/datatable/ajax', 'CompteurTbgeController@datatable');
+      Route::get('tbge/compteur/select2/ajax', 'CompteurTbgeController@select2');
       Route::get('tbge/compteur/import/csv', 'CompteurTbgeController@importCsv');
       Route::post('tbge/compteur/import/csv/post', 'CompteurTbgeController@importCsvPosted');
       Route::post('tbge/compteur/import/csv/doimport', 'CompteurTbgeController@doImport');
 
       Route::resource('tbge/facture', 'FactureTbgeController');
+      Route::get('tbge/facture/datatable/ajax', 'FactureTbgeController@datatable');
+      Route::get('tbge/facture/import/csv', 'FactureTbgeController@importCsv');
+      Route::post('tbge/facture/import/csv/post', 'FactureTbgeController@importCsvPosted');
+      Route::post('tbge/facture/import/csv/doimport', 'FactureTbgeController@doImport');
 
       Route::get('tbge/indicateur/electricite/global', 'IndicateurTbgeController@electriciteGlobal');
 

@@ -38,6 +38,10 @@ $(document).ready(function() {
         placeholder: "Sélectionner un compteur d'électricité",
         closeOnSelect : false
     });
+    $('#espacevertsSelect2').select2({
+        allowClear: true,
+        closeOnSelect : false
+    });
 });
 </script>
 @stop
@@ -93,6 +97,10 @@ $(document).ready(function() {
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label>Existence d’un forage</label>
+                                    {{ Form::checkbox('Forage', Input::old('Forage') ) }}
+                                </div>
+                                <div class="form-group">
                                     <label>Compteurs d’électricité si forage</label>
                                     <select id="compteurElectricitesSelect2" name="compteurElectricitesID[]" class="form-control" multiple>
                                         @if(count($compteurElectricites) > 0)
@@ -105,20 +113,20 @@ $(document).ready(function() {
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Adresse postale</label>
-                                    {{ Form::text('Adresse1', Input::old('Adresse1'), array('class' => 'form-control') ) }}
+                                    <label>Catégorie du point d’eau</label>
+                                    {{ Form::select('Categorie', $categories, Input::old('Categorie'), array('class' => 'form-control')) }}
                                 </div>
                                 <div class="form-group">
-                                    <label>Complément d'adresse</label>
-                                    {{ Form::text('Adresse2', Input::old('Adresse2'), array('class' => 'form-control') ) }}
-                                </div>
-                                <div class="form-group">
-                                    <label>Complément d'adresse</label>
-                                    {{ Form::text('Adresse3', Input::old('Adresse3'), array('class' => 'form-control') ) }}
-                                </div>
-                                <div class="form-group">
-                                    <label>altitude</label>
-                                    {{ Form::number('altitude', Input::old('altitude'), array('class' => 'form-control') ) }}
+                                    <label>Liste des espaces verts qui sont arrosés à partir de ce point d’arrivée d’eau</label>
+                                    <select id="espacevertsSelect2" name="espacevertsID[]" class="form-control" multiple disabled>
+                                        @if(count($espaceverts) > 0)
+                                            <optgroup label="Espaces verts associés">
+                                            @foreach($espaceverts as $key => $value)
+                                                <option value="{{$value->EspacevertID}}" selected="selected">{{$value->Nom}}</option>
+                                            @endforeach
+                                            </optgroup>
+                                        @endif
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Latitude</label>
@@ -129,19 +137,11 @@ $(document).ready(function() {
                                     {{ Form::number('Longitude', Input::old('Longitude'), array('class' => 'form-control') ) }}
                                 </div>
                                 <div class="form-group">
-                                    <label>Surface (m²)</label>
-                                    {{ Form::number('Surface', Input::old('Surface'), array('class' => 'form-control') ) }}
-                                </div>
-                                <div class="form-group">
                                     <label>Surface irriguée (m²)</label>
                                     {{ Form::number('SurfaceIrrigue', Input::old('SurfaceIrrigue'), array('class' => 'form-control') ) }}
                                 </div>
                                 <div class="form-group">
-                                    <label>Existence d’un forage</label>
-                                    {{ Form::checkbox('Forage', Input::old('Forage') ) }}
-                                </div>
-                                <div class="form-group">
-                                    <label>Alignement  d'arbres (en m2)</label>
+                                    <label>Alignement irrigué (en km)</label>
                                     {{ Form::number('AlignementArbre', Input::old('AlignementArbre'), array('class' => 'form-control') ) }}
                                 </div>
                                 {{ Form::submit('Enregistrer', array('class'=>'btn btn-primary')) }}
@@ -161,5 +161,4 @@ $(document).ready(function() {
 
 </div>
 <!-- /#page-wrapper -->
-
 @stop

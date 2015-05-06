@@ -1,6 +1,7 @@
 <?php
 
 class ArriveeauTbgeController extends \BaseController {
+  public static $categories = array('Borne fontaine' => 'Borne fontaine', "Bouche d'arrosage" => "Bouche d'arrosage");
 
     public function index()
     {
@@ -23,7 +24,8 @@ class ArriveeauTbgeController extends \BaseController {
       
       return View::make('tbge.patrimoine.arriveeau.create')
         ->with('compteurEaux', $compteurEaux)
-        ->with('compteurElectricites', $compteurElectricites);
+        ->with('compteurElectricites', $compteurElectricites)
+        ->with('categories', self::$categories);
     }
 
     public function store(){
@@ -48,16 +50,12 @@ class ArriveeauTbgeController extends \BaseController {
           $arriveeau->BaseID = $baseid;
           $arriveeau->Reference = \Input::get('Reference');
           $arriveeau->Nom = \Input::get('Nom');
-          $arriveeau->Adresse1 = \Input::get('Adresse1');
-          $arriveeau->Adresse2 = \Input::get('Adresse2');
-          $arriveeau->Adresse3 = \Input::get('Adresse3');
-          $arriveeau->altitude = \Input::get('altitude');
           $arriveeau->Latitude = \Input::get('Latitude');
           $arriveeau->Longitude = \Input::get('Longitude');
-          $arriveeau->Surface = \Input::get('Surface');
           $arriveeau->SurfaceIrrigue = \Input::get('SurfaceIrrigue');
           $arriveeau->Forage = (\Input::has('Forage')) ? 1 : 0;
           $arriveeau->AlignementArbre = \Input::get('AlignementArbre');
+          $arriveeau->Categorie = \Input::get('Categorie');
           
           $arriveeau->save();
 
@@ -108,12 +106,16 @@ class ArriveeauTbgeController extends \BaseController {
       $compteurElectricitesSelected = DB::select("SELECT compteur.CompteurID FROM compteur inner join compteurarriveeaux on ( compteur.CompteurID=compteurarriveeaux.CompteurID) WHERE compteur.BaseID='$baseid' and compteur.Clos=0 and (compteur.Type='CONSO') and compteurarriveeaux.ArriveeauID={$arriveeau->ArriveeauID}");
       $compteurElectricitesSelected = $this->objectsToArray($compteurElectricitesSelected, 'CompteurID', 'CompteurID');
 
+      $espaceverts = DB::select("SELECT EspacevertID, Nom FROM espacevert WHERE ArriveeauID like '$id'");
+
       return View::make('tbge.patrimoine.arriveeau.edit')
         ->with('arriveeau', $arriveeau)
         ->with('compteurEaux', $compteurEaux)
         ->with('compteurElectricites', $compteurElectricites)
         ->with('compteurEauxSelected', $compteurEauxSelected)
-        ->with('compteurElectricitesSelected', $compteurElectricitesSelected);
+        ->with('compteurElectricitesSelected', $compteurElectricitesSelected)
+        ->with('categories', self::$categories)
+        ->with('espaceverts', $espaceverts);
     }
 
     public function update($id){
@@ -137,16 +139,12 @@ class ArriveeauTbgeController extends \BaseController {
           $arriveeau->MouvrageID = Config::get('enertrack.MouvrageID');
           $arriveeau->Reference = \Input::get('Reference');
           $arriveeau->Nom = \Input::get('Nom');
-          $arriveeau->Adresse1 = \Input::get('Adresse1');
-          $arriveeau->Adresse2 = \Input::get('Adresse2');
-          $arriveeau->Adresse3 = \Input::get('Adresse3');
-          $arriveeau->altitude = \Input::get('altitude');
           $arriveeau->Latitude = \Input::get('Latitude');
           $arriveeau->Longitude = \Input::get('Longitude');
-          $arriveeau->Surface = \Input::get('Surface');
           $arriveeau->SurfaceIrrigue = \Input::get('SurfaceIrrigue');
           $arriveeau->Forage = (\Input::has('Forage')) ? 1 : 0;
           $arriveeau->AlignementArbre = \Input::get('AlignementArbre');
+          $arriveeau->Categorie = \Input::get('Categorie');
 
           $arriveeau->save();
 
@@ -212,7 +210,7 @@ class ArriveeauTbgeController extends \BaseController {
 
       // redirect
       Session::flash('arriveeau.success', "Point d'arrivée d'eau supprimé avec succès !");
-      return Redirect::to('tbge.patrimoine/arriveeau');
+      return Redirect::to('tbge/patrimoine/arriveeau');
     }
 
     public function importCsv()
@@ -278,7 +276,18 @@ class ArriveeauTbgeController extends \BaseController {
           if(empty($value)){
             return true;
           }
-          if(in_array($value, array(1, 0))){
+          if(in_array($value, array('oui', 'non'))){
+            return true;
+          }
+          return false;
+      });
+
+      Validator::extend('categorieValide', function($attribute, $value, $parameters)
+      {
+          if(empty($value)){
+            return true;
+          }
+          if(in_array($value, array('Borne fontaine', "Bouche d'arrosage"))){
             return true;
           }
           return false;
@@ -287,12 +296,12 @@ class ArriveeauTbgeController extends \BaseController {
       Validator::extend('compteursValide', function($attribute, $value, $parameters)
       {
           if(empty($value)){
-            return true;
+            return false;
           }
           $compteurElectricites = explode("-", $value);
           if(is_array($compteurElectricites)){
             foreach ($compteurElectricites as $key => $compteurElectriciteReference) {
-              $compteurs = Compteurs::where('Reference', $compteurElectriciteReference);
+              $compteurs = Compteurs::where('Reference', $compteurElectriciteReference)->get();
               if(count($compteurs) > 0){
                 return true;
               }else{
@@ -317,33 +326,36 @@ class ArriveeauTbgeController extends \BaseController {
               'Nom' => 'required',
               "Compteurs" => 'compteursValide',
               "CompteurElectricites" => 'compteursValide',
-              'Forage' => 'forageValide'
-              ), array(
-                'required' => "Le champ :attribute est obligatoire"
-              )
+              'Forage' => 'forageValide',
+              'Categorie' => 'categorieValide'
+            ), 
+            array(
+              'required' => "Le champ :attribute est obligatoire"
+            )
           );
 
           if ($validation->fails()) {
-              dd($row);
               return Redirect::to('tbge/patrimoine/arriveeau/import/csv')
                   ->withErrors($validation);
           } else {
-            
+            $forage = null;
+            if($row['Forage'] === 'oui'){
+              $forage = 1;
+            }else{
+              $forage = 0;
+            }
+
             $arriveeau = new Arriveeaux();
             $arriveeau->MouvrageID = Config::get('enertrack.MouvrageID');
             $arriveeau->BaseID = $baseid;
             $arriveeau->Reference = $row['Reference'];
             $arriveeau->Nom = $row['Nom'];
-            $arriveeau->Adresse1 = $row['Adresse1'];
-            $arriveeau->Adresse2 = null;
-            $arriveeau->Adresse3 = null;
-            $arriveeau->altitude = null;
-            $arriveeau->Latitude = null;
-            $arriveeau->Longitude = null;
-            $arriveeau->Surface = $row['Surface'];
+            $arriveeau->Latitude = $row['Latitude'];
+            $arriveeau->Longitude = $row['Longitude'];
             $arriveeau->SurfaceIrrigue = $row['SurfaceIrrigue'];
-            $arriveeau->Forage = $row['Forage'];
+            $arriveeau->Forage = $forage;
             $arriveeau->AlignementArbre = $row['AlignementArbre'];
+            $arriveeau->Categorie = $row['Categorie'];
 
             $arriveeau->save();
 

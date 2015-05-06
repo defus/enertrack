@@ -72,18 +72,6 @@ $(document).ready(function() {
                                     {{ $errors->first('Nom', '<span class="error">:message</span>' ) }}
                                 </div>
                                 <div class="form-group">
-                                    <label>Compteurs associés</label>
-                                    <select id="compteurElectricitesSelect2" name="compteurElectricitesID[]" class="form-control" multiple>
-                                        @if(count($compteurElectricites) > 0)
-                                            <optgroup label="Compteurs associés">
-                                            @foreach($compteurElectricites as $key => $value)
-                                                <option value="{{$value->CompteurID}}">{{'N°:' . $value->Numero . ' | Ref: ' . $value->Reference}}</option>
-                                            @endforeach
-                                            </optgroup>
-                                        @endif
-                                    </select>
-                                </div>
-                                <div class="form-group">
                                     <label>Type de véhicule</label>
                                     {{ Form::select('CategorieID', $categories, Input::old('CategorieID'), array('class' => 'form-control')) }}
                                 </div>
@@ -96,27 +84,23 @@ $(document).ready(function() {
                                     {{ Form::select('Service', $services, Input::old('Service'), array('class' => 'form-control')) }}
                                 </div>
                                 <div class="form-group">
-                                    <label>Unité administrative</label>
-                                    {{ Form::text('UniteAdministrative', Input::old('UniteAdministrative'), array('class' => 'form-control') ) }}
+                                    <label>Nom de l’employé de la Commune à qui le véhicule est affecté</label>
+                                    {{ Form::text('Employe', Input::old('Employe'), array('class' => 'form-control') ) }}
                                 </div>
                                 <div class="form-group">
                                     <label>Marque du véhicule ou engin</label>
                                     {{ Form::text('Marque', Input::old('Marque'), array('class' => 'form-control') ) }}
                                 </div>
                                 <div class="form-group">
-                                    <label>Modèle</label>
+                                    <label>Modèle et taille du moteur </label>
                                     {{ Form::text('Modele', Input::old('Modele'), array('class' => 'form-control') ) }}
                                 </div>
                                 <div class="form-group">
-                                    <label>Taille du moteur</label>
-                                    {{ Form::text('Taille', Input::old('Taille'), array('class' => 'form-control') ) }}
-                                </div>
-                                <div class="form-group">
-                                    <label>Type de carburant</label>
+                                    <label>Type de carburant consommé</label>
                                     {{ Form::select('Carburant', $carburants, Input::old('Carburant'), array('class' => 'form-control')) }}
                                 </div>
                                 <div class="form-group">
-                                    <label>Consommation de carburant aux  100 km (L)</label>
+                                    <label>Consommation de carburant aux  100 km (l)</label>
                                     {{ Form::number('Conso', Input::old('Conso'), array('class' => 'form-control') ) }}
                                 </div>
                                 <div class="form-group">
@@ -124,12 +108,28 @@ $(document).ready(function() {
                                     {{ Form::number('DistanceParcourue', Input::old('DistanceParcourue'), array('class' => 'form-control') ) }}
                                 </div>
                                 <div class="form-group">
-                                    <label>Nombre de jours en réparation du véhicule</label>
+                                    <label>Nombre de jours en réparation du véhicule pendant le trimestre</label>
                                     {{ Form::number('NbrJrReparation', Input::old('NbrJrReparation'), array('class' => 'form-control') ) }}
                                 </div>
                                 <div class="form-group">
-                                    <label>Puissance fiscale</label>
-                                    {{ Form::number('Puissance', Input::old('Puissance'), array('class' => 'form-control') ) }}
+                                    <label>Dotation</label>
+                                    {{ Form::select('Dotation', array("Oui", "Non plafonné"), Input::old('Dotation'), array('class' => 'form-control') ) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Montant de la dotation (MAD)</label>
+                                    {{ Form::text('MontantDotation', Input::old('MontantDotation'), array('class' => 'form-control') ) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Compteurs associés</label>
+                                    <select id="compteurElectricitesSelect2" name="compteurElectricitesID[]" class="form-control" multiple>
+                                        @if(count($compteurElectricites) > 0)
+                                            <optgroup label="Compteurs associés">
+                                            @foreach($compteurElectricites as $key => $value)
+                                                <option value="{{$value->CompteurID}}">{{'N°:' . $value->Numero . ' | Ref: ' . $value->Reference}}</option>
+                                            @endforeach
+                                            </optgroup>
+                                        @endif
+                                    </select>
                                 </div>
                                 {{ Form::submit('Enregistrer', array('class'=>'btn btn-primary')) }}
                                 {{ link_to(URL::previous(), 'Annuler', ['class' => 'btn btn-default']) }}

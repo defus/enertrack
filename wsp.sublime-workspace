@@ -4,12 +4,224 @@
 		"selected_items":
 		[
 			[
-				"ha",
-				"hasARole"
+				"X",
+				"Xms512m"
+			],
+			[
+				"compt",
+				"compteur"
+			],
+			[
+				"factr",
+				"factures"
+			],
+			[
+				"comp",
+				"compteurs"
+			],
+			[
+				"compteur",
+				"Compteurvehicules"
+			],
+			[
+				"Categori",
+				"CategorieID"
+			],
+			[
+				"cate",
+				"categorie"
+			],
+			[
+				"categor",
+				"categorie"
+			],
+			[
+				"Vehicu",
+				"VehiculeID"
+			],
+			[
+				"Vehicule",
+				"VehiculeID"
+			],
+			[
+				"compteurveh",
+				"compteurvehicule"
+			],
+			[
+				"veli",
+				"vehicules"
+			],
+			[
+				"fa",
+				"false"
+			],
+			[
+				"espa",
+				"espaceverts"
+			],
+			[
+				"Esp",
+				"EspacevertID"
+			],
+			[
+				"espaceverts",
+				"Espaceverts"
+			],
+			[
+				"for",
+				"forage"
+			],
+			[
+				"Ref",
+				"Reference"
+			],
+			[
+				"Fou",
+				"FournisseurID"
 			],
 			[
 				"Compteur",
-				"compteur"
+				"CompteurID"
+			],
+			[
+				"star",
+				"start"
+			],
+			[
+				"metric",
+				"metricInstance"
+			],
+			[
+				"selected",
+				"selectedValue"
+			],
+			[
+				"divisionC",
+				"divisionConc"
+			],
+			[
+				"divi",
+				"division"
+			],
+			[
+				"Arrivee",
+				"ArriveeauID"
+			],
+			[
+				"start",
+				"startDate"
+			],
+			[
+				"date",
+				"dateRequestes"
+			],
+			[
+				"end",
+				"endDate"
+			],
+			[
+				"point",
+				"pointInterval"
+			],
+			[
+				"Ener",
+				"EnergieID"
+			],
+			[
+				"ENER",
+				"energie"
+			],
+			[
+				"array_key",
+				"array_key_exists"
+			],
+			[
+				"data",
+				"data_array"
+			],
+			[
+				"val",
+				"value"
+			],
+			[
+				"compteurvehi",
+				"Compteurvehicules"
+			],
+			[
+				"array_m",
+				"array_merge"
+			],
+			[
+				"arr",
+				"arriveeau"
+			],
+			[
+				"Categorie",
+				"CategorieID"
+			],
+			[
+				"typeTech",
+				"typeTechnologies"
+			],
+			[
+				"type",
+				"typeTechnologies"
+			],
+			[
+				"compteurEle",
+				"compteurElectriciteReference"
+			],
+			[
+				"sous",
+				"sousPatrimoines"
+			],
+			[
+				"array_k",
+				"array_key_exists"
+			],
+			[
+				"Bati",
+				"Batiments"
+			],
+			[
+				"typeco",
+				"typeCompteurKey"
+			],
+			[
+				"ener",
+				"energies"
+			],
+			[
+				"ty",
+				"typeCompteurKey"
+			],
+			[
+				"ro",
+				"rowIndex"
+			],
+			[
+				"bat",
+				"batimentIdFinded"
+			],
+			[
+				"bati",
+				"batimentId"
+			],
+			[
+				"pa",
+				"pattern"
+			],
+			[
+				"tab",
+				"tableau_head"
+			],
+			[
+				"fgetc",
+				"fgetcsv"
+			],
+			[
+				"ha",
+				"hasARole"
 			],
 			[
 				"Eclairage",
@@ -18,10 +230,6 @@
 			[
 				"espace",
 				"espacevert"
-			],
-			[
-				"Bati",
-				"BatimentID"
 			],
 			[
 				"compte",
@@ -38,10 +246,6 @@
 			[
 				"Comp",
 				"compteurs"
-			],
-			[
-				"comp",
-				"compteur_id"
 			],
 			[
 				"Ba",
@@ -62,10 +266,6 @@
 			[
 				"Batiment",
 				"BatimentID"
-			],
-			[
-				"compteur",
-				"compteurs"
 			],
 			[
 				"base",
@@ -96,10 +296,6 @@
 				"vehicule"
 			],
 			[
-				"bati",
-				"batiment"
-			],
-			[
 				"autreposte",
 				"autreposte"
 			],
@@ -109,10 +305,6 @@
 			],
 			[
 				"patri",
-				"patrimoineType"
-			],
-			[
-				"pa",
 				"patrimoineType"
 			],
 			[
@@ -144,58 +336,34 @@
 	"buffers":
 	[
 		{
-			"file": "app/filters.php",
+			"contents": "apt-get install apt-transport-https\ncurl https://repo.varnish-cache.org/GPG-key.txt | apt-key add -\necho \"deb https://repo.varnish-cache.org/debian/ wheezy varnish-4.0\" >> /etc/apt/sources.list.d/varnish-cache.list\napt-get update\napt-get install varnish\n\n\nChanger le port varnish en 80 dans le fichier /etc/default/varnish\nnano /etc/default/varnish\nDAEMON_OPTS=\"-a :80 \\\n             -T localhost:6082 \\\n             -f /etc/varnish/default.vcl \\\n             -S /etc/varnish/secret \\\n             -s malloc,256m\"\n\nAjouter apacher comme backend à Varnish si il n'est pas encore défini. Le port 8080 sera attribué à apache\nnano /etc/varnish/default.vcl\nbackend default {\n    .host = \"127.0.0.1\";\n    .port = \"8080\";\n}\n\n\nChanger le port 80 apache en 8080 en éditant les fichiers suivantes :\n\nnano /etc/apache2/ports.conf\nNameVirtualHost *:8080\nListen 8080\n\n\nnano /etc/apache2/sites-enabled/vhosts\n<VirtualHost *:8080>\nServerAdmin admin.web@wana.ma\nServerName  www.wafasalafsengage.ma\nServerAlias wafasalafsengage.ma\nDocumentRoot /serveur/vhosts/wafasalafsengage.ma\nErrorLog /var/log/apache2/wafasalafsengage.ma-error.log\nCustomLog /var/log/apache2/wafasalafsengage.ma-access.log combined\n</VirtualHost>\n\n<VirtualHost *:8080>\nServerAdmin admin.web@wana.ma\nServerName  www.jegeremonbudget.ma\nServerAlias jegeremonbudget.ma\nDocumentRoot /serveur/vhosts/jegeremonbudget.ma\nErrorLog /var/log/apache2/jegeremonbudget.ma-error.log\nCustomLog /var/log/apache2/jegeremonbudget.ma-access.log combined\n</VirtualHost>\n\n\n nano /etc/apache2/sites-enabled/wafasalaf\n <VirtualHost *:8080>\n ServerAdmin admin@wafasalaf.ma\n ServerName preprod2.wafasalaf.ma\n ServerAlias wafasalaf.ma\n ServerAlias mpreprod2.wafasalaf.ma\n DocumentRoot /serveur/wafasalaf/prod\n ErrorLog /var/log/apache2/prod.wafasalaf-error.log\n CustomLog /var/log/apache2/prod.wafasalaf-access.log combined\n </VirtualHost>\n\n\n<VirtualHost *:8080>\n ServerAdmin admin.web@wana.ma\n DocumentRoot /serveur/wafasalaf/preprod\n ServerName preprod.wafasalaf.ma\n ErrorLog /var/log/apache2/preprod.wafasalaf-error.log\n CustomLog /var/log/apache2/preprod.wafasalaf-access.log combined\n\n #<IfModule mod_rewrite.c>\n #     RewriteEngine on\n #     RewriteCond %{SERVER_PORT} !^443$\n #     RewriteRule ^/(.*) https://%{SERVER_NAME}/$1 [L,R]\n#</IfModule>\n\n </VirtualHost>\n\n\nRedemarrer le service apache\nservice apache2 restart\n\nRedemarrer le service varnish\nservice varnish restart\n\nAjouter au fichier les règles suivantes\n##\n# Varnish conf for W3 Total Cache\n##\nvcl 4.0;\n\nbackend default {\n  .host = \"127.0.0.1\";\n  .port = \"8080\";\n}\n\nacl purge {\n  \"localhost\";\n  \"127.0.0.1\";\n}\n\nsub vcl_recv {\n  if (req.method == \"PURGE\") {\n    if (!client.ip ~ purge) {\n      return (synth(405, \"Not allowed.\"));\n    }\n    return (purge);\n  }\n\n  # Don't cache backend\n  #if (req.url ~ \"wp-(login|admin|comments-post.php|cron.php)\") {\n  #  return (pass);\n  #}\n\n  # Normalize content-encoding\n  if (req.http.Accept-Encoding) {\n    if (req.url ~ \"\\.(jpg|png|gif|gz|tgz|bz2|lzma|tbz)(\\?.*|)$\") {\n      unset req.http.Accept-Encoding;\n    } elsif (req.http.Accept-Encoding ~ \"gzip\") {\n      set req.http.Accept-Encoding = \"gzip\";\n    } elsif (req.http.Accept-Encoding ~ \"deflate\") {\n      set req.http.Accept-Encoding = \"deflate\";\n    } else {\n      unset req.http.Accept-Encoding;\n    }\n  }\n\n  # Remove cookies and query string for real static files\n  if (req.url ~ \"^/[^?]+\\.(gif|jpg|jpeg|swf|css|js|txt|flv|mp3|mp4|pdf|ico|png|gz|zip|lzma|bz2|tgz|tbz)(\\?.*|)$\") {\n    unset req.http.cookie;\n    set req.url = regsub(req.url, \"\\?.*$\", \"\");\n  }\n\n  return (hash);\n}\n\nsub vcl_hash {\n  hash_data(req.url);\n  if (req.http.host) {\n    hash_data(req.http.host);\n  } else {\n    hash_data(server.ip);\n  }\n\n  return (lookup);\n}\n\nsub vcl_backend_response {\n  # Don't store backend\n  if (bereq.url ~ \"wp-(login|admin|comments-post.php|cron.php)\" || bereq.url ~ \"preview=true\" || bereq.url ~ \"xmlrpc.php\") {\n    if (beresp.http.X-No-Cache) {\n      set beresp.uncacheable = true;\n      set beresp.ttl = 120s;\n      return (deliver);\n    }\n  }\n  #if ( (!(bereq.url ~ \"(wp-(login|admin|comments-post.php|cron.php)|login)\")) || (bereq.method == \"GET\") ) {\n  #  unset beresp.http.set-cookie;\n  #  set beresp.ttl = 4h;\n  #}\n  if (bereq.url ~ \"\\.(gif|jpg|jpeg|swf|css|js|txt|flv|mp3|mp4|pdf|ico|png)(\\?.*|)$\") {\n    unset beresp.http.set-cookie;\n    set beresp.ttl = 30d;\n  }\n\n  set beresp.grace = 2h;\n}\n\nsub vcl_deliver {\n  if (obj.hits > 0) {\n    set resp.http.X-Cache = \"cached\";\n  } else {\n    set resp.http.X-Cache = \"uncached\";\n  }\n\n  unset resp.http.X-Powered-By;\n  unset resp.http.X-Varnish;\n  unset resp.http.Age;\n  unset resp.http.Via;\n\n  return (deliver);\n}\n\nsub vcl_init {\n  return (ok);\n}\n\nsub vcl_fini {\n  return (ok);\n}",
+			"file": "/C/Users/landry/octo/wafasalaf_simulateurcredit/Install varnish.txt",
+			"file_size": 4916,
+			"file_write_time": 130747829624678752,
 			"settings":
 			{
-				"buffer_size": 2863,
+				"buffer_size": 4722,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/tests/TestCase.php",
+			"settings":
+			{
+				"buffer_size": 335,
 				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/controllers/UserController.php",
-			"settings":
-			{
-				"buffer_size": 2899,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/views/admin/user/create.blade.php",
-			"settings":
-			{
-				"buffer_size": 3145,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/views/admin/user/index.blade.php",
-			"settings":
-			{
-				"buffer_size": 3869,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/routes.php",
-			"settings":
-			{
-				"buffer_size": 2194,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/views/includes/navigation.blade.php",
-			"settings":
-			{
-				"buffer_size": 10851,
-				"line_ending": "Windows"
 			}
 		}
 	],
 	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
 	"command_palette":
 	{
 		"height": 311.0,
+		"last_filter": "",
 		"selected_items":
 		[
 			[
@@ -226,142 +394,138 @@
 	[
 		"/C/enertrack_2.0/enertrack",
 		"/C/enertrack_2.0/enertrack/app",
-		"/C/enertrack_2.0/enertrack/app/views",
-		"/C/enertrack_2.0/enertrack/app/views/admin",
-		"/C/enertrack_2.0/enertrack/app/views/admin/user",
-		"/C/enertrack_2.0/enertrack/app/views/contact",
-		"/C/enertrack_2.0/enertrack/app/views/includes"
+		"/C/enertrack_2.0/enertrack/app/tests"
 	],
 	"file_history":
 	[
-		"/C/enertrack_2.0/enertrack/app/services/SecurityCheck.php",
-		"/C/enertrack_2.0/enertrack/app/start/global.php",
-		"/C/enertrack_2.0/enertrack/app/views/error/500.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/error/403.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/error/404.blade.php",
-		"/C/enertrack_2.0/enertrack/app/config/app.php",
-		"/C/enertrack_2.0/enertrack/app/filters.php",
-		"/C/enertrack_2.0/enertrack/app/models/User.php",
-		"/C/enertrack_2.0/enertrack/app/models/HasRole.php",
-		"/C/enertrack_2.0/enertrack/app/Checker.php",
-		"/C/enertrack_2.0/enertrack/app/services/Checker.php",
-		"/C/enertrack_2.0/enertrack/app/models/Roles.php",
-		"/C/enertrack_2.0/enertrack/app/routes.php",
-		"/C/enertrack_2.0/enertrack/vendor/composer/autoload_classmap.php",
-		"/C/enertrack_2.0/enertrack/app/views/dashboard.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/templates/login.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/templates/normal.blade.php",
+		"/C/Users/landry/octo/borj/Notes.txt",
+		"/C/Users/landry/octo/wafasalaf_simulateurcredit/Notes.txt",
+		"/C/Users/landry/octo/varnish/Varnish.txt",
+		"/C/apache-jmeter-2.11/bin/jmeter.bat",
+		"/C/Users/landry/octo/wafasalaf_simulateurcredit/GlobalReport20150504-131548.jtl",
+		"/C/apache-jmeter-2.11/bin/user.properties",
+		"/C/apache-jmeter-2.11/bin/system.properties",
+		"/C/apache-jmeter-2.11/bin/jmeter.properties",
+		"/C/apache-jmeter-2.11/bin/jmeter",
+		"/C/Users/landry/octo/wafasalaf_simulateurcredit/default.vcl",
+		"/C/Users/landry/octo/wafasalaf_simulateurcredit/jmeter.log",
+		"/C/Users/landry/octo/wafasalaf_simulateurcredit/GlobalReport20150504-101253.jtl",
+		"/C/Users/landry/octo/wafasalaf_simulateurcredit/GlobalReport20150504-113210.jtl",
+		"/C/apache-jmeter-2.11/bin/jmeter.sh",
+		"/C/Users/landry/octo/wafasalaf_simulateurcredit/workbench-wafasalaf (1).jmx",
+		"/C/Users/landry/octo/wafasalaf/Notes.txt",
+		"/C/Users/landry/octo/wafasalaf_simulateurcredit/Install varnish.txt",
+		"/C/Users/landry/octo/bel/Questions audit.txt",
+		"/C/Users/landry/octo/awb-juridique/Notes.txt",
+		"/C/Windows/System32/drivers/etc/hosts",
+		"/C/Users/landry/octo/wafasaf siteweb perf/Notes.txt",
+		"/C/Users/landry/Downloads/varnish",
+		"/C/Users/landry/Downloads/fidelio.vcl",
+		"/C/enertrack_2.0/enertrack/Analyse.txt",
+		"/C/Users/landry/limc/dsid/enertrack.1.7.sql",
+		"/C/Program Files (x86)/Go Server/config/wrapper-server.conf",
+		"/C/Program Files (x86)/Go Server/config/config.properties",
+		"/C/Program Files (x86)/Go Server/config/agentkeystore",
+		"/C/Users/landry/octo/elk/bel-2015-03-23/logstash-aix-was.conf",
+		"/C/Users/landry/octo/elk/bel-2015-03-23/ls_agent_start.ps1",
+		"/C/Users/landry/octo/elk/logstash-1.4.2/patterns/grok-patterns",
+		"/C/Users/landry/octo/elk/bel-2015-03-23/patterns/was",
+		"/C/Users/landry/octo/elk/bel-2015-03-23/logstash.log",
+		"/C/Users/landry/octo/elk/bel-2015-03-23/logpp.log",
+		"/C/Users/landry/octo/elk/bel-2015-03-23/changements.txt",
+		"/C/Users/landry/octo/elk/logstash.conf",
 		"/C/enertrack_2.0/enertrack/app/controllers/VehiculeTbgeController.php",
-		"/C/enertrack_2.0/enertrack/app/controllers/EspacevertTbgeController.php",
-		"/C/enertrack_2.0/enertrack/app/controllers/PosteproductionTbgeController.php",
-		"/C/enertrack_2.0/enertrack/app/views/tbge/facture/index.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/tbge/compteur/index.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/eclairage/index.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/eclairage/create.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/eclairage/edit.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/batiment/index.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/espacevert/index.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/posteproduction/index.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/includes/navigation.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/vehicule/index.blade.php",
-		"/C/enertrack_2.0/enertrack/app/controllers/BatimentTbgeController.php",
-		"/C/enertrack_2.0/enertrack/app/controllers/EclairageTbgeController.php",
-		"/C/enertrack_2.0/enertrack/app/controllers/FactureTbgeController.php",
-		"/C/enertrack_2.0/enertrack/app/controllers/BatimentController.php",
-		"/C/enertrack_2.0/enertrack/app/views/tbge/facture/create.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/tbge/facture/edit.blade.php",
-		"/C/enertrack_2.0/enertrack/app/controllers/CompteurTbgeController.php",
-		"/C/enertrack_2.0/enertrack/app/views/tbge/compteur/create.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/tbge/compteur/edit.blade.php",
-		"/C/enertrack_2.0/enertrack/app/controllers/CompteurController.php",
-		"/C/enertrack_2.0/enertrack/readme.md",
-		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/posteproduction/create.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/posteproduction/edit.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/index.blade.php",
 		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/vehicule/create.blade.php",
 		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/vehicule/edit.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/user/login.blade.php",
-		"/C/Users/landry/AppData/Local/Temp/fz3temp-1/.htaccess",
-		"/C/enertrack_2.0/enertrack/app/views/patrimoine/index.blade.php",
-		"/C/enertrack_2.0/enertrack/public/assets/css/sb-admin-2.css",
-		"/C/Users/landry/AppData/Local/Temp/fz3temp-1/database.php",
-		"/C/enertrack_2.0/enertrack/enertrack.sql",
-		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/espacevert/create.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/espacevert/edit.blade.php",
-		"/C/enertrack_2.0/enertrack/app/controllers/PatrimoineTbgeController.php",
-		"/C/enertrack_2.0/enertrack/app/models/Espaceverts.php",
-		"/C/enertrack_2.0/enertrack/app/models/Compteurespaceverts.php",
+		"/C/Users/landry/octo/devops/Windows PowerShell Cookbook, 2nd Edition.txt",
+		"/C/enertrack_2.0/enertrack/readme.md",
+		"/C/Users/landry/octo/elk/logstash-1.4.2/bin/logstash.bat",
+		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/posteproduction/create.blade.php",
+		"/C/enertrack_2.0/enertrack/app/controllers/PosteproductionTbgeController.php",
+		"/C/enertrack_2.0/enertrack/app/controllers/CompteurTbgeController.php",
+		"/C/enertrack_2.0/views.sql",
+		"/C/enertrack_2.0/enertrack/app/controllers/BatimentTbgeController.php",
 		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/batiment/create.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/batiment/edit.blade.php",
-		"/C/enertrack_2.0/enertrack/app/controllers/FactureController.php",
-		"/C/enertrack_2.0/enertrack/app/views/facture/index.blade.php",
-		"/C/enertrack_2.0/enertrack/app/models/Factures.php",
-		"/C/enertrack_2.0/enertrack/app/views/facture/edit.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/facture/create.blade.php",
-		"/C/enertrack_2.0/enertrack/app/config/enertrack.php",
-		"/C/Users/landry/octo/jmagreb/sb-admin-2/grid.html",
-		"/C/Users/landry/octo/jmagreb/sb-admin-2/login.html",
-		"/C/enertrack_2.0/enertrack/app/views/compteur/edit.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/compteur/create.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/patrimoine/vehicule/edit.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/patrimoine/vehicule/create.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/patrimoine/posteproduction/edit.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/patrimoine/posteproduction/create.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/patrimoine/eclairage/edit.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/patrimoine/eclairage/create.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/patrimoine/batiment/edit.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/patrimoine/batiment/create.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/patrimoine/autreposte/edit.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/patrimoine/autreposte/create.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/moan/edit.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/moan/create.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/mo/create.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/contact/edit.blade.php",
-		"/C/enertrack_2.0/enertrack/app/views/contact/create.blade.php",
-		"/C/enertrack_2.0/enertrack/app/models/Compteurautrepostes.php",
-		"/C/enertrack_2.0/enertrack/app/views/compteur/index.blade.php",
-		"/C/enertrack_2.0/enertrack/public/assets/js/plugins/dataTables/extensions/TableTools-2.2.3/examples/ajax.html",
-		"/C/enertrack_2.0/enertrack/public/assets/TableTools-2.2.3/Readme.txt",
-		"/C/enertrack_2.0/enertrack/app/models/Compteurposteproductions.php",
-		"/C/enertrack_2.0/enertrack/app/models/Compteureclairages.php",
-		"/C/enertrack_2.0/enertrack/app/models/Compteurvehicules.php",
-		"/C/enertrack_2.0/enertrack/app/models/Compteurbatiments.php",
-		"/C/enertrack_2.0/enertrack/public/assets/js/plugins/dataTables/jquery.dataTables.js",
-		"/C/enertrack_2.0/enertrack/app/storage/views/3ae137bfba1f749f91c66a00341662a7",
-		"/C/enertrack_2.0/enertrack/app/models/Compteurs.php",
-		"/C/enertrack_2.0/enertrack/public/assets/select2-3.5.2/select2-bootstrap.css",
-		"/C/enertrack_2.0/enertrack/public/assets/select2-3.5.2/README.md",
-		"/C/enertrack_2.0/enertrack/app/models/Energies.php",
-		"/C/enertrack_2.0/enertrack/app/models/Autrepostes.php",
-		"/C/enertrack_2.0/enertrack/app/controllers/AutreposteController.php",
-		"/C/enertrack_2.0/enertrack/app/controllers/PosteproductionController.php",
-		"/C/enertrack_2.0/enertrack/app/models/Posteproductions.php",
-		"/C/enertrack_2.0/enertrack/app/controllers/VehiculeController.php",
-		"/C/enertrack_2.0/enertrack/app/views/patrimoine/create.blade.php",
+		"/C/enertrack_2.0/enertrack/app/views/tbge/compteur/edit.blade.php",
+		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/vehicule/importcsvimported.blade.php",
+		"/C/Users/landry/limc/dsid/vehicules.2015.01.13-2.csv",
+		"/C/enertrack_2.0/enertrack/app/controllers/FactureTbgeController.php",
+		"/C/Users/landry/limc/dsid/enertrack.1.6.sql",
+		"/C/Users/landry/limc/dsid/vehicules.1.0.csv",
+		"/C/Users/landry/limc/dsid/vehicules.2015.01.13.csv",
 		"/C/enertrack_2.0/enertrack/app/models/Vehicules.php",
-		"/C/enertrack_2.0/enertrack/app/controllers/EclairageController.php",
-		"/C/enertrack_2.0/enertrack/app/models/Eclairages.php",
-		"/C/enertrack_2.0/enertrack/app/models/Batiments.php",
-		"/C/EnerconsoV034/EnerTrack/tables/mouvrage/relationships.ini",
-		"/C/EnerconsoV034/EnerTrack/tables/descriptif/descriptif.php",
-		"/C/EnerconsoV034/EnerTrack/actions/regenmo.php",
-		"/C/EnerconsoV034/EnerTrack/conf.ini",
-		"/C/EnerconsoV034/EnerTrack/templates/listepatrimoine.html",
-		"/C/EnerconsoV034/EnerTrack/actions.ini",
-		"/C/EnerconsoV034/EnerTrack/actions/listepatrimoine.php",
-		"/C/Users/landry/octo/jmagreb/sb-admin-2/tables.html",
-		"/C/Users/landry/octo/jmagreb/sb-admin-2/index.html",
-		"/C/Users/landry/wamp_php4.5/alias/enertrack.conf",
-		"/C/enertrack_2.0/enertrack/vendor/laravel/framework/src/Illuminate/Routing/RouteCollection.php",
-		"/C/enertrack_2.0/enertrack/app/config/cache.php",
-		"/C/enertrack_2.0/enertrack/app/config/auth.php",
-		"/C/enertrack_2.0/enertrack/bootstrap/compiled.php",
+		"/C/Users/landry/limc/dsid/factures.vehicule.2013.12.13.1.0.csv",
+		"/C/Users/landry/limc/dsid/vehicules.1.1.csv",
+		"/C/enertrack_2.0/enertrack/app/start/global.php",
+		"/C/enertrack_2.0/enertrack/app/views/tbge/facture/edit.blade.php",
+		"/C/enertrack_2.0/enertrack/app/views/tbge/facture/create.blade.php",
+		"/C/enertrack_2.0/enertrack/app/filters.php",
+		"/C/enertrack_2.0/enertrack/app/laravel.log",
+		"/C/enertrack_2.0/enertrack/app/controllers/UserController.php",
+		"/C/enertrack_2.0/enertrack/app/models/Factures.php",
+		"/C/Users/landry/limc/kavaa/MeetingPointLog/EsithTest05012015/20150105 121549 - Response - 2500 - StatistiqueVilleObtentionDiplomes.xml",
+		"/C/Users/landry/octo/perf/leads.txt",
+		"/C/enertrack_2.0/.htaccess",
+		"/C/Downloads/Colt.45.2014.FRENCH.BRRip.XviD.AC3-VENUM/Colt.45.2014.FRENCH.BRRip.XviD.AC3-VENUM.nfo",
+		"/C/Users/landry/Downloads/Kavaa.Modules.AssIsTSync.WindowsService.log",
+		"/C/Users/landry/limc/kavaa/MeetingPointLog/EsithTest05012015/20150105 121548 - Request - 2500 - StatistiqueVilleObtentionDiplomes.xml",
+		"/C/Users/landry/limc/kavaa/MeetingPointLog/EsithTest05012015/20150105 121852 - Response - 2000 - StatistiqueVilleObtentionDiplomes.xml",
+		"/C/Users/landry/limc/kavaa/MeetingPointLog/EsithTest05012015/20150105 122201 - Response - 2500 - StatistiqueVilleObtentionDiplomes.xml",
+		"/C/Users/landry/limc/kavaa/MeetingPointLog/EsithTest05012015/20150105 121548 - Response - 2000 - StatistiqueVilleObtentionDiplomes.xml",
+		"/C/Users/landry/limc/kavaa/MeetingPointLog/EsithTest05012015/20150105 121505 - Response - 0 - StatistiqueEnseignantListes.xml",
+		"/C/Users/landry/Downloads/javacore.20141222.111900.15204398.0002.txt",
+		"/C/Users/landry/limc/kavaa/MeetingPointLog/EsithTest05012015/20150105 121448 - Request - 0 - StatistiqueEnseignantListes.xml",
+		"/C/Users/landry/limc/kavaa/MeetingPointLog/EsithTest05012015/20150105 121330 - Response - 0 - StatistiqueDeperditions.xml",
+		"/C/Users/landry/limc/kavaa/MeetingPointLog/EsithTest05012015/20150105 121327 - Request - 0 - StatistiqueDeperditions.xml",
+		"/C/Users/landry/limc/kavaa/MeetingPointLog/EsithTest05012015/20150105 121231 - Response - 0 - Evenements.xml",
+		"/C/enertrack_2.0/enertrack/app/controllers/DashboardController.php",
+		"/C/Users/landry/limc/dsid/espacevert.1.0.csv",
+		"/C/Users/landry/limc/dsid/factures.2013.12.13.1.0.csv",
+		"/C/Users/landry/limc/dsid/enertrack.1.4.sql",
+		"/C/enertrack_2.0/enertrack/public/assets/jquery-ui-1.11.2/demos/datepicker/localization.html",
+		"/C/enertrack_2.0/enertrack/public/assets/jquery-ui-1.11.2/demos/datepicker/datepicker-fr.js",
+		"/C/enertrack_2.0/enertrack/public/assets/jquery-ui-1.11.2/demos/demos.css",
+		"/C/Users/landry/limc/dsid/arriveeaux.1.1.csv",
+		"/C/Users/landry/limc/dsid/eclairage.1.1.csv",
+		"/C/Users/landry/limc/dsid/batiments.1.2.csv",
+		"/C/Users/landry/limc/dsid/enertrack.1.3.sql",
+		"/C/Users/landry/limc/dsid/batiments.1.1.csv",
+		"/C/enertrack_2.0/enertrack/app/controllers/EclairageTbgeController.php",
+		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/eclairage/create.blade.php",
+		"/C/Users/landry/limc/dsid/eclairage.1.0.csv",
+		"/C/enertrack_2.0/enertrack/app/controllers/ArriveeauTbgeController.php",
+		"/C/enertrack_2.0/enertrack/app/controllers/EspacevertTbgeController.php",
+		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/arriveeau/edit.blade.php",
+		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/espacevert/importcsv.blade.php",
+		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/espacevert/importcsvimported.blade.php",
+		"/C/enertrack_2.0/enertrack/app/routes.php",
+		"/C/Users/landry/limc/dsid/arriveeaux.1.0.csv",
+		"/C/enertrack_2.0/enertrack/app/views/tbge/compteur/index.blade.php",
+		"/C/enertrack_2.0/enertrack/app/models/Compteurs.php",
+		"/C/Users/landry/limc/dsid/enertrack.1.1.sql",
+		"/C/Users/landry/Downloads/dsidgroup8.sql",
+		"/C/Users/landry/Downloads/enertrack.sql",
+		"/C/Users/landry/limc/dsid/enertrack.1.2.sql",
+		"/C/enertrack_2.0/enertrack/compteurs.1.0.csv",
+		"/C/mqlight-developer-1.0.0.1/appdata/mqm/qmgrs/DEFAULT/queues/SYSTEM!SELECTION!VALIDATION!QUEUE",
+		"/C/Users/landry/Desktop/tablespace.sh",
+		"/C/enertrack_2.0/enertrack/app/views/tbge/facture/index.blade.php",
+		"/C/enertrack_2.0/enertrack/app/storage/logs/laravel.log",
+		"/C/Users/landry/AppData/Local/Temp/fz3temp-1/.htaccess",
 		"/C/enertrack_2.0/enertrack/public/.htaccess",
-		"/C/kerawa/backend/public/.htaccess",
-		"/C/enertrack_2.0/enertrack/public/index.php",
-		"/C/enertrack_2.0/enertrack/vendor/laravel/framework/src/Illuminate/Routing/Controller.php",
-		"/C/enertrack_2.0/enertrack/app/views/user/login.php",
-		"/C/enertrack_2.0/enertrack/app/controllers/HomeController.php"
+		"/C/enertrack_2.0/enertrack/app/models/DataTableResponse.php",
+		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/vehicule/index.blade.php",
+		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/posteproduction/index.blade.php",
+		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/espacevert/index.blade.php",
+		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/eclairage/index.blade.php",
+		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/eclairage/importcsvimported.blade.php",
+		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/batiment/index.blade.php",
+		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/batiment/importcsvimported.blade.php",
+		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/arriveeau/index.blade.php",
+		"/C/enertrack_2.0/enertrack/app/views/tbge/patrimoine/arriveeau/importcsvimported.blade.php",
+		"/C/enertrack_2.0/enertrack/app/views/tbge/facture/importcsvimported.blade.php",
+		"/C/enertrack_2.0/enertrack/app/views/tbge/compteur/importcsvimported.blade.php",
+		"/C/enertrack_2.0/enertrack/app/views/moan/index.blade.php"
 	],
 	"find":
 	{
@@ -372,6 +536,11 @@
 		"height": 90.0,
 		"where_history":
 		[
+			"C:\\enertrack_2.0\\enertrack",
+			"C:\\enertrack_2.0\\enertrack\\app",
+			"C:\\enertrack_2.0\\enertrack\\public\\app",
+			"C:\\enertrack_2.0\\enertrack",
+			"C:\\enertrack_2.0\\enertrack\\app",
 			"C:\\enertrack_2.0\\enertrack",
 			"C:\\EnerconsoV034\\EnerTrack",
 			"C:\\EnerconsoV034\\",
@@ -389,137 +558,137 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": true,
+		"case_sensitive": false,
 		"find_history":
 		[
-			"users",
-			"checkbox",
-			"contact",
-			"Checker",
-			"Unauthorized",
-			"vehicu",
-			"#",
-			"#espacevert",
-			"patrimoine",
-			"DateObservation",
+			",404",
+			",NOK",
+			",KO",
+			",503,",
+			"503,",
+			"503",
+			"ERROR",
+			"ipv",
+			"ip",
+			"cps",
+			"1024",
+			"XX",
+			"GC",
+			"Xmx",
+			"set",
+			"JVM_ARGS",
+			"443",
+			"HTTPSampler.port",
+			"stat",
+			"40s",
+			"Déploiement automatique",
+			"UniteA",
+			"Uni",
+			"Unire",
+			"Unite",
+			"Carburant",
+			"Reference",
 			"Nom",
-			"Refere",
-			"'facture",
-			"'compteur",
-			"compteur",
-			"mos",
-			"Refer",
+			"tarif",
 			"patrimoine",
-			"tbge/",
-			"patrimoine",
-			"VehiculeID",
-			"vehicule",
-			"véhicule",
-			"BatimentID",
-			"batiment",
-			"BatimentID",
-			"batiment",
-			"patrimoine.",
-			"patrimoine/",
-			"EclairageID",
-			"eclairage",
-			"NbrJrReparation",
-			"EclairageID",
-			"eclairage",
-			"éclairage",
-			"eclairage",
-			"éclairage",
-			"EclairageID",
-			"eclairage",
-			"patrimoine",
-			"EclairageID",
-			"eclairage",
-			"jihatinou.jpg",
-			"patrimoine",
-			"Nouveau",
-			"vehi",
-			"vehicu",
-			"sidebar-search",
-			"baseid",
-			"espacevert",
-			"EspacevertID",
-			"eclairage",
-			"patrimoin",
-			"EspacevertID",
-			"espacevert",
-			"EspacevertID",
-			"Compteureclairage",
-			"compteurespacevert",
-			"patrimoine",
-			"patrimoines",
-			"BatimentID",
-			"batiment",
-			"Forage",
-			"forage",
-			"batiment",
-			"BatimentID",
-			"compteurbatiments",
-			"$compteurbatiment",
-			"$batiment",
-			"batiment",
-			"objectsToArray",
-			"compteurEauxSelect2",
-			"Form::select",
-			"$compteurs",
-			"compteurbatiments ",
-			"Posteproduction",
-			"posteproduction",
-			"eclairage",
-			"Eclairage",
-			"eclairage",
-			"compteurbatimens",
-			"batiment",
-			"batiment ",
-			"select2",
+			",",
+			"10004182300",
+			"7209116",
+			"ATOMISEUR ANZA",
+			"69-16-3",
+			"69-",
+			"6373",
+			"dd",
+			" V;",
+			" H;",
+			" V ;",
+			" V;",
+			"^.*;[^\\s]+(\\s+);.*;.*;.*;.*;.*;.*;.*;.*;.*;.*;.*;.*",
+			" J;",
+			"401",
+			"sort_both",
+			"error",
+			"etudiant",
 			"Debutperiode",
-			"Estima",
-			"Consokwh",
-			"Form::date",
-			"empty",
-			" }}",
-			"has-error\" @endif\">",
-			"patrimoine",
-			"Contact",
-			"contact",
-			"$contact",
-			"posteproduction",
-			"eclairage",
-			"vehicule",
-			"ehicule",
-			"batiment",
-			"En cas de Gaz, d'Electricité ou d'Eau, n'oubliez pas d'ajouter un Tarif a ce compteur apres l'avoir crée. ",
-			"checkbox",
-			"Form::checkbox",
-			"consomm",
-			"consommm",
-			"Gaz",
-			"patrimoine",
-			"Patrimoine",
-			"CompteurI",
-			"BatimentID",
-			"TarifsreglementeID",
-			"get('Nom');",
-			"Le maitre d'ouvrage est obligatoire",
-			"forunisseurs",
-			"compteur.Reference + compteur.Localisation as compteur",
-			"mouvrageid",
-			"EnergieID",
-			"contact",
-			"Contact",
-			"contact",
-			"Contact",
-			"contact",
-			"Productiontheorique",
-			"posteproduction",
-			"cadastre",
-			"posteproduction",
-			"Posteproduction",
-			"posteproduction"
+			"Carbon",
+			"dd",
+			"10041A6",
+			"162008M",
+			"10248A34",
+			"10041A6",
+			"10248A34",
+			"10041A6",
+			"JB ",
+			"J ",
+			"J  ",
+			" v;",
+			" E;",
+			" V ;",
+			" V;",
+			" J;",
+			" j;",
+			",",
+			"Consomm",
+			"Debutperiode",
+			"147855",
+			"605105",
+			"`FournisseurID` = '4'",
+			"2667018",
+			"605105",
+			"146597",
+			"146317",
+			"2388517",
+			"Categorie",
+			"EP-552",
+			"TypeTechnologie",
+			"espacevertsSelect2",
+			"TIKIOUINE",
+			"EV DOUAR AIT EL KADI TIKIOUINE",
+			"HASSANIA",
+			"KADI",
+			"ARAB",
+			"EV  DAKHLA",
+			"EV  DAKHLA",
+			"categories",
+			"Categorie",
+			"ArriveeauID",
+			"Reference",
+			"Categorie",
+			"Forage",
+			"altitude",
+			"AlignementArbre",
+			"Adresse1",
+			"Surface",
+			"->Surface",
+			"Surface",
+			"categorieValide",
+			"categories",
+			"Categorie",
+			"facture",
+			"compteur2",
+			"dataTables-example",
+			"compteurs",
+			"baseid",
+			"for",
+			"compteurs",
+			"\"sSwfPath\": \"{{ URL::to('/')}}/",
+			"cua.png",
+			"\"sSwfPath\": \"assets/",
+			"sSwfPath",
+			"copy_csv_xls_pdf.swf",
+			"compte",
+			"containerConsoEau",
+			"containerConsoElect",
+			"MetricElectBatimentSum.php",
+			"selected",
+			"CategorieID",
+			"Aligne",
+			"espace",
+			"Alignement des arbres",
+			"Puissan",
+			"compteurElectricitesID",
+			"divisio",
+			"Redirect::to('tbge.patrimoine"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -527,6 +696,75 @@
 		"regex": false,
 		"replace_history":
 		[
+			"",
+			".",
+			"69163",
+			"V;",
+			"H;",
+			"V;",
+			"J;",
+			"JB",
+			"J",
+			"V;",
+			"E;",
+			"V;",
+			"J;",
+			".",
+			"`FournisseurID` = '4', Type='CONSO' ",
+			"compteurs",
+			"2013-12-13",
+			"2013-09-14",
+			".",
+			";2013-03-13;",
+			"H;",
+			"V;",
+			"E;",
+			";",
+			"V",
+			"J",
+			"Documentations et archive",
+			"Téléphone",
+			"Affaires sociales",
+			"Assiette fiscale",
+			"Décharge publique",
+			"Bibliothéques communals",
+			"Affaires culturelles",
+			"Etudes",
+			"Comptabilité",
+			"Approvisionnement",
+			"Ressources financières et des affaires économiques",
+			"Informatique",
+			"Contrôle fiscale",
+			"Patrimoines",
+			"Accueil",
+			"Coordination des maisons des quartiers",
+			"Abattoirs",
+			"Police",
+			"Carburants",
+			"Contrôle",
+			"Etat civil et légalisation",
+			"Marchés",
+			"Régie des recettes municipales",
+			"Affaires du conseil et commissions",
+			"Hygiène (BMH)",
+			"Ressources Humaines",
+			"Travaux neufs",
+			"Urbanisme",
+			"Espaces verts",
+			"Parc automobile communal",
+			"Hygiène (BMH)",
+			"Entretien",
+			"Propreté",
+			"Eclairage public",
+			"BT ",
+			"BT Public",
+			"Hôtel",
+			"Bâtiment",
+			"order by Numero",
+			"$value->Numero",
+			"compteur.Numero",
+			"compteurarriveeaux",
+			"eea",
 			"PosteproductionID",
 			"posteproduction",
 			"poste de production",
@@ -585,21 +823,7 @@
 			"\\profiles\\AppSrv01\\properties\\",
 			"C:\\Program Files (x86)\\IBM\\WebSphere\\AppServer",
 			"EnerTrack",
-			"",
-			"/*!50013 DEFINER=`dsidgroup7`@`cl1-sql14` SQL SECURITY DEFINER */",
-			"dsidgroup7",
-			"é",
-			"DH",
-			"border: 1px solid",
-			"#d1812b",
-			"commercialApp",
-			"1.2.19",
-			"net.kavaa.staf",
-			"clearContacts",
-			"fetchContacts",
-			"ContactsController",
-			"$scope.contacts",
-			"gContactApp"
+			""
 		],
 		"reverse": false,
 		"show_context": true,
@@ -610,31 +834,60 @@
 	"folders":
 	[
 		{
-			"follow_symlinks": true,
 			"path": "C:\\enertrack_2.0\\enertrack"
 		}
 	],
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "app/filters.php",
+					"file": "/C/Users/landry/octo/wafasalaf_simulateurcredit/Install varnish.txt",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2863,
+						"buffer_size": 4722,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2863,
-								2863
+								1870,
+								1870
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 420.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/tests/TestCase.php",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 335,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
 							]
 						],
 						"settings":
@@ -643,160 +896,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 784.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "app/controllers/UserController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2899,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1846,
-								1846
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 679.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "app/views/admin/user/create.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3145,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1632,
-								1632
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 529.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "app/views/admin/user/index.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3869,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2665,
-								2672
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true,
-							"word_wrap": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 139.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "app/routes.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2194,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2183,
-								2183
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 334.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "app/views/includes/navigation.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 10851,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								10748,
-								10748
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"word_wrap": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2194.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
 					"type": "text"
 				}
 			]
@@ -804,7 +907,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 23.0
+		"height": 34.0
 	},
 	"input":
 	{
@@ -837,6 +940,7 @@
 	{
 		"height": 0.0
 	},
+	"pinned_build_system": "",
 	"project": "",
 	"replace":
 	{
@@ -846,6 +950,7 @@
 	"select_file":
 	{
 		"height": 0.0,
+		"last_filter": "",
 		"selected_items":
 		[
 		],
@@ -854,6 +959,7 @@
 	"select_project":
 	{
 		"height": 500.0,
+		"last_filter": "",
 		"selected_items":
 		[
 			[
@@ -866,6 +972,7 @@
 	"select_symbol":
 	{
 		"height": 0.0,
+		"last_filter": "",
 		"selected_items":
 		[
 		],
@@ -879,7 +986,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 281.0,
+	"side_bar_width": 365.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

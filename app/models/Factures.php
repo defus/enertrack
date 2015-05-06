@@ -29,4 +29,31 @@
       {
         return $this->belongsTo('Contacts', 'FournisseurID', 'CoordonneeID');
       }
+
+      public function getDebutperiodeFAttribute(){
+        $dt = new \Carbon\Carbon($this->attributes['Debutperiode']);
+        return $dt->format('d/m/Y');
+      }
+
+      public function getFinperiodeFAttribute(){
+        $dt = new \Carbon\Carbon($this->attributes['Finperiode']);
+        return $dt->format('d/m/Y');
+      }
+
+      public function getEnergieAttribute()
+      {
+        return $this->relations['Compteur']->Energie;
+      }
+
+      public function getEditUrlAttribute()
+      {
+        return URL::to('tbge/facture/' .  $this->attributes['FactureID'] . '/edit');
+      }
+
+      public function getDeleteUrlAttribute()
+      {
+          return URL::to('tbge/facture/' . $this->attributes['FactureID'] );
+      }
+
+      protected $appends = array('debutperiode_f', 'finperiode_f', 'edit_url', 'delete_url', 'energie');
     }

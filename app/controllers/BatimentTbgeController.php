@@ -2,41 +2,41 @@
 
 class BatimentTbgeController extends \BaseController {
 
+    public static $divisions = array('Division des ressources humaines', 'Division des affaires juridiques administratives et économiques', 'Division des finances et de la comptabilité', "Division des marchés, de l'approvisionnement et de l'élaboration du budget", "Division de l'urbanisme", "Division du patrimoine communal", "Division de l'ingénierie  et des travaux techniques", "Division de l'environnement  et de la qualité  de la vie", "Division de la culture", "Division du développement social", "Division du sport", "Bureau  communal d'hygiène");
+
     public static $patrimoines = array(
       'Bâtiment administratif' => array(
-          1 => "Bâtiment administratif", 
           2 => "Hôtel de ville", 
-          3 => "Division administrative"), 
+          3 => "Division administrative",
+          1 => "Autre"), 
       'Bâtiment social' => array(
-          4 => 'Bâtiment social', 
           5 => "Centre d’accueil", 
-          6 => "Maison de quartier"), 
+          6 => "Maison de quartier",
+          4 => 'Autre'), 
       'Bâtiment commercial' => array(
-          7 =>'Bâtiment commercial', 
           8 => 'Centre commercial', 
           9 => 'Marché', 
-          10 => 'Abattoir'), 
+          10 => 'Abattoir',
+          7 =>'Autre'), 
       'Bâtiment culturel' => array(
-          11 => 'Bâtiment culturel', 
           12 => 'Théâtre', 
           13 => 'Musée', 
-          14 => 'Centre culturel'), 
+          14 => 'Centre culturel',
+          11 => 'Autre'), 
       'Bâtiment éducatif' =>  array(
-          15 => 'Bâtiment éducatif', 
           16 => 'Centre de formation', 
-          17 => 'Bibliothèque'), 
+          17 => 'Bibliothèque',
+          15 => 'Autre'), 
       'Bâtiment sportif' => array(
-          18 => 'Bâtiment sportif', 
           19 => 'Stade', 
-          20 => 'Salle couverte omnisport'), 
+          20 => 'Salle couverte omnisport',
+          18 => 'Autre'), 
       'Bâtiment touristique' => array(
-          21 => 'Bâtiment touristique'), 
+          26 => 'Hôtel',
+          27 => 'Auberge'), 
       'Bâtiment hospitalier' => array(
-          22 => 'Bâtiment hospitalier'),
-      'Autres' => array(
-          23 => 'Décharge',
-          24 => 'Gare',
-          25 => 'Autres')
+          22 => 'Centre de santé',
+          28 => 'Hôpital')
     );
 
     public function index()
@@ -69,7 +69,8 @@ class BatimentTbgeController extends \BaseController {
       return View::make('tbge.patrimoine.batiment.create')
         ->with('compteurEaux', $compteurEaux)
         ->with('compteurElectricites', $compteurElectricites)
-        ->with('patrimoines', self::$patrimoines);
+        ->with('patrimoines', self::$patrimoines)
+        ->with('divisions', self::$divisions);
     }
 
     public function store(){
@@ -89,6 +90,20 @@ class BatimentTbgeController extends \BaseController {
               ->withErrors($validation)
               ->withInput(\Input::all());
         } else {
+
+          $divisionConc = "";
+          $divisions = \Input::get('Division');
+          if(is_array($divisions)){
+            foreach ($divisions as $key => $division) {
+              if($divisionConc == ""){
+                $divisionConc = $division;
+              }else{
+                $divisionConc = $divisionConc . "-" . $division; 
+              }
+
+            }
+          }
+
           $batiment = new Batiments();
           $batiment->MouvrageID = Config::get('enertrack.MouvrageID');
           $batiment->BaseID = $baseid;
@@ -114,6 +129,7 @@ class BatimentTbgeController extends \BaseController {
           $batiment->MesuresEEDesc = \Input::get('MesuresEEDesc');
           $batiment->MesuresGRE = (\Input::has('MesuresGRE')) ? 1 : 0;
           $batiment->MesuresGREDesc = \Input::get('MesuresGREDesc');
+          $batiment->Division = $divisionConc;
 
           $batiment->save();
 
@@ -170,7 +186,8 @@ class BatimentTbgeController extends \BaseController {
         ->with('compteurElectricites', $compteurElectricites)
         ->with('patrimoines', self::$patrimoines)
         ->with('compteurEauxSelected', $compteurEauxSelected)
-        ->with('compteurElectricitesSelected', $compteurElectricitesSelected);
+        ->with('compteurElectricitesSelected', $compteurElectricitesSelected)
+        ->with('divisions', self::$divisions);
     }
 
     public function update($id){
@@ -190,6 +207,19 @@ class BatimentTbgeController extends \BaseController {
               ->withErrors($validation)
               ->withInput(\Input::all());
         } else {
+          $divisionConc = "";
+          $divisions = \Input::get('Division');
+          if(is_array($divisions)){
+            foreach ($divisions as $key => $division) {
+              if($divisionConc == ""){
+                $divisionConc = $division;
+              }else{
+                $divisionConc = $divisionConc . "-" . $division; 
+              }
+
+            }
+          }
+
           $batiment = Batiments::find($id);
           $batiment->MouvrageID = Config::get('enertrack.MouvrageID');
           $batiment->Nom = \Input::get('Nom');
@@ -214,6 +244,7 @@ class BatimentTbgeController extends \BaseController {
           $batiment->MesuresEEDesc = \Input::get('MesuresEEDesc');
           $batiment->MesuresGRE = (\Input::has('MesuresGRE')) ? 1 : 0;
           $batiment->MesuresGREDesc = \Input::get('MesuresGREDesc');
+          $batiment->Division = $divisionConc;
 
           $batiment->save();
 
@@ -279,7 +310,7 @@ class BatimentTbgeController extends \BaseController {
 
       // redirect
       Session::flash('batiment.success', "Batiment supprimé avec succès !");
-      return Redirect::to('tbge.patrimoine/batiment');
+      return Redirect::to('tbge/patrimoine/batiment');
     }
 
     public function importCsv()
@@ -373,7 +404,7 @@ class BatimentTbgeController extends \BaseController {
           $compteurElectricites = explode("-", $value);
           if(is_array($compteurElectricites)){
             foreach ($compteurElectricites as $key => $compteurElectriciteReference) {
-              $compteurs = Compteurs::where('Reference', $compteurElectriciteReference);
+              $compteurs = Compteurs::where('Reference', $compteurElectriciteReference)->get();
               if(count($compteurs) > 0){
                 return true;
               }else{
@@ -410,44 +441,27 @@ class BatimentTbgeController extends \BaseController {
                   ->withErrors($validation);
           } else {
             $sousCategorieKey = "";
-            foreach (self::$patrimoines as $key => $sousPatrimoines) {
-              if(in_array($row['SousCategorie'], $sousPatrimoines)){
-                foreach ($sousPatrimoines as $skey => $sousPatrimoine) {
-                  if($sousPatrimoine == $row['SousCategorie']){
-                    $sousCategorieKey = $skey;
-                    break;
+            if(array_key_exists('SousCategorie', $row)){
+              foreach (self::$patrimoines as $key => $sousPatrimoines) {
+                if(in_array($row['SousCategorie'], $sousPatrimoines)){
+                  foreach ($sousPatrimoines as $skey => $sousPatrimoine) {
+                    if($sousPatrimoine == $row['SousCategorie']){
+                      $sousCategorieKey = $skey;
+                      break;
+                    }
                   }
+                  break;
                 }
-                break;
               }
             }
-
+            
             $batiment = new Batiments();
             $batiment->MouvrageID = Config::get('enertrack.MouvrageID');
             $batiment->BaseID = $baseid;
             $batiment->Reference = $row['Reference'];
             $batiment->Nom = $row['Nom'];
-            $batiment->Adresse1 = $row['Adresse1'];
-            $batiment->Adresse2 = "";
-            $batiment->Adresse3 = "";
-            $batiment->altitude = "";
-            $batiment->Latitude = "";
-            $batiment->Longitude = "";
             $batiment->Patrimoine = $sousCategorieKey;
-            $batiment->Anneeconstruction = $row['Anneeconstruction'];
-            $batiment->NbrEtage = $row['NbrEtage'];
-            $batiment->Surface = $row['SurfaceChaufee'];
-            $batiment->SurfaceNette = "";
-            $batiment->SurfaceBrute = "";
-            $batiment->NbrEmployee = $row['NbrEmployee'];
-            $batiment->Pv = $row['Pv'];
-            $batiment->SystemeChauffageEau = $row['SystemeChauffageEau'];
-            $batiment->Ces = $row['Ces'];
-            $batiment->MesuresEE = $row['MesuresEE'];
-            $batiment->MesuresEEDesc = $row['MesuresEEDesc'];
-            $batiment->MesuresGRE = $row['MesuresGRE'];
-            $batiment->MesuresGREDesc = $row['MesuresGREDesc'];
-
+            
             $batiment->save();
 
             $compteurElectricites = explode("-", $row['CompteurElectricites']);

@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Facade;
+
 /*
 |--------------------------------------------------------------------------
 | Application & Route Filters
@@ -45,6 +47,29 @@ Route::filter('auth', function()
 		{
 			return Redirect::guest('login');
 		}
+	}else{
+		$securityCheck = new SecurityCheck(Facade::getFacadeApplication());
+
+		$securityCheck->routeNeedsRole( 'patrimoine/batiment*', array('BATIMENT') );
+		$securityCheck->routeNeedsRole( 'patrimoine/eclairage*', array('ECLAIRAGE') );
+		$securityCheck->routeNeedsRole( 'patrimoine/espacevert*', array('ESPACEVERT') );
+		$securityCheck->routeNeedsRole( 'patrimoine/posteproduction*', array('POSTEPRODUCTION') );
+		$securityCheck->routeNeedsRole( 'patrimoine/vehicule*', array('VEHICULE') );
+		$securityCheck->routeNeedsRole( 'compteur*', array('COMPTEUR') );
+		$securityCheck->routeNeedsRole( 'facture*', array('FACTURE') );
+
+		$securityCheck->routeNeedsRole( 'tbge/patrimoine/batiment*', array('BATIMENT') );
+		$securityCheck->routeNeedsRole( 'tbge/patrimoine/eclairage*', array('ECLAIRAGE') );
+		$securityCheck->routeNeedsRole( 'tbge/patrimoine/espacevert*', array('ESPACEVERT') );
+		$securityCheck->routeNeedsRole( 'tbge/patrimoine/arriveeau*', array('ARRIVEEAU') );
+		$securityCheck->routeNeedsRole( 'tbge/patrimoine/posteproduction*', array('POSTEPRODUCTION') );
+		$securityCheck->routeNeedsRole( 'tbge/patrimoine/vehicule*', array('VEHICULE') );
+		$securityCheck->routeNeedsRole( 'tbge/compteur*', array('COMPTEUR') );
+		$securityCheck->routeNeedsRole( 'tbge/facture*', array('FACTURE') );
+
+		$securityCheck->routeNeedsRole( 'contact*', array('SUPERUTILISATEUR') );
+
+		$securityCheck->routeNeedsRole( 'admin*', array('ADMIN') );
 	}
 });
 
@@ -88,26 +113,3 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
-
-$securityCheck = new SecurityCheck($app);
-
-$securityCheck->routeNeedsRole( 'patrimoine/batiment*', array('BATIMENT') );
-$securityCheck->routeNeedsRole( 'patrimoine/eclairage*', array('ECLAIRAGE') );
-$securityCheck->routeNeedsRole( 'patrimoine/espacevert*', array('ESPACEVERT') );
-$securityCheck->routeNeedsRole( 'patrimoine/posteproduction*', array('POSTEPRODUCTION') );
-$securityCheck->routeNeedsRole( 'patrimoine/vehicule*', array('VEHICULE') );
-$securityCheck->routeNeedsRole( 'compteur*', array('COMPTEUR') );
-$securityCheck->routeNeedsRole( 'facture*', array('FACTURE') );
-
-$securityCheck->routeNeedsRole( 'tbge/patrimoine/batiment*', array('BATIMENT') );
-$securityCheck->routeNeedsRole( 'tbge/patrimoine/eclairage*', array('ECLAIRAGE') );
-$securityCheck->routeNeedsRole( 'tbge/patrimoine/espacevert*', array('ESPACEVERT') );
-$securityCheck->routeNeedsRole( 'tbge/patrimoine/arriveeau*', array('ARRIVEEAU') );
-$securityCheck->routeNeedsRole( 'tbge/patrimoine/posteproduction*', array('POSTEPRODUCTION') );
-$securityCheck->routeNeedsRole( 'tbge/patrimoine/vehicule*', array('VEHICULE') );
-$securityCheck->routeNeedsRole( 'tbge/compteur*', array('COMPTEUR') );
-$securityCheck->routeNeedsRole( 'tbge/facture*', array('FACTURE') );
-
-$securityCheck->routeNeedsRole( 'contact*', array('SUPERUTILISATEUR') );
-
-$securityCheck->routeNeedsRole( 'admin*', array('ADMIN') );

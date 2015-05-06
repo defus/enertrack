@@ -76,6 +76,10 @@ $(document).ready(function() {
                                     {{ $errors->first('Nom', '<span class="error">:message</span>' ) }}
                                 </div>
                                 <div class="form-group">
+                                    <label>Armoires</label>
+                                    {{ Form::text('Armoires', Input::old('Armoires'), array('class' => 'form-control') ) }}
+                                </div>
+                                <div class="form-group">
                                     <label>Secteur d'éclairage</label>
                                     {{ Form::text('Secteur', Input::old('Secteur'), array('class' => 'form-control') ) }}
                                 </div>
@@ -100,24 +104,24 @@ $(document).ready(function() {
                                     {{ Form::select('CategorieID', $categories, Input::old('CategorieID'), array('class' => 'form-control')) }}
                                 </div>
                                 <div class="form-group">
+                                    <label>Éléments électriques et système d’allumage (avec horaire)</label>
+                                    {{ Form::textarea('EltElecSystAllum', Input::old('EltElecSystAllum'), array('class' => 'form-control') ) }}
+                                </div>
+                                <div class="form-group">
                                     <label>Type de tarif</label>
                                     {{ Form::select('TypeTarif', $typeTarifs, Input::old('TypeTarif'), array('class' => 'form-control')) }}
                                 </div>
                                 <div class="form-group">
-                                    <label>Puissance souscrite</label>
+                                    <label>Puissance souscrite (KWh)</label>
                                     {{ Form::number('PuissanceSouscrite', Input::old('PuissanceSouscrite'), array('class' => 'form-control') ) }}
                                 </div>
                                 <div class="form-group">
-                                    <label>Puissance installée</label>
+                                    <label>Puissance installée (KWh)</label>
                                     {{ Form::number('PuissanceInstalle', Input::old('PuissanceInstalle'), array('class' => 'form-control') ) }}
                                 </div>
                                 <div class="form-group">
-                                    <label>Puissance appelée</label>
+                                    <label>Puissance appelée (KWh)</label>
                                     {{ Form::number('PuissanceAppele', Input::old('PuissanceAppele'), array('class' => 'form-control') ) }}
-                                </div>
-                                <div class="form-group">
-                                    <label>Puissance  consommée (en kWh) et luminosité</label>
-                                    {{ Form::number('Puissance', Input::old('Puissance'), array('class' => 'form-control') ) }}
                                 </div>
                                 <div class="form-group">
                                     <label>Nombre d’heures de fonctionnement par an</label>
@@ -132,12 +136,16 @@ $(document).ready(function() {
                                     {{ Form::text('MarqueLampe', Input::old('MarqueLampe'), array('class' => 'form-control') ) }}
                                 </div>
                                 <div class="form-group">
-                                    <label>Nombre de jours d'interruption de service par trimestre, par point lumineux</label>
-                                    {{ Form::number('NbrJourInterrupServ', Input::old('NbrJourInterrupServ'), array('class' => 'form-control') ) }}
-                                </div>
-                                <div class="form-group">
                                     <label>Nombre de jours d'interventions de maintenance par trimestre, par point lumineux </label>
                                     {{ Form::number('NbrJourIntervServ', Input::old('NbrJourIntervServ'), array('class' => 'form-control') ) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Latitude</label>
+                                    {{ Form::number('Latitude', Input::old('Latitude'), array('class' => 'form-control') ) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Longitude</label>
+                                    {{ Form::number('Longitude', Input::old('Longitude'), array('class' => 'form-control') ) }}
                                 </div>
                                 {{ Form::submit('Enregistrer', array('class'=>'btn btn-primary')) }}
                                 {{ link_to(URL::previous(), 'Annuler', ['class' => 'btn btn-default']) }}

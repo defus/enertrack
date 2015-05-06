@@ -12,7 +12,7 @@
 @extends('templates.normal')
 
 {{-- Page title --}}
-@section('title') Consultation des budgets et fréquentation pour un maitre d'ouvrage @stop
+@section('title') Liste des budgets et fréquentation pour un maitre d'ouvrage @stop
 
 {{-- Page specific CSS files --}}
 {{-- {{ HTML::style('--Path to css--') }} --}}
@@ -32,7 +32,10 @@ $(document).ready(function() {
     $('#dataTables-example').dataTable({
         "dom": 'T<"clear">lfrtip',
         "tableTools": {
-            "sSwfPath": "assets/js/plugins/dataTables/extensions/TableTools-2.2.3/swf/copy_csv_xls_pdf.swf"
+            "sSwfPath": "{{ URL::to('/')}}/assets/js/plugins/dataTables/extensions/TableTools-2.2.3/swf/copy_csv_xls_pdf.swf"
+        },
+        "language": {
+            "url": "{{ URL::to('/')}}/assets/js/plugins/dataTables/French.lang"
         }
     });
 });
@@ -54,7 +57,7 @@ $(document).ready(function() {
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Consultation des budget et fréquentations pour les maitres d'ouvrages
+                    Liste des budget et fréquentations pour les maitres d'ouvrages
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">

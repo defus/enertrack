@@ -116,7 +116,7 @@ $(document).ready(function() {
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Type d'énergie consommée</label>
+                                    <label>Type d'énergie consommée / produite</label>
                                     {{ Form::select('EnergieID', $energies, Input::old('EnergieID'), array('class' => 'form-control')) }}
                                 </div>
                                 <div class="form-group">

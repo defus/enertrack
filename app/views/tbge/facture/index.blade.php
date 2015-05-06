@@ -29,10 +29,46 @@
 {{ HTML::script('assets/js/plugins/dataTables/extensions/TableTools-2.2.3/js/dataTables.tableTools.min.js') }}
 <script>
 $(document).ready(function() {
+    var baseUrl = "{{URL::to('/')}}";
+
     $('#dataTables-example').dataTable({
         "dom": 'T<"clear">lfrtip',
+        "processing": true,
+        "serverSide": true,
+        "ajax": "{{ URL::to('tbge/facture/datatable/ajax') }}",
+        "columns": [
+            {"name": "facture.Nom", "targets": 0, "data": "Nom" },
+            {"name": "compteur.Reference", "targets": 1},
+            {"name": "facture.Debutperiode", "targets": 2, "data": "Debutperiode", "type": "date", className: "text-right"},
+            {"name": "facture.Finperiode", "targets": 3, "data": "Finperiode", "type": "date", className: "text-right"},
+            {"name": "facture.Totalttc", "targets": 4, "data": "Totalttc", "type": "currency", className: "text-right"},
+            {"name": "facture.Consommation", "targets": 5, "data": "Consommation", "type": "num", className: "text-right"},
+            {"name": "Action", "targets": 6, "searchable": false, "orderable": false, "width":"60px"}
+        ],
+        "columnDefs": [
+            {
+                "render": function ( data, type, row ) {
+                    return  'N°: ' + row.compteur_numero + ' - Ref: ' + row.compteur_reference;
+                },
+                "type": "html",
+                "targets": 1
+            },{
+                "render": function ( data, type, row ) {
+                    return  '<div class="pull-right">' +
+                                '<a href="' + baseUrl + '/tbge/facture/' + row.FactureID + '/edit" class="btn btn-xs btn-success"> <i class="fa fa-edit"></i></a> &nbsp;' +
+                                '<form method="POST" action="'+baseUrl + '/tbge/facture/' + row.FactureID + '" accept-charset="UTF-8" class="pull-right"><input name="_token" type="hidden" value="VgCwyBAy8xM1DsqNDnyi5VBl8x1fUNixo4h3NCcY"><input name="_method" type="hidden" value="DELETE"><button type="submit" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button></form>'+
+                            '</div>';
+                },
+                "type": "html",
+                "targets": 6
+            },
+            //{ "visible": false,  "targets": [ 3 ] }
+        ],
         "tableTools": {
-            "sSwfPath": "assets/js/plugins/dataTables/extensions/TableTools-2.2.3/swf/copy_csv_xls_pdf.swf"
+            "sSwfPath": "{{ URL::to('/')}}/assets/js/plugins/dataTables/extensions/TableTools-2.2.3/swf/copy_csv_xls_pdf.swf"
+        },
+        "language": {
+            "url": "{{ URL::to('/')}}/assets/js/plugins/dataTables/French.lang"
         }
     });
 });
@@ -54,7 +90,7 @@ $(document).ready(function() {
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Consultation des factures saisies
+                    Liste des factures saisies
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -69,38 +105,15 @@ $(document).ready(function() {
                         <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                             <thead>
                                 <tr>
-                                    <th>Numero de facture</th>
-                                    <th>Compteur associé</th>
-                                    <th>Du</th>
-                                    <th>Au</th>
-                                    <th>Coût TTC</th>
-                                    <th>Consommation</th>
-                                    <th class="no-sort" style="width:17px;min-width:75px;max-width:75px;">Actions</th>
+                                    <th>Numero de facture&nbsp;</th>
+                                    <th>Compteur associé&nbsp;</th>
+                                    <th>Du&nbsp;</th>
+                                    <th>Au&nbsp;</th>
+                                    <th>Coût TTC&nbsp;</th>
+                                    <th>Consommation&nbsp;</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach($factures as $key => $value)
-                                <tr>
-                                    <td>{{ $value->Nom }}</td>
-                                    <td>{{'N°: ' . $value->Compteur->Numero . ' - Ref: ' . $value->Compteur->Reference}}</td>
-                                    <td>{{\Carbon\Carbon::parse($value->Debutperiode)->format('d/m/Y')}}</td>
-                                    <td>{{\Carbon\Carbon::parse($value->Finperiode)->format('d/m/Y')}}</td>
-                                    <td>{{$value->Totalttc}}</td>
-                                    <td>{{$value->Consommation}}</td>
-                                    <td>
-                                        <div class="pull-right">
-                                            <a href="{{ URL::to('tbge/facture/' . $value->FactureID . '/edit') }}" class="btn btn-sm btn-success"> <i class="fa fa-edit"></i></a> &nbsp;
-                                            {{ Form::open(array('url' => 'tbge/facture/' . $value->FactureID, 'class' => 'pull-right')) }}
-                                                {{ Form::hidden('_method', 'DELETE') }}
-                                                <button type="submit" class="btn btn-sm btn-danger">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            {{ Form::close() }}
-                                        </div>
-                                      </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
                         </table>
                     </div>
                 </div>

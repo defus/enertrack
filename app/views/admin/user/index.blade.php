@@ -18,20 +18,23 @@
 {{-- {{ HTML::style('--Path to css--') }} --}}
 @section('css')
 <!-- DataTables CSS -->
-{{ HTML::style('assets/css/plugins/dataTables.bootstrap.css') }}
-{{ HTML::style('assets/js/plugins/dataTables/extensions/TableTools-2.2.3/css/dataTables.tableTools.min.css') }}
+{{ HTML::style('{{ URL::to('/')}}/assets/css/plugins/dataTables.bootstrap.css') }}
+{{ HTML::style('{{ URL::to('/')}}/assets/js/plugins/dataTables/extensions/TableTools-2.2.3/css/dataTables.tableTools.min.css') }}
 @stop
 
 {{-- Page specific JS files --}}
 {{-- {{ HTML::script('--Path to js--') }} --}}
 @section('scripts')
-{{ HTML::script('assets/js/plugins/dataTables/extensions/TableTools-2.2.3/js/dataTables.tableTools.min.js') }}
+{{ HTML::script('{{ URL::to('/')}}/assets/js/plugins/dataTables/extensions/TableTools-2.2.3/js/dataTables.tableTools.min.js') }}
 <script>
 $(document).ready(function() {
     $('#dataTables-example').dataTable({
         "dom": 'T<"clear">lfrtip',
         "tableTools": {
-            "sSwfPath": "assets/js/plugins/dataTables/extensions/TableTools-2.2.3/swf/copy_csv_xls_pdf.swf"
+            "sSwfPath": "{{ URL::to('/')}}/assets/js/plugins/dataTables/extensions/TableTools-2.2.3/swf/copy_csv_xls_pdf.swf"
+        },
+        "language": {
+            "url": "{{ URL::to('/')}}/assets/js/plugins/dataTables/French.lang"
         }
     });
 });
@@ -53,7 +56,7 @@ $(document).ready(function() {
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Consultation de la liste des utilisateurs
+                    Liste des utilisateurs
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">

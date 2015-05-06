@@ -3,6 +3,14 @@
 Enertrack is a product focuses on environment preservation
 
 ## Todo
+
+Les actions de la phase 2
+* Sortir les indicateurs
+* Faire les rapports avec les indicateurs possible
+* Définir pourquoi il manque les données avec certains indicateurs
+* 
+
+Les actions techniques
 * Gérer la sélection de valeur initial dans les formulairs avec select2 (OK)
 * Avoir l'affichage des dates avec le format français (OK)
 * Sur utiliser les groupes sur le formulaire de facture (OK)

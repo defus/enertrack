@@ -40,6 +40,10 @@ $(document).ready(function() {
         allowClear: true,
         placeholder: "Sélectionner la catégorie"
     });
+    $('#divisionSelect2').select2({
+        allowClear: true,
+        placeholder: "Sélectionner les divisions"
+    });
 });
 </script>
 @stop
@@ -78,26 +82,12 @@ $(document).ready(function() {
                                     {{ Form::text('Reference', Input::old('Reference'), array('class' => 'form-control') ) }}
                                 </div>
                                 <div class="form-group @if($errors->first('Nom') != '') has-error @endif">
-                                    <label>Nom / Desription *</label>
+                                    <label>Nom du bâtiment *</label>
                                     {{ Form::text('Nom', Input::old('Nom'), array('class' => 'form-control', 'placeholder' => "Entrer la valeur ...", 'autofocus' => '' ) ) }}
                                     {{ $errors->first('Nom', '<span class="error">:message</span>' ) }}
                                 </div>
                                 <div class="form-group">
-                                    <label>Catégorie de bâtiment</label>
-                                    <select id="patrimoineSelect2" name="Patrimoine" class="form-control">
-                                        @if(count($patrimoines) > 0)
-                                            @foreach($patrimoines as $categorie => $sousCategories)
-                                            <optgroup label="{{$categorie}}">
-                                                @foreach($sousCategories as $sousCAtegorieKey => $sousCategorieLabel)
-                                                    <option value="{{$sousCAtegorieKey}}">{{$sousCategorieLabel}}</option>
-                                                @endforeach
-                                            </optgroup>
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Compteurs d’électricité associés</label>
+                                    <label>Compteur(s) d’électricité associé(s)</label>
                                     <select id="compteurElectricitesSelect2" name="compteurElectricitesID[]" class="form-control" multiple>
                                         @if(count($compteurElectricites) > 0)
                                             <optgroup label="Compteurs d'électricité">
@@ -121,20 +111,8 @@ $(document).ready(function() {
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Adresse postale</label>
+                                    <label>Adresse/Description</label>
                                     {{ Form::text('Adresse1', Input::old('Adresse1'), array('class' => 'form-control') ) }}
-                                </div>
-                                <div class="form-group">
-                                    <label>Complément d'adresse</label>
-                                    {{ Form::text('Adresse2', Input::old('Adresse2'), array('class' => 'form-control') ) }}
-                                </div>
-                                <div class="form-group">
-                                    <label>Complément d'adresse</label>
-                                    {{ Form::text('Adresse3', Input::old('Adresse3'), array('class' => 'form-control') ) }}
-                                </div>
-                                <div class="form-group">
-                                    <label>altitude</label>
-                                    {{ Form::number('altitude', Input::old('altitude'), array('class' => 'form-control') ) }}
                                 </div>
                                 <div class="form-group">
                                     <label>Latitude</label>
@@ -149,40 +127,46 @@ $(document).ready(function() {
                                     {{ Form::number('Anneeconstruction', Input::old('Anneeconstruction'), array('class' => 'form-control' ) ) }}
                                 </div>
                                 <div class="form-group">
-                                    <label>Nombre d'étages</label>
-                                    {{ Form::number('NbrEtage', Input::old('NbrEtage'), array('class' => 'form-control') ) }}
+                                    <label>Nombre d’employés réguliers / résidents</label>
+                                    {{ Form::number('NbrEmployee', Input::old('NbrEmployee'), array('class' => 'form-control') ) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Les divisions qui sont représentées dans le bâtiment</label>
+                                    <select id="divisionSelect2" name="Division[]" class="form-control" multiple>
+                                        @if(count($divisions) > 0)
+                                            <optgroup label="Liste des divisions">
+                                            @foreach($divisions as $key => $division)
+                                                <option value="{{$division}}">{{$division}}</option>
+                                            @endforeach
+                                            </optgroup>
+                                        @endif
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Catégorie de bâtiment</label>
+                                    <select id="patrimoineSelect2" name="Patrimoine" class="form-control">
+                                        @if(count($patrimoines) > 0)
+                                            @foreach($patrimoines as $categorie => $sousCategories)
+                                            <optgroup label="{{$categorie}}">
+                                                @foreach($sousCategories as $sousCAtegorieKey => $sousCategorieLabel)
+                                                    <option value="{{$sousCAtegorieKey}}">{{$sousCategorieLabel}}</option>
+                                                @endforeach
+                                            </optgroup>
+                                            @endforeach
+                                        @endif
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Surface (m²)</label>
                                     {{ Form::number('Surface', Input::old('Surface'), array('class' => 'form-control') ) }}
                                 </div>
                                 <div class="form-group">
-                                    <label>Surface brute (m²)</label>
-                                    {{ Form::number('SurfaceBrute', Input::old('SurfaceBrute'), array('class' => 'form-control') ) }}
+                                    <label>Nombre d'étages</label>
+                                    {{ Form::number('NbrEtage', Input::old('NbrEtage'), array('class' => 'form-control') ) }}
                                 </div>
                                 <div class="form-group">
-                                    <label>Surface nette (m²)</label>
-                                    {{ Form::number('SurfaceNette', Input::old('SurfaceNette'), array('class' => 'form-control') ) }}
-                                </div>
-                                <div class="form-group">
-                                    <label>Surface totale des planchers des zones équipés en chauffage et climatisation (m²)</label>
-                                    {{ Form::number('SurfaceTotalPlancher', Input::old('SurfaceTotalPlancher'), array('class' => 'form-control') ) }}
-                                </div>
-                                <div class="form-group">
-                                    <label>Nombre d’employés qui travaillent dans le bâtiment de manière régulière</label>
-                                    {{ Form::number('NbrEmployee', Input::old('NbrEmployee'), array('class' => 'form-control') ) }}
-                                </div>
-                                <div class="form-group">
-                                    <label>Système de chauffage d’eau (le cas échéant)</label>
-                                    {{ Form::text('SystemeChauffageEau', Input::old('SystemeChauffageEau'), array('class' => 'form-control') ) }}
-                                </div>
-                                <div class="form-group">
-                                    <label>Capacité installée/ surface couverte en panneaux, pour la production d’électricité (PV)</label>
-                                    {{ Form::number('Pv', Input::old('Pv'), array('class' => 'form-control') ) }}
-                                </div>
-                                <div class="form-group">
-                                    <label>Capacité installée/ surface couverte en panneaux, pour la production d’eau chaude (CES)</label>
-                                    {{ Form::number('Ces', Input::old('Ces'), array('class' => 'form-control') ) }}
+                                    <label>Surface chauffée (m²)</label>
+                                    {{ Form::number('SurfaceChauffe', Input::old('SurfaceChauffe'), array('class' => 'form-control') ) }}
                                 </div>
                                 <div class="form-group">
                                     <label>Adoption mesures  Efficacité énergétique (EE)</label>
@@ -199,6 +183,14 @@ $(document).ready(function() {
                                 <div class="form-group">
                                     <label>Description Mesures GRE</label>
                                     {{ Form::text('MesuresEEDesc', Input::old('MesuresEEDesc'), array('class' => 'form-control') ) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Capacité installée/ surface couverte en panneaux, pour la production d’électricité (PV)</label>
+                                    {{ Form::number('Pv', Input::old('Pv'), array('class' => 'form-control') ) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Capacité installée/ surface couverte en panneaux, pour la production d’eau chaude (CES)</label>
+                                    {{ Form::number('Ces', Input::old('Ces'), array('class' => 'form-control') ) }}
                                 </div>
                                 {{ Form::submit('Enregistrer', array('class'=>'btn btn-primary')) }}
                                 {{ link_to(URL::previous(), 'Annuler', ['class' => 'btn btn-default']) }}

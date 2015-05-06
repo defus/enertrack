@@ -2,7 +2,7 @@
 
 class VehiculeTbgeController extends \BaseController {
 
-    public static $services = array(1 =>  'Propreté', 2 => 'Espaces verts', 3 => 'Entretien', 4 => 'Eclairage public', 5 => 'Hygiène (BMH)', 6 => 'Parc automobile communal', 7 => 'Abattoirs', 8 => 'Transport du personnel', 9 => 'Urgences médicales');
+    public static $services = array(1 =>  'Propreté', 2 => 'Espaces verts', 3 => 'Entretien', 4 => 'Eclairage public', 5 => 'Hygiène (BMH)', 6 => 'Parc automobile communal', 7 => 'Abattoirs', 8 => 'Transport du personnel', 9 => 'Urgences médicales', 10 => 'Police', 11 => 'Sapeurs-pompiers');
 
     public static $fonctions = array(0 => 'Utilitaire : usage sur le terrain', 1 => 'De service : à titre fonctionnel', 3 => 'Particulier : usage personnel');
 
@@ -247,12 +247,12 @@ class VehiculeTbgeController extends \BaseController {
 
       DB::beginTransaction();
 
-      DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+      //DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-      DB::table('compteurvehicules')->truncate();
-      DB::table('vehicule')->truncate();
+      //DB::table('compteurvehicules')->truncate();
+      //DB::table('vehicule')->truncate();
 
-      DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+      //DB::statement('SET FOREIGN_KEY_CHECKS=1;');
       
       Validator::extend('serviceValide', function($attribute, $value, $parameters)
       {
@@ -279,7 +279,7 @@ class VehiculeTbgeController extends \BaseController {
       Validator::extend('carburantValide', function($attribute, $value, $parameters)
       {
           if(empty($value)){
-            return true;
+            return false;
           }
           $categories = Categories::where('Libelle', $value)->where('CategorieparenteID', 39)->get();
           if(count($categories) > 0){
@@ -308,11 +308,21 @@ class VehiculeTbgeController extends \BaseController {
           $compteurElectricites = explode("-", $value);
           if(is_array($compteurElectricites)){
             foreach ($compteurElectricites as $key => $compteurElectriciteReference) {
-              $compteurs = Compteurs::where('Reference', $compteurElectriciteReference);
-              if(count($compteurs) > 0){
+              $compteurs = Compteurs::where('Reference', $compteurElectriciteReference)->get();
+              if($compteurs->count() > 0){
                 return true;
               }else{
-                return false;
+                $compteur = new Compteurs();
+                $compteur->MouvrageID = Config::get('enertrack.MouvrageID');
+                $compteur->BaseID = '8e0910e0-cdee-70a1-55c3-b0f48ee8127f';
+                $compteur->Reference = $value;
+                $compteur->Numero = null;
+                $compteur->EnergieID = 16;
+                $compteur->Type = 'CONSO';
+                $compteur->FournisseurID = 8;
+                $compteur->Clos = 0;
+                $compteur->save();
+                return true;
               }
             }
           }
@@ -329,9 +339,8 @@ class VehiculeTbgeController extends \BaseController {
           
           $validation = Validator::make($row, 
             array(
-              'Nom' => 'required',
+              'Nom' => 'required|compteursValide',
               'Service' => 'serviceValide',
-              "CompteurVehicules" => 'compteursValide',
               'CategorieID' => 'categorieIDValide',
               'Fonction' => 'fonctionValide',
               'Carburant' => 'carburantValide'
@@ -341,11 +350,12 @@ class VehiculeTbgeController extends \BaseController {
           );
 
           if ($validation->fails()) {
-              dd($row);
-              return Redirect::to('tbge/patrimoine/vehicule/import/csv')
-                  ->withErrors($validation);
+            DB::rollback();
+            dd($row);
+            /*return Redirect::to('tbge/patrimoine/vehicule/import/csv')
+                ->withErrors($validation);*/
           } else {
-            
+      
             $fonctionKey = null;
             if(in_array($row['Fonction'], self::$fonctions)){
               $fonctionKey = $key;
@@ -359,13 +369,25 @@ class VehiculeTbgeController extends \BaseController {
             }
 
             $categories = Categories::where('Libelle', $row['CategorieID'])->where('CategorieparenteID', 12)->get();
+            if($categories->count() > 0){
+              $categorie = $categories[0]->CategorieID;
+            }else{
+              $categorie = null;
+            }
+      
             $carburants = Categories::where('Libelle', $row['Carburant'])->where('CategorieparenteID', 39)->get();
           
-            $vehicule = new Vehicules();
+            $vehicules = Vehicules::where('Nom', $row['Nom'])->get();
+            if($vehicules->count() <= 0){
+              $vehicule = new Vehicules();  
+            }else{
+              $vehicule = $vehicules[0];
+            }
+
             $vehicule->MouvrageID = Config::get('enertrack.MouvrageID');
             $vehicule->BaseID = $baseid;
             $vehicule->Nom = $row['Nom'];
-            $vehicule->CategorieID = (empty($row['CategorieID'])) ? NULL : $categories[0]->CategorieID;
+            $vehicule->CategorieID = $categorie;
             $vehicule->Service = $serviceKey;
             $vehicule->UniteAdministrative = $row['UniteAdministrative'];
             $vehicule->Fonction = $fonctionKey;
@@ -373,24 +395,36 @@ class VehiculeTbgeController extends \BaseController {
             $vehicule->Modele = $row['Modele'];
             $vehicule->Taille = $row['Taille'];
             $vehicule->Carburant = (empty($row['Carburant'])) ? NULL : $carburants[0]->CategorieID;
-            $vehicule->Conso = $row['Conso'];
-            $vehicule->DistanceParcourue = $row['DistanceParcourue'];
-            $vehicule->NbrJrReparation = $row['NbrJrReparation'];
-            $vehicule->Puissance = $row['Puissance'];
+            //$vehicule->Conso = $row['Conso'];
+            //$vehicule->DistanceParcourue = $row['DistanceParcourue'];
+            //$vehicule->NbrJrReparation = $row['NbrJrReparation'];
+            //$vehicule->Puissance = $row['Puissance'];
 
             $vehicule->save();
 
-            $compteurElectricites = explode("-", $row['CompteurVehicules']);
+            $compteurElectricites = explode("-", $row['Nom']);
             if(is_array($compteurElectricites)){
               foreach ($compteurElectricites as $key => $compteurElectriciteReference) {
                 $compteurs = Compteurs::where('Reference', $compteurElectriciteReference)->get();
-                if(count($compteurs) > 0){
-                  $compteurvehicule = new Compteurvehicules();
-                  $compteurvehicule->VehiculeID = $vehicule->VehiculeID;
-                  $compteurvehicule->CompteurID = $compteurs[0]->CompteurID;
+                if($compteurs->count() <=0){
+                  dd($compteurElectriciteReference);
+                }
+                $compteurVehicules = CompteurVehicules::where('VehiculeID', $vehicule->VehiculeID)->where('CompteurID', $compteurs[0]->CompteurID)->get();
+                if($compteurVehicules->count() <=0){
+                  $compteurs = Compteurs::where('Reference', $compteurElectriciteReference)->get();
+                  if(count($compteurs) > 0){
+                    $compteurvehicule = new Compteurvehicules();
+                    $compteurvehicule->VehiculeID = $vehicule->VehiculeID;
+                    $compteurvehicule->CompteurID = $compteurs[0]->CompteurID;
+                    $compteurvehicule->BaseID = $baseid;
+                    $compteurvehicule->Pourcentage = 100;
+                    $compteurvehicule->save();               
+                  }
+                }else{
+                  $compteurvehicule = $compteurVehicules[0];
                   $compteurvehicule->BaseID = $baseid;
                   $compteurvehicule->Pourcentage = 100;
-                  $compteurvehicule->save();               
+                  $compteurvehicule->save();
                 }
               }
             }
@@ -402,7 +436,9 @@ class VehiculeTbgeController extends \BaseController {
 
 
       DB::commit();
-
+      //DB::rollback();
+      //dd("OK");
+      
       Session::flash('success', "<p>Véhicules importés avec succès ! $nombreLigneImportee lignes importées </p>");
       return Redirect::to('tbge/patrimoine/vehicule');
     }

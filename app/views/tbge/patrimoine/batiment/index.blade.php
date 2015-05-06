@@ -12,7 +12,7 @@
 @extends('templates.normal')
 
 {{-- Page title --}}
-@section('title') Consultation des batiments @stop
+@section('title') Liste des batiments @stop
 
 {{-- Page specific CSS files --}}
 {{-- {{ HTML::style('--Path to css--') }} --}}
@@ -32,7 +32,10 @@ $(document).ready(function() {
     $('#dataTables-batiments').dataTable({
         "dom": 'T<"clear">lfrtip',
         "tableTools": {
-            "sSwfPath": "assets/js/plugins/dataTables/extensions/TableTools-2.2.3/swf/copy_csv_xls_pdf.swf"
+            "sSwfPath": "{{ URL::to('/')}}/assets/js/plugins/dataTables/extensions/TableTools-2.2.3/swf/copy_csv_xls_pdf.swf"
+        },
+        "language": {
+            "url": "{{ URL::to('/')}}/assets/js/plugins/dataTables/French.lang"
         }
     });
 });
@@ -54,7 +57,7 @@ $(document).ready(function() {
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Consultation de la liste des batiments enregistrés dans l'application
+                    Liste des batiments enregistrés dans l'application
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -77,7 +80,6 @@ $(document).ready(function() {
                                 <tr>
                                     <th>Reférence</th>
                                     <th>Nom / Description</th>
-                                    <th>Sous-catégorie</th>
                                     <th>Adresse</th>
                                     <th>Année de construction</th>
                                     <th class="no-sort" style="width:17px;min-width:75px;max-width:75px;">Actions</th>
@@ -88,7 +90,6 @@ $(document).ready(function() {
                                 <tr>
                                     <td>{{$value->Reference}}</td>
                                     <td>{{$value->Nom}}</td>
-                                    <td>{{$patrimoines[$value->Patrimoine]}}</td>
                                     <td>{{$value->Adresse1}}</td>
                                     <td>{{$value->Anneeconstruction}}</td>
                                     <td nowrap="nowrap">

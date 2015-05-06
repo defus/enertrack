@@ -88,10 +88,10 @@
         </li>
         <!-- /.dropdown -->
         <li>
-            <img src="/v2/public/cua.png" alt="Logo Commune Urbaine Agadir" style="height:35px;" />
+            <img src="{{ URL::to('/') }}/cua.png" alt="Logo Commune Urbaine Agadir" style="height:35px;" />
         </li>
         <li >
-            <img alt="Brand" src="/v2/public/jihatinou.jpg" style="height:35px;width:35px;" >
+            <img alt="Brand" src="{{ URL::to('/') }}/jihatinou.jpg" style="height:35px;width:35px;" >
             
         </li>
         <!-- /.dropdown -->
@@ -136,9 +136,9 @@
                 <li  @if(Request::is('patrimoine') or Request::is('tbge/patrimoine/*') or Request::is('patrimoine/*/create') or Request::is('tbge/patrimoine/*/create') or Request::is('patrimoine/*/*/edit') or Request::is('tbge/patrimoine/*/*/edit')) class="active" @endif>
                     <a href="#"><i class="fa fa-wrench fa-fw"></i> Patrimoines<sspan class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        @if(Auth::user()->hasRole('BATIMENT'))
+                        @if(Auth::user()->hasRole('ECLAIRAGE'))
                         <li>
-                            <a @if(Request::is('tbge/patrimoine/batiment')  or Request::is('tbge/patrimoine/batiment/*/edit')) class="active" @endif href="{{ URL::to('tbge/patrimoine/batiment') }}">Liste des batiments</a>
+                            <a @if(Request::is('tbge/patrimoine/eclairage')  or Request::is('tbge/patrimoine/eclairage/*/edit')) class="active" @endif href="{{ URL::to('tbge/patrimoine/eclairage') }}">Liste des postes d'éclairages</a>
                         </li>
                         @endif
                         @if(Auth::user()->hasRole('ARRIVEEAU'))
@@ -151,14 +151,14 @@
                             <a @if(Request::is('tbge/patrimoine/espacevert')  or Request::is('tbge/patrimoine/espacevert/*/edit')) class="active" @endif href="{{ URL::to('tbge/patrimoine/espacevert') }}">Liste des espaces verts</a>
                         </li>
                         @endif
-                        @if(Auth::user()->hasRole('ECLAIRAGE'))
-                        <li>
-                            <a @if(Request::is('tbge/patrimoine/eclairage')  or Request::is('tbge/patrimoine/eclairage/*/edit')) class="active" @endif href="{{ URL::to('tbge/patrimoine/eclairage') }}">Liste des postes d'éclairages</a>
-                        </li>
-                        @endif
                         @if(Auth::user()->hasRole('VEHICULE'))
                         <li>
                             <a @if(Request::is('tbge/patrimoine/vehicule')  or Request::is('tbge/patrimoine/vehicule/*/edit')) class="active" @endif href="{{ URL::to('tbge/patrimoine/vehicule') }}">Liste des véhicules</a>
+                        </li>
+                        @endif
+                        @if(Auth::user()->hasRole('BATIMENT'))
+                        <li>
+                            <a @if(Request::is('tbge/patrimoine/batiment')  or Request::is('tbge/patrimoine/batiment/*/edit')) class="active" @endif href="{{ URL::to('tbge/patrimoine/batiment') }}">Liste des batiments</a>
                         </li>
                         @endif
                         @if(Auth::user()->hasRole('POSTEPRODUCTION'))
@@ -169,9 +169,9 @@
                         <li @if(Request::is('tbge/patrimoine') or Request::is('tbge/patrimoine/*/create')) class="active" @endif>
                             <a href="#">Ajouter ... <span class="fa arrow"></span></a>
                             <ul class="nav nav-third-level">
-                                @if(Auth::user()->hasRole('BATIMENT'))
+                                @if(Auth::user()->hasRole('ECLAIRAGE'))
                                 <li>
-                                    <a @if(Request::is('tbge/patrimoine/batiment/create')) class="active" @endif href="{{ URL::to('tbge/patrimoine/batiment/create') }}">Ajouter un batiment</a>
+                                    <a @if(Request::is('tbge/patrimoine/eclairage/create')) class="active" @endif href="{{ URL::to('tbge/patrimoine/eclairage/create') }}">Ajouter un poste d'éclairage</a>
                                 </li>
                                 @endif
                                 @if(Auth::user()->hasRole('ARRIVEEAU'))
@@ -184,14 +184,14 @@
                                     <a @if(Request::is('tbge/patrimoine/espacevert/create')) class="active" @endif href="{{ URL::to('tbge/patrimoine/espacevert/create') }}">Ajouter un espace vert</a>
                                 </li>
                                 @endif
-                                @if(Auth::user()->hasRole('ECLAIRAGE'))
-                                <li>
-                                    <a @if(Request::is('tbge/patrimoine/eclairage/create')) class="active" @endif href="{{ URL::to('tbge/patrimoine/eclairage/create') }}">Ajouter un poste d'éclairage</a>
-                                </li>
-                                @endif
                                 @if(Auth::user()->hasRole('VEHICULE'))
                                 <li>
                                     <a @if(Request::is('tbge/patrimoine/vehicule/create')) class="active" @endif href="{{ URL::to('tbge/patrimoine/vehicule/create') }}">Ajouter un véhicule</a>
+                                </li>
+                                @endif
+                                @if(Auth::user()->hasRole('BATIMENT'))
+                                <li>
+                                    <a @if(Request::is('tbge/patrimoine/batiment/create')) class="active" @endif href="{{ URL::to('tbge/patrimoine/batiment/create') }}">Ajouter un batiment</a>
                                 </li>
                                 @endif
                                 @if(Auth::user()->hasRole('POSTEPRODUCTION'))
@@ -219,6 +219,10 @@
                     <!-- /.nav-second-level -->
                 </li>
                 @endif
+                <li>
+                    <a href="{{URL::to('contact/11')}}"><i class="fa fa-sitemap fa-fw"></i> Contacter un administrateur</a>
+                    <!-- /.nav-second-level -->
+                </li>
             </ul>
         </div>
         <!-- /.sidebar-collapse -->

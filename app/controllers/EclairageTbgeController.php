@@ -4,7 +4,7 @@ class EclairageTbgeController extends \BaseController {
 
     public static $typeTechnologies = array(1 => "MHP : Lampes à vapeur de Mercure Haute Pression", 2 => "SHP : Lampes à vapeur de Sodium Haute Pression", 3 => 'LED : Diode électroluminescente', 4 => "Solaire");
 
-    public static $typeTarifs = array('BT Public', 'BT Administratif', 'BT Patenté', 'BT Force Motrice Industrielle', 'MT Général');
+    public static $typeTarifs = array('BT Public', 'BT Administratif', 'BT Patenté', 'BT Force Motrice Industrielle', 'MT Général', 'BT Domestique');
 
     public function index()
     {
@@ -56,18 +56,21 @@ class EclairageTbgeController extends \BaseController {
           $eclairage->Reference = \Input::get('Reference');
           $eclairage->Nom = \Input::get('Nom');
           $eclairage->Secteur = \Input::get('Secteur');
+          $eclairage->Armoires = \Input::get('Armoires');
           $eclairage->Nbrpointlumineux = \Input::get('Nbrpointlumineux');
           $eclairage->CategorieID = \Input::get('CategorieID');
+          $eclairage->EltElecSystAllum = \Input::get('EltElecSystAllum');
           $eclairage->TypeTarif = \Input::get('TypeTarif');
           $eclairage->PuissanceSouscrite = \Input::get('PuissanceSouscrite');
           $eclairage->PuissanceInstalle = \Input::get('PuissanceInstalle');
           $eclairage->PuissanceAppele = \Input::get('PuissanceAppele');
-          $eclairage->Puissance = \Input::get('Puissance');
+          //$eclairage->Puissance = \Input::get('Puissance');
           $eclairage->NbrHeuresans = \Input::get('NbrHeuresans');
           $eclairage->TypeTechnologie = \Input::get('TypeTechnologie');
           $eclairage->MarqueLampe = \Input::get('MarqueLampe');
-          $eclairage->NbrJourInterrupServ = \Input::get('NbrJourInterrupServ');
           $eclairage->NbrJourIntervServ = \Input::get('NbrJourIntervServ');
+          $eclairage->Latitude = \Input::get('Latitude');
+          $eclairage->Longitude = \Input::get('Longitude');
           
           $eclairage->save();
 
@@ -136,17 +139,18 @@ class EclairageTbgeController extends \BaseController {
           $eclairage->Reference = \Input::get('Reference');
           $eclairage->Nom = \Input::get('Nom');
           $eclairage->Secteur = \Input::get('Secteur');
+          $eclairage->Armoires = \Input::get('Armoires');
           $eclairage->Nbrpointlumineux = \Input::get('Nbrpointlumineux');
           $eclairage->CategorieID = \Input::get('CategorieID');
+          $eclairage->EltElecSystAllum = \Input::get('EltElecSystAllum');
           $eclairage->TypeTarif = \Input::get('TypeTarif');
           $eclairage->PuissanceSouscrite = \Input::get('PuissanceSouscrite');
           $eclairage->PuissanceInstalle = \Input::get('PuissanceInstalle');
           $eclairage->PuissanceAppele = \Input::get('PuissanceAppele');
-          $eclairage->Puissance = \Input::get('Puissance');
+          //$eclairage->Puissance = \Input::get('Puissance');
           $eclairage->NbrHeuresans = \Input::get('NbrHeuresans');
           $eclairage->TypeTechnologie = \Input::get('TypeTechnologie');
           $eclairage->MarqueLampe = \Input::get('MarqueLampe');
-          $eclairage->NbrJourInterrupServ = \Input::get('NbrJourInterrupServ');
           $eclairage->NbrJourIntervServ = \Input::get('NbrJourIntervServ');
 
           $eclairage->save();
@@ -291,7 +295,7 @@ class EclairageTbgeController extends \BaseController {
           $compteurElectricites = explode("-", $value);
           if(is_array($compteurElectricites)){
             foreach ($compteurElectricites as $key => $compteurElectriciteReference) {
-              $compteurs = Compteurs::where('Reference', $compteurElectriciteReference);
+              $compteurs = Compteurs::where('Reference', $compteurElectriciteReference)->get();
               if(count($compteurs) > 0){
                 return true;
               }else{
@@ -316,8 +320,6 @@ class EclairageTbgeController extends \BaseController {
               'Nom' => 'required',
               'TypeTarif' => 'typeTarifValide',
               "CompteurElectricites" => 'compteursValide',
-              'CategorieID' => 'categorieIDValide',
-              'TypeTechnologie' => 'typeTechnologieValide'
               ), array(
                 'required' => "Le champ :attribute est obligatoire"
               )
@@ -328,33 +330,13 @@ class EclairageTbgeController extends \BaseController {
                   ->withErrors($validation);
           } else {
             
-            $typeTechnologieKey = "";
-            if(in_array($row['TypeTechnologie'], self::$typeTechnologies)){
-              $typeTechnologieKey = $key;
-              break;
-            }
-
-            $categories = Categories::where('Libelle', $row['CategorieID'])->where('CategorieparenteID', 8)->get();
-            
             $eclairage = new Eclairages();
             $eclairage->MouvrageID = Config::get('enertrack.MouvrageID');
             $eclairage->BaseID = $baseid;
             $eclairage->Reference = $row['Reference'];
             $eclairage->Nom = $row['Nom'];
-            $eclairage->Secteur = $row['Secteur'];
-            $eclairage->Nbrpointlumineux = $row['Nbrpointlumineux'];
-            $eclairage->CategorieID = (empty($row['CategorieID'])) ? NULL : $categories[0]->CategorieID;
             $eclairage->TypeTarif = $row['TypeTarif'];
-            $eclairage->PuissanceSouscrite = $row['PuissanceSouscrite'];
-            $eclairage->PuissanceInstalle = $row['PuissanceInstalle'];
-            $eclairage->PuissanceAppele = $row['PuissanceAppele'];
-            //$eclairage->Puissance = $row['Puissance'];
-            $eclairage->NbrHeuresans = $row['NbrHeuresans'];
-            $eclairage->TypeTechnologie = $typeTechnologieKey;
-            $eclairage->MarqueLampe = $row['MarqueLampe'];
-            $eclairage->NbrJourInterrupServ = $row['NbrJourInterrupServ'];
-            $eclairage->NbrJourIntervServ = $row['NbrJourIntervServ'];
-
+            
             $eclairage->save();
 
             $compteurElectricites = explode("-", $row['CompteurElectricites']);

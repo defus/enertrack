@@ -64,6 +64,21 @@ class ContactController extends \BaseController {
         }
     }
 
+    public function show($id)
+    {
+      $username = Auth::user()->Username;
+      $baseid = Auth::user()->BaseID; 
+      
+      $mos = DB::select("select MouvrageID, Societe from mouvrage WHERE `BaseID` = '".$baseid."' order by Societe");
+      $mos = $this->objectsToArray($mos, 'MouvrageID', 'Societe');
+
+      $contact = Contacts::find($id);
+
+      return View::make('contact.show')
+        ->with('contact', $contact)
+        ->with('mos', $mos);
+    }
+
     public function edit($id)
     {
       $username = Auth::user()->Username;

@@ -30,9 +30,48 @@
 $(document).ready(function() {
     $('#compteurElectricitesSelect2').select2({
         allowClear: true,
-        placeholder: "Sélectionner un compteur",
         closeOnSelect : false
     });
+    $('#compteurEauxSelect2').select2({
+        allowClear: true,
+        closeOnSelect : false
+    });
+    $('#categorieSelect2').select2({
+        allowClear: true,
+        closeOnSelect : false
+    });
+
+
+    $('.forage').hide();
+    $('.equipement-chaleur').hide();
+    $('.gpe-frigorifique').hide();
+    $('.gpe-electrogene').hide();
+
+    $('#TypeSelect').on('change', function(){
+        var selectedValue = "forage";
+        $('#TypeSelect option:selected').each(function() {
+          selectedValue = $( this ).text();
+        });
+        
+        $('.forage').hide();
+        $('.equipement-chaleur').hide();
+        $('.gpe-frigorifique').hide();
+        $('.gpe-electrogene').hide();
+
+        if(selectedValue == "Forage"){
+            selectedValue = "forage";
+        }else if(selectedValue == "Équipement de production de chaleur"){
+            selectedValue = "equipement-chaleur";
+        }if(selectedValue == "Groupe frigorifique"){
+            selectedValue = "gpe-frigorifique";
+        }if(selectedValue == "Groupe électrogène / Équipement de production d’électricité"){
+            selectedValue = "gpe-electrogene";
+        }
+
+        $('.'+selectedValue).show();
+    });
+
+    $('#TypeSelect').change();
 });
 </script>
 @stop
@@ -66,30 +105,64 @@ $(document).ready(function() {
                                 @endforeach
                             @endif
                             {{ Form::model($posteproduction, array('route' => array('tbge.patrimoine.posteproduction.update', $posteproduction->PosteproductionID), 'method' => 'put', 'role' => 'form')) }}
+                                <div class="form-group">
+                                    <label>Numéro d’identification du poste</label>
+                                    {{ Form::text('Reference', Input::old('Reference'), array('class' => 'form-control') ) }}
+                                </div>
                                 <div class="form-group @if($errors->first('Nom') != '') has-error @endif">
-                                    <label>Nom du poste de production *</label>
+                                    <label>Nom/Description du poste *</label>
                                     {{ Form::text('Nom', Input::old('Nom'), array('class' => 'form-control', 'autofocus' => '' ) ) }}
                                     {{ $errors->first('Nom', '<span class="error">:message</span>' ) }}
                                 </div>
                                 <div class="form-group">
-                                    <label>Compteurs associés</label>
+                                    <label>Compteur(s) d’électricité associé(s)</label>
                                     <select id="compteurElectricitesSelect2" name="compteurElectricitesID[]" class="form-control" multiple>
                                         @if(count($compteurElectricites) > 0)
+                                            <optgroup label="Compteurs d'électricité">
                                             @foreach($compteurElectricites as $key => $value)
-                                            <optgroup label="{{$value->Energie}}">
-                                                <option value="{{$value->CompteurID}}" @if(in_array($value->CompteurID, $compteurElectricitesSelected)) selected="selected" @endif>{{$value->Nom . ' | ' . $value->Reference}}</option>
-                                            </optgroup>
+                                                <option value="{{$value->CompteurID}}" @if(in_array($value->CompteurID, $compteurElectricitesSelected)) selected="selected" @endif>{{'N°: ' . $value->Numero . ' | Ref: ' . $value->Reference}}</option>
                                             @endforeach
+                                            </optgroup>
                                         @endif
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Type d’énergie produite</label>
+                                    <label>Compteurs d’eau associés</label>
+                                    <select id="compteurEauxSelect2" name="compteurEauxID[]" class="form-control" multiple>
+                                        @if(count($compteurEaux) > 0)
+                                            <optgroup label="Compteurs d'eau">
+                                            @foreach($compteurEaux as $key => $value)
+                                                <option value="{{$value->CompteurID}}"  @if(in_array($value->CompteurID, $compteurEauxSelected)) selected="selected" @endif>{{'N°: ' . $value->Numero . ' | Ref: ' . $value->Reference}}</option>
+                                            @endforeach
+                                            </optgroup>
+                                        @endif
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Type de produits</label>
                                     {{ Form::select('Energie', $energies, Input::old('Energie'), array('class' => 'form-control')) }}
                                 </div>
                                 <div class="form-group">
                                     <label>Catégorie du poste de production</label>
-                                    {{ Form::select('CategorieID', $categories, Input::old('CategorieID'), array('class' => 'form-control')) }}
+                                    {{ Form::select('Type', $types, Input::old('Type'), array('id' => 'TypeSelect', 'class' => 'form-control')) }}
+                                </div>
+                                <div class="form-group">
+                                    <label class="forage">Puissance de la pompe</label>
+                                    <label class="equipement-chaleur  gpe-frigorifique gpe-electrogene">Puissance utile de l'équipement (kWh)</label>
+                                    {{ Form::number('Puissance', Input::old('Puissance'), array('class' => 'form-control') ) }}
+                                </div>
+                                <div class="form-group">
+                                    <label class="forage">Nombre d'heures de pompages par mois</label>
+                                    <label class="equipement-chaleur gpe-frigorifique gpe-electrogene">Nombre d’heures de fonctionnement par mois</label>
+                                    {{ Form::number('NbrHeureFct', Input::old('NbrHeureFct'), array('class' => 'form-control') ) }}
+                                </div>
+                                <div class="form-group forage">
+                                    <label>Quantité d'eau pompée par mois</label>
+                                    {{ Form::number('QteEauPompeMois', Input::old('QteEauPompeMois'), array('class' => 'form-control') ) }}
+                                </div>
+                                <div class="form-group equipement-chaleur  gpe-frigorifique gpe-electrogene">
+                                    <label>Modèle et marque</label>
+                                    {{ Form::text('ModeleMarqueEquipement', Input::old('ModeleMarqueEquipement'), array('class' => 'form-control') ) }}
                                 </div>
                                 <div class="form-group">
                                     <label>Latitude</label>

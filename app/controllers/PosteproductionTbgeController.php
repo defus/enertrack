@@ -1,6 +1,8 @@
 <?php
 
 class PosteproductionTbgeController extends \BaseController {
+    
+    public static $types = array('Forage', 'Équipement de production de chaleur', 'Groupe frigorifique', "Groupe électrogène / Équipement de production d’électricité");
 
     public function index()
     {
@@ -9,7 +11,8 @@ class PosteproductionTbgeController extends \BaseController {
       $posteproductions = DB::select("SELECT posteproduction.*, mouvrage.Societe, coordonnee.Societe as Contact, categorie.libelle as categorie FROM posteproduction  INNER JOIN mouvrage ON mouvrage.MouvrageID = posteproduction.MouvrageID LEFT OUTER JOIN coordonnee ON coordonnee.CoordonneeID = posteproduction.CoordonneeID LEFT OUTER JOIN categorie on categorie.CategorieID = posteproduction.CategorieID WHERE posteproduction.BaseID='$baseid'");
 
       return  View::make('tbge.patrimoine.posteproduction.index')
-        ->with('posteproductions', $posteproductions);
+        ->with('posteproductions', $posteproductions)
+        ->with('types', self::$types);
     }
 
     public function create()
@@ -20,14 +23,18 @@ class PosteproductionTbgeController extends \BaseController {
       $categories = DB::select("select CategorieID, Libelle from categorie WHERE `CategorieparenteID` =9 AND `BaseID` = '".$baseid."' order by Libelle");
       $categories = $this->objectsToArray($categories, 'CategorieID', 'Libelle');
 
-      $compteurElectricites = DB::select("SELECT compteur.CompteurID ,compteur.Nom, compteur.Reference, compteur.Localisation, compteur.BaseID, energie.Nom as Energie, energie.Couleur  FROM compteur left join energie on ( compteur.EnergieID=energie.EnergieID) WHERE compteur.BaseID='$baseid' and compteur.Clos=0 and (compteur.Type='CONSO') ORDER BY compteur.EnergieID, compteur.Nom, compteur.Reference  ");
+      $compteurElectricites = DB::select("SELECT compteur.CompteurID ,compteur.Nom, compteur.Reference, compteur.Numero, compteur.Localisation, compteur.BaseID, energie.Nom as Energie, energie.Couleur  FROM compteur left join energie on ( compteur.EnergieID=energie.EnergieID) WHERE compteur.BaseID='$baseid' and compteur.Clos=0 and (compteur.Type='CONSO') ORDER BY compteur.EnergieID, compteur.Nom, compteur.Reference  ");
+
+      $compteurEaux = DB::select("SELECT compteur.CompteurID ,compteur.Numero, compteur.Reference, compteur.Localisation, compteur.BaseID, energie.Nom as Energie, energie.Couleur  FROM compteur left join energie on ( compteur.EnergieID=energie.EnergieID) WHERE compteur.BaseID='$baseid' and compteur.Clos=0 and (compteur.Type='CONSOEAU') ORDER BY compteur.EnergieID, compteur.Nom, compteur.Reference  ");
 
       $energies = array( 1 => 'Eau', 2 => 'Electricité', 3 => 'Chaleur (chauffage)', 4 => 'Chaleur froide (refroidissement)');
 
       return View::make('tbge.patrimoine.posteproduction.create')
         ->with('energies', $energies)
         ->with('categories', $categories)
-        ->with('compteurElectricites', $compteurElectricites);
+        ->with('compteurElectricites', $compteurElectricites)
+        ->with('compteurEaux', $compteurEaux)
+        ->with('types', self::$types);
     }
 
     public function store(){
@@ -52,10 +59,15 @@ class PosteproductionTbgeController extends \BaseController {
           $posteproduction->BaseID = $baseid;
           $posteproduction->Nom = \Input::get('Nom');
           $posteproduction->Energie = \Input::get('Energie');
-          $posteproduction->CategorieID = \Input::get('CategorieID');
           $posteproduction->Latitude = \Input::get('Latitude');
           $posteproduction->Longitude = \Input::get('Longitude');
           $posteproduction->Anneeconstruction = \Input::get('Anneeconstruction');
+          $posteproduction->Reference = \Input::get('Reference');
+          $posteproduction->Puissance = \Input::get('Puissance');
+          $posteproduction->NbrHeureFct = \Input::get('NbrHeureFct');
+          $posteproduction->QteEauPompeMois = \Input::get('QteEauPompeMois');
+          $posteproduction->ModeleMarqueEquipement = \Input::get('ModeleMarqueEquipement');
+          $posteproduction->Type = \Input::get('Type');
           
           $posteproduction->save();
 
@@ -100,17 +112,25 @@ class PosteproductionTbgeController extends \BaseController {
 
       $energies = array( 1 => 'Eau', 2 => 'Electricité', 3 => 'Chaleur (chauffage)', 4 => 'Chaleur froide (refroidissement)');
 
-      $compteurElectricites = DB::select("SELECT compteur.CompteurID ,compteur.Nom, compteur.Reference, compteur.Localisation, compteur.BaseID, energie.Nom as Energie, energie.Couleur  FROM compteur left join energie on ( compteur.EnergieID=energie.EnergieID) WHERE compteur.BaseID='$baseid' and compteur.Clos=0  ORDER BY compteur.EnergieID, compteur.Nom, compteur.Reference  ");
+      $compteurElectricites = DB::select("SELECT compteur.CompteurID ,compteur.Nom, compteur.Reference, compteur.Numero, compteur.Localisation, compteur.BaseID, energie.Nom as Energie, energie.Couleur  FROM compteur left join energie on ( compteur.EnergieID=energie.EnergieID) WHERE compteur.BaseID='$baseid' and (compteur.Type='CONSO') and compteur.Clos=0  ORDER BY compteur.EnergieID, compteur.Nom, compteur.Reference  ");
       
-      $compteurElectricitesSelected = DB::select("SELECT compteur.CompteurID FROM compteur inner join compteurposteproductions on ( compteur.CompteurID=compteurposteproductions.CompteurID) WHERE compteur.BaseID='$baseid' and compteur.Clos=0  and compteurposteproductions.PosteproductionID={$posteproduction->PosteproductionID} ORDER BY compteur.EnergieID, compteur.Nom, compteur.Reference");
+      $compteurElectricitesSelected = DB::select("SELECT compteur.CompteurID FROM compteur inner join compteurposteproductions on ( compteur.CompteurID=compteurposteproductions.CompteurID) WHERE compteur.BaseID='$baseid' and (compteur.Type='CONSO') and compteur.Clos=0  and compteurposteproductions.PosteproductionID={$posteproduction->PosteproductionID} ORDER BY compteur.EnergieID, compteur.Nom, compteur.Reference");
       $compteurElectricitesSelected = $this->objectsToArray($compteurElectricitesSelected, 'CompteurID', 'CompteurID');
+
+      $compteurEaux = DB::select("SELECT compteur.CompteurID ,compteur.Numero, compteur.Reference, compteur.Localisation, compteur.BaseID, energie.Nom as Energie, energie.Couleur  FROM compteur left join energie on ( compteur.EnergieID=energie.EnergieID) WHERE compteur.BaseID='$baseid' and compteur.Clos=0 and (compteur.Type='CONSOEAU') ORDER BY compteur.EnergieID, compteur.Nom, compteur.Reference  ");
+      
+      $compteurEauxSelected = DB::select("SELECT compteur.CompteurID FROM compteur inner join compteurposteproductions on ( compteur.CompteurID=compteurposteproductions.CompteurID) WHERE compteur.BaseID='$baseid' and (compteur.Type='CONSOEAU') and compteur.Clos=0  and compteurposteproductions.PosteproductionID={$posteproduction->PosteproductionID} ORDER BY compteur.EnergieID, compteur.Nom, compteur.Reference");
+      $compteurEauxSelected = $this->objectsToArray($compteurEauxSelected, 'CompteurID', 'CompteurID');
 
       return View::make('tbge.patrimoine.posteproduction.edit')
         ->with('posteproduction', $posteproduction)
         ->with('energies', $energies)
         ->with('categories', $categories)
         ->with('compteurElectricites', $compteurElectricites)
-        ->with('compteurElectricitesSelected', $compteurElectricitesSelected);
+        ->with('compteurElectricitesSelected', $compteurElectricitesSelected)
+        ->with('compteurEaux', $compteurEaux)
+        ->with('compteurEauxSelected', $compteurEauxSelected)
+        ->with('types', self::$types);
     }
 
     public function update($id){
@@ -134,10 +154,15 @@ class PosteproductionTbgeController extends \BaseController {
           $posteproduction->MouvrageID = Config::get('enertrack.MouvrageID');
           $posteproduction->Nom = \Input::get('Nom');
           $posteproduction->Energie = \Input::get('Energie');
-          $posteproduction->CategorieID = \Input::get('CategorieID');
           $posteproduction->Latitude = \Input::get('Latitude');
           $posteproduction->Longitude = \Input::get('Longitude');
           $posteproduction->Anneeconstruction = \Input::get('Anneeconstruction');
+          $posteproduction->Reference = \Input::get('Reference');
+          $posteproduction->Puissance = \Input::get('Puissance');
+          $posteproduction->NbrHeureFct = \Input::get('NbrHeureFct');
+          $posteproduction->QteEauPompeMois = \Input::get('QteEauPompeMois');
+          $posteproduction->ModeleMarqueEquipement = \Input::get('ModeleMarqueEquipement');
+          $posteproduction->Type = \Input::get('Type');
 
           $posteproduction->save();
 
@@ -157,7 +182,31 @@ class PosteproductionTbgeController extends \BaseController {
               $compteurposteproduction_ids[] = $compteur_id;
             }
 
-            $existing_compteurposteproductions = DB::select("SELECT compteur.CompteurID, compteurposteproductions.PosteproductionID FROM compteur inner join compteurposteproductions on ( compteur.CompteurID=compteurposteproductions.CompteurID) WHERE compteur.BaseID='$baseid' and compteur.Clos=0 and compteurposteproductions.PosteproductionID={$posteproduction->PosteproductionID} ORDER BY compteur.EnergieID, compteur.Nom, compteur.Reference");
+            $existing_compteurposteproductions = DB::select("SELECT compteur.CompteurID, compteurposteproductions.PosteproductionID FROM compteur inner join compteurposteproductions on ( compteur.CompteurID=compteurposteproductions.CompteurID) WHERE compteur.BaseID='$baseid' and (compteur.Type='CONSO') and compteur.Clos=0 and compteurposteproductions.PosteproductionID={$posteproduction->PosteproductionID} ORDER BY compteur.EnergieID, compteur.Nom, compteur.Reference");
+            foreach ($existing_compteurposteproductions as $compteurposteproduction){
+              if(!in_array($compteurposteproduction->CompteurID, $compteurposteproduction_ids)){
+                DB::table('compteurposteproductions')->where('CompteurID', $compteurposteproduction->CompteurID)->where('PosteproductionID', $compteurposteproduction->PosteproductionID)->delete();
+              }
+            }
+          }
+
+          if(is_array(\Input::get('compteurEauxID'))){
+            $compteurposteproduction_ids = array();
+            $compteur_arr = \Input::get('compteurEauxID');
+            foreach ($compteur_arr as $key => $compteur_id){
+              $size = Compteurposteproductions::where('CompteurID', $compteur_id)->where('PosteproductionID',  $posteproduction->PosteproductionID)->count();
+              if($size <= 0){
+                $compteurposteproduction = new Compteurposteproductions();
+                $compteurposteproduction->PosteproductionID = $posteproduction->PosteproductionID;
+                $compteurposteproduction->CompteurID = $compteur_id;
+                $compteurposteproduction->BaseID = $baseid;
+                $compteurposteproduction->Pourcentage = 100;
+                $compteurposteproduction->save();
+              }
+              $compteurposteproduction_ids[] = $compteur_id;
+            }
+
+            $existing_compteurposteproductions = DB::select("SELECT compteur.CompteurID, compteurposteproductions.PosteproductionID FROM compteur inner join compteurposteproductions on ( compteur.CompteurID=compteurposteproductions.CompteurID) WHERE compteur.BaseID='$baseid' and (compteur.Type='CONSOEAU') and compteur.Clos=0 and compteurposteproductions.PosteproductionID={$posteproduction->PosteproductionID} ORDER BY compteur.EnergieID, compteur.Nom, compteur.Reference");
             foreach ($existing_compteurposteproductions as $compteurposteproduction){
               if(!in_array($compteurposteproduction->CompteurID, $compteurposteproduction_ids)){
                 DB::table('compteurposteproductions')->where('CompteurID', $compteurposteproduction->CompteurID)->where('PosteproductionID', $compteurposteproduction->PosteproductionID)->delete();
