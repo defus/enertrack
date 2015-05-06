@@ -1,0 +1,228 @@
+* Pourquoi il y a des doublons au niveau des factures ?
+
+select f.nom as 'Facture', c.numero as 'compteur', b.reference as 'ref bat', b.nom as 'nom bat' from facture f inner join compteur c on c.CompteurID = f.CompteurID inner join CompteurBatiments cb on cb.CompteurId = c.CompteurID inner join batiment b on b.BatimentId = cb.BatimentID 
+where cb.compteurid in(22, 118, 147, 186, 197)
+into outfile 'c:/facture13.txt' FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n';
+
++------------+----------+---------+---------------------------------------+
+| facture    | compteur | ref bat | nom bat                               |
++------------+----------+---------+---------------------------------------+
+| 10 299 614 | C-22     | B-97    | Stade Inbiaat sud (log gardien)       |
+| 10 299 614 | C-22     | B-107   | Salle couverte Inbiaat                |
+| 10 298 934 | C-118    | B-15    | Maison de quartier El Hajeb Tikiouine |
+| 10 298 934 | C-118    | B-96    | Club féminin Elhajeb                  |
+| 10 299 615 | C-147    | B-52    | Imm SALAM Ihchach Bloc A3             |
+| 10 299 615 | C-147    | B-92    | Appt 670 bloc A3 Imm Salam Ihchach    |
+| 10 298 924 | C-186    | B-9     | Complexe culturelle Tikiouine         |
+| 10 298 924 | C-186    | B-25    | Centre culturel Tikiouine             |
+| 10 298 894 | C-197    | B-24    | Foyer féminin Biranzaran Tikiouine    |
+| 10 298 894 | C-197    | B-32    | Foyer féminin Biranzarane Tikiouine   |
++------------+----------+---------+---------------------------------------+
+
+into outfile 'c:/facture6.txt' FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n';
+
+* Trouver la liste des contrats (compteurs) pour lesquels il y a pas eu de saisie de facture
+
+select distinct
+  `c`.`Numero` AS `Numéro de compteur`,
+  `c`.`Reference` AS `Numéro de contrat`,
+  bt.BatimentID as `BatimentID`,
+  bt.Reference as `Reférence Batiment`,
+  bt.Nom as `Batiment`,
+  v.VehiculeID as `VehiculeID`,
+  v.Nom as `Vehicule Matricule`,
+  ae.ArriveeauID,
+  ae.Reference as `Arrivée d'eau Reférence`,
+  ae.Nom as `Arrivée d'eau Nom`,
+  ec.EclairageID,
+  ec.Reference as `Eclairage Reférence`,
+  ec.Nom as `Eclairage Nom`,
+  pp.PosteproductionID,
+  pp.Reference as `Numéro d’identification du poste`,
+  pp.Nom as `Poste de production Nom`
+  from `facture` `f`
+    right outer join `compteur` `c` on `c`.`CompteurID` = `f`.`CompteurID`
+    left outer join `Coordonnee` `four` on `four`.`CoordonneeID` = `c`.`FournisseurID`
+    left outer join `energie` `ener` on `ener`.`EnergieID` = `c`.`EnergieID`
+    left outer join compteurbatiments c_bt on c_bt.CompteurID=c.CompteurID
+    left outer join batiment bt on bt.BatimentID=c_bt.BatimentID
+    left outer join compteurvehicules c_v on c_v.CompteurID=c.CompteurID
+    left outer join vehicule v on v.VehiculeID=c_v.VehiculeID
+    left outer join compteurarriveeaux c_ae on c_ae.CompteurID=c.CompteurID
+    left outer join arriveeau ae on ae.ArriveeauID=c_ae.ArriveeauID
+    left outer join compteureclairages c_ec on c_ec.CompteurID=c.CompteurID
+    left outer join eclairage ec on ec.EclairageID=c_ec.EclairageID
+    left outer join compteurposteproductions c_pp on c_pp.CompteurID=c.CompteurID
+    left outer join posteproduction pp on pp.PosteproductionID=c_pp.PosteproductionID
+  where f.factureid is null
+  into outfile 'c:/facture7.txt' FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n';
+
+
+==> 190 compteurs sans factures
+
+
+* Trouver la liste des patrimoine qui ont plus d'un compteur
+    
+select distinct
+--  `c`.`Numero` AS `Numéro de compteur`,
+--  `c`.`Reference` AS `Numéro de contrat`,
+  count(bt.BatimentID),
+  bt.BatimentID,
+--  bt.Reference as `Reférence Batiment`,
+  bt.Nom as `Batiment`,
+  count(v.VehiculeID),
+  v.VehiculeID,
+  v.Nom as `Vehicule Matricule`,
+  count(ae.ArriveeauID),
+  ae.ArriveeauID,
+--  ae.Reference as `Arrivée d'eau Reférence`,
+  ae.Nom as `Arrivée d'eau Nom`,
+  count(ec.EclairageID),
+  ec.EclairageID,
+--  ec.Reference as `Eclairage Reférence`,
+  ec.Nom as `Eclairage Nom`,
+  count(pp.PosteproductionID),
+  pp.PosteproductionID,
+--  pp.Reference as `Numéro d’identification du poste`,
+  pp.Nom as `Poste de production Nom`
+  from `compteur` `c` 
+    left outer join `Coordonnee` `four` on `four`.`CoordonneeID` = `c`.`FournisseurID`
+    left outer join `energie` `ener` on `ener`.`EnergieID` = `c`.`EnergieID`
+    left outer join compteurbatiments c_bt on c_bt.CompteurID=c.CompteurID
+    left outer join batiment bt on bt.BatimentID=c_bt.BatimentID
+    left outer join compteurvehicules c_v on c_v.CompteurID=c.CompteurID
+    left outer join vehicule v on v.VehiculeID=c_v.VehiculeID
+    left outer join compteurarriveeaux c_ae on c_ae.CompteurID=c.CompteurID
+    left outer join arriveeau ae on ae.ArriveeauID=c_ae.ArriveeauID
+    left outer join compteureclairages c_ec on c_ec.CompteurID=c.CompteurID
+    left outer join eclairage ec on ec.EclairageID=c_ec.EclairageID
+    left outer join compteurposteproductions c_pp on c_pp.CompteurID=c.CompteurID
+    left outer join posteproduction pp on pp.PosteproductionID=c_pp.PosteproductionID
+  group by bt.BatimentId, bt.nom, v.VehiculeID, v.nom, ae.ArriveeauID, ae.nom, ec.EclairageID, ec.nom, pp.PosteproductionID, pp.nom
+  having count(bt.BatimentId)>1 OR count(v.VehiculeID)>1 or count(ae.ArriveeauID)>1 or count(ec.EclairageID)>1 or  count(pp.PosteproductionID)>1
+  into outfile 'c:/facture11.txt' FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n';
+
+==> 31 patrimoines trouvés au total
+
+* Liste des patrimoines qui n'ont pas de compteurs
+
+select distinct
+--  `c`.`Numero` AS `Numéro de compteur`,
+--  `c`.`Reference` AS `Numéro de contrat`,
+  bt.BatimentID,
+--  bt.Reference as `Reférence Batiment`,
+  bt.Nom as `Batiment`,
+  v.VehiculeID,
+  v.Nom as `Vehicule Matricule`,
+  ae.ArriveeauID,
+--  ae.Reference as `Arrivée d'eau Reférence`,
+  ae.Nom as `Arrivée d'eau Nom`,
+  ec.EclairageID,
+--  ec.Reference as `Eclairage Reférence`,
+  ec.Nom as `Eclairage Nom`,
+  pp.PosteproductionID,
+--  pp.Reference as `Numéro d’identification du poste`,
+  pp.Nom as `Poste de production Nom`
+  from `compteur` `c` 
+    right outer join compteurbatiments c_bt on c_bt.CompteurID=c.CompteurID
+    right outer join batiment bt on bt.BatimentID=c_bt.BatimentID
+    right outer join compteurvehicules c_v on c_v.CompteurID=c.CompteurID
+    right outer join vehicule v on v.VehiculeID=c_v.VehiculeID
+    right outer join compteurarriveeaux c_ae on c_ae.CompteurID=c.CompteurID
+    right outer join arriveeau ae on ae.ArriveeauID=c_ae.ArriveeauID
+    right outer join compteureclairages c_ec on c_ec.CompteurID=c.CompteurID
+    right outer join eclairage ec on ec.EclairageID=c_ec.EclairageID
+    right outer join compteurposteproductions c_pp on c_pp.CompteurID=c.CompteurID
+    right outer join posteproduction pp on pp.PosteproductionID=c_pp.PosteproductionID
+  where c.compteurid is null
+  into outfile 'c:/facture12.txt' FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n';
+
+==> 21 postes de production
+
+* répartition des factures par type d'énergie
+
+select count(e.energieid), e.energieid
+from facture f
+  inner join compteur c on c.compteurid = f.compteurid
+  left outer join energie e on e.energieid = c.energieid
+group by e.nom;
+
+* répartition des factures par type de patrimoines
+
+SELECT * FROM(
+select 'Batiments' as Nom, count(f.FactureID) as Patrimoine
+from facture f
+  inner join compteur c on c.compteurid = f.compteurid
+  inner join compteurbatiments c_bt on c_bt.CompteurID=c.CompteurID
+  inner join batiment bt on bt.BatimentID=c_bt.BatimentID
+where bt.reference not like 'TEMP'
+UNION
+select 'Eclairages' as Nom, count(f.FactureID) as Patrimoine
+from facture f
+  inner join compteur c on c.compteurid = f.compteurid
+  inner join compteureclairages c_ec on c_ec.CompteurID=c.CompteurID
+  inner join eclairage ec on ec.EclairageID=c_ec.EclairageID
+UNION
+select 'Véhicules' as Nom, count(f.FactureID) as Patrimoine
+from facture f
+  inner join compteur c on c.compteurid = f.compteurid
+  inner join compteurvehicules c_v on c_v.CompteurID=c.CompteurID
+  inner join vehicule v on v.VehiculeID=c_v.VehiculeID
+UNION
+select 'Arrivée d\'eau' as Nom, count(f.FactureID) as Patrimoine
+from facture f
+  inner join compteur c on c.compteurid = f.compteurid
+  inner join compteurarriveeaux c_ae on c_ae.CompteurID=c.CompteurID
+  inner join arriveeau ae on ae.ArriveeauID=c_ae.ArriveeauID
+UNION
+select 'Poste de production' as Nom, count(f.FactureID) as Patrimoine
+from facture f
+  inner join compteur c on c.compteurid = f.compteurid
+  inner join compteurposteproductions c_pp on c_pp.CompteurID=c.CompteurID
+  inner join posteproduction pp on pp.PosteproductionID=c_pp.PosteproductionID
+) as patrimoines
+;
+
+select distinct f.factureid, f.nom from facture f inner join compteur c on c.compteurid = f.compteurid where c.compteurid not in (
+select compteurid from compteurbatiments
+union
+select compteurid from compteureclairages
+union
+select compteurid from compteurvehicules
+union
+select compteurid from compteurarriveeaux
+union select compteurid from compteurposteproductions
+);
+
+* Nbre de factures de batiments
+select 'Batiments' as Nom, count(f.FactureId) as Patrimoine, f.nom
+from facture f
+  inner join compteur c on c.compteurid = f.compteurid
+  inner join compteurbatiments c_bt on c_bt.CompteurID=c.CompteurID
+  inner join batiment bt on bt.BatimentID=c_bt.BatimentID
+group by f.FactureID
+having count(f.FactureID)>1;
+
+
+select 'Eclairages' as Nom, f.nom, ec.reference, ec.nom
+from facture f
+  inner join compteur c on c.compteurid = f.compteurid
+  inner join compteureclairages c_ec on c_ec.CompteurID=c.CompteurID
+  inner join eclairage ec on ec.EclairageID=c_ec.EclairageID
+where  f.nom like '130004731147'
+--group by f.FactureID, f.nom, ec.reference
+--having count(f.FactureID)>1;
+
+select 'Arrivée d\'eau' as Nom, count(f.FactureID) as Patrimoine
+from facture f
+  inner join compteur c on c.compteurid = f.compteurid
+  inner join compteurarriveeaux c_ae on c_ae.CompteurID=c.CompteurID
+  inner join arriveeau ae on ae.ArriveeauID=c_ae.ArriveeauID
+group by f.FactureID
+having count(f.FactureID)>1;
+
+* Compteurs par type d'énergie
+select count(e.EnergieID), e.EnergieID
+from compteur c
+  left outer join energie e on e.energieid = c.energieid
+group by e.EnergieID;
