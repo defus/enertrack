@@ -90,15 +90,89 @@ r1ViewModel.prototype.handleNoTrimestre = function(year, trimestre) {
 	var self = this;
 	var holder = self.buildTrimestreGraphId(year, trimestre);
 
-	holder.text("Auccune donnée pour le Trimestre " + trimestre);
+	$("#" + holder).text("Aucune donnée pour le Trimestre " + trimestre);
 
 };
 
-r1ViewModel.prototype.handleNoTrimestre = function(year, trimestre) {
+r1ViewModel.prototype.hasTrimestre = function(year, trimestre) {
 	var self = this;
-	var holder = self.buildTrimestreGraphId(year, trimestre);
+	var data = self.getTrimestreData(year, trimestre);
 
-	$("#" + holder).text("Aucune donnée pour le Trimestre " + trimestre);
+	if (!data) {
+		return false;
+	}
+
+	return true;
+};
+
+r1ViewModel.prototype.getTableData = function(year, trimestre) {
+	var self = this;
+
+	var data = trimestre ? self.getTrimestreData(year, trimestre) : self
+			.getJustYearData(year);
+
+	if (!data) {
+		if (trimestre)
+			self.handleNoTrimestre(year, trimestre);
+		return;
+	}
+
+	// var tablePlaceHolder = self.buildTrimestreTableId(year, trimestre);
+
+	// TODO draw trimestre table
+	// categories order : b,e,v,ev,ae,pp,ap,unknown
+
+	var tableData = [ {
+		name : 'Bâtiments',
+		total : data.total_b,
+		eau : data.total_eau_b,
+		energie : data.total_energie_b,
+		conso : data.conso_b
+	}, {
+		name : 'Eclairages Publics',
+		total : data.total_e,
+		eau : data.total_eau_e,
+		energie : data.total_energie_e,
+		conso : data.conso_e
+	}, {
+		name : 'Véhicules',
+		total : data.total_v,
+		eau : data.total_eau_v,
+		energie : data.total_energie_v,
+		conso : data.conso_v
+	}, {
+		name : 'Espaces Verts',
+		total : data.total_ev,
+		eau : data.total_eau_ev,
+		energie : data.total_energie_ev,
+		conso : data.conso_ev
+	}, {
+		name : "Points d'Eaux",
+		total : data.total_ae,
+		eau : data.total_eau_ae,
+		energie : data.total_energie_ae,
+		conso : data.conso_ae
+	}, {
+		name : "Postes de Productions",
+		total : data.total_pp,
+		eau : data.total_eau_pp,
+		energie : data.total_energie_pp,
+		conso : data.conso_pp
+	}, {
+		name : "Autres Postes",
+		total : data.total_ap,
+		eau : data.total_eau_ap,
+		energie : data.total_energie_ap,
+		conso : data.conso_ap
+	}, {
+		name : "Non Catégorisés",
+		total : data.total_unknown,
+		eau : data.total_eau_unknown,
+		energie : data.total_energie_unknown,
+		conso : data.conso_unknown
+	} ];
+
+	return tableData;
 
 };
 
@@ -112,6 +186,7 @@ r1ViewModel.prototype.drawTrimestre = function(year, trimestre) {
 	}
 
 	var graphPlaceHolder = self.buildTrimestreGraphId(year, trimestre);
+	// var tablePlaceHolder = self.buildTrimestreTableId(year, trimestre);
 
 	// TODO draw trimestre
 	// categories order : b,e,v,ev,ae,pp,ap,unknown
@@ -328,8 +403,6 @@ r1ViewModel.prototype.drawTrimestre = function(year, trimestre) {
 
 r1ViewModel.prototype.drawYear = function(year, yearly) {
 
-	console.log("Draw Year " + year);
-
 	var self = this;
 
 	if (yearly == true) {
@@ -353,8 +426,6 @@ r1ViewModel.prototype.drawYear = function(year, yearly) {
 
 r1ViewModel.prototype.drawYearPatrimoine = function(year, patrimoine) {
 
-	console.log("Draw Year Patrimoine: " + year + " " + patrimoine);
-
 	var self = this;
 
 	if (self.drawnPatrimoines().indexOf(year + '' + patrimoine) >= 0)
@@ -362,8 +433,26 @@ r1ViewModel.prototype.drawYearPatrimoine = function(year, patrimoine) {
 	// TODO really draw year patrimoine report
 	console.log("Here I'm going to draw it");
 
-	
-	
+	var pieSerieDataCosts = [];
+	var pieSerieDataConso = [];
+	var couleur = 0;
+
+	ko.utils.arrayForEach(self.patrimoinesRecord(), function(entry) {
+		if (entry && entry.annee == year) {
+			pieSerieDataCosts.push({
+				name : entry.energie,
+				y : 1 * entry['total_' + patrimoine],
+				color : Highcharts.getOptions().colors[couleur]
+			});
+			pieSerieDataConso.push({
+				name : entry.energie,
+				y : 1 * entry['conso_' + patrimoine],
+				color : Highcharts.getOptions().colors[couleur]
+			});
+			color++;
+		}
+	});
+
 	self.drawnPatrimoines.push(year + '' + patrimoine);
 
 };
@@ -387,7 +476,7 @@ r1ViewModel.prototype.getJustYearData = function(year) {
 r1ViewModel.prototype.getPatrimoinesData = function(year) {
 	var self = this;
 	var records = self.patrimoinesRecord();
-	
+
 	var retVal = null;
 
 	retVal = ko.utils.arrayFirst(records, function(entry) {
@@ -405,12 +494,12 @@ r1ViewModel.prototype.getTrimestreData = function(year, trimestre) {
 	// TODO get trimestre data
 
 	var retVal = null;
+	console.log('Get Data For ', year, trimestre);
 
 	retVal = ko.utils.arrayFirst(records, function(entry) {
+
 		return entry && entry.annee == year && entry.trimestre == trimestre;
 	});
-	if (!retVal)
-		return retVal;
 
 	return retVal;
 };
@@ -425,6 +514,11 @@ r1ViewModel.prototype.formatBigNumber = function(number) {
 r1ViewModel.prototype.buildTrimestreGraphId = function(year, trimestre) {
 	var self = this;
 	return '' + year + 'trimestre_' + trimestre;
+};
+
+r1ViewModel.prototype.buildTrimestreTableId = function(year, trimestre) {
+	var self = this;
+	return 'table_' + year + 'trimestre_' + trimestre;
 };
 
 r1ViewModel.prototype.getYearTrimestres = function(year) {

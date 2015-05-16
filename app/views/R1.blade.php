@@ -78,21 +78,113 @@ $(document).ready(function() {
 							<div class="row">
 								<div class="col-xs-12 col-md-10  text-center"
 									data-bind="attr:{id:$root.buildTrimestreGraphId($data,1)}"></div>
+								<hr data-bind="if:$root.hasTrimestre($data,1)">
+								<div class="col-xs-12 col-md-10  text-center"
+									data-bind="if:$root.hasTrimestre($data,1)">
+									<h4>Les C&ucirc;ts des Consommations</h4>
+									<table class="table table-condensed">
+										<thead>
+											<tr>
+												<th>Patrimoines</th>
+												<th>Co&ucirc;ts Eau</th>
+												<th>Co&ucirc;ts &Eacute;lectricit&eacute;</th>
+												<th>Co&ucirc;ts Globaux</th>
+											</tr>
+										</thead>
+										<tbody data-bind="foreach:$root.getTableData($data,1)">
+											<tr>
+												<th data-bind="text:$data.name"></th>
+												<td data-bind="text:$data.eau"></td>
+												<td data-bind="text:$data.energie"></td>
+												<td data-bind="text:$data.total"></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
 							</div>
 							<hr>
 							<div class="row">
 								<div class="col-xs-12 col-md-10  text-center"
 									data-bind="attr:{id:$root.buildTrimestreGraphId($data,2)}"></div>
+								<hr>
+								<div class="col-xs-12 col-md-10  text-center"
+									data-bind="if:$root.hasTrimestre($data,2)">
+									<h4>Les C&ucirc;ts des Consommations</h4>
+									<table class="table table-condensed">
+										<thead>
+											<tr>
+												<th>Patrimoines</th>
+												<th>Co&ucirc;ts Eau</th>
+												<th>Co&ucirc;ts &Eacute;lectricit&eacute;</th>
+												<th>Co&ucirc;ts Globaux</th>
+											</tr>
+										</thead>
+										<tbody data-bind="foreach:$root.getTableData($data,2)">
+											<tr>
+												<th data-bind="text:$data.name"></th>
+												<td data-bind="text:$data.eau"></td>
+												<td data-bind="text:$data.energie"></td>
+												<td data-bind="text:$data.total"></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
 							</div>
 							<hr>
 							<div class="row">
 								<div class="col-xs-12 col-md-10  text-center"
 									data-bind="attr:{id:$root.buildTrimestreGraphId($data,3)}"></div>
+								<hr>
+								<div class="col-xs-12 col-md-10  text-center"
+									data-bind="if:$root.hasTrimestre($data,3)">
+									<h4>Les C&ucirc;ts des Consommations</h4>
+									<table class="table table-condensed">
+										<thead>
+											<tr>
+												<th>Patrimoines</th>
+												<th>Co&ucirc;ts Eau</th>
+												<th>Co&ucirc;ts &Eacute;lectricit&eacute;</th>
+												<th>Co&ucirc;ts Globaux</th>
+											</tr>
+										</thead>
+										<tbody data-bind="foreach:$root.getTableData($data,3)">
+											<tr>
+												<th data-bind="text:$data.name"></th>
+												<td data-bind="text:$data.eau"></td>
+												<td data-bind="text:$data.energie"></td>
+												<td data-bind="text:$data.total"></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
 							</div>
 							<hr>
 							<div class="row">
 								<div class="col-xs-12 col-md-10 text-center"
 									data-bind="attr:{id:$root.buildTrimestreGraphId($data,4)}"></div>
+								<hr>
+								<div class="col-xs-12 col-md-10  text-center"
+									data-bind="if:$root.hasTrimestre($data,4)">
+									<h4>Les C&ucirc;ts des Consommations</h4>
+									<table class="table table-condensed">
+										<thead>
+											<tr>
+												<th>Patrimoines</th>
+												<th>Co&ucirc;ts Eau</th>
+												<th>Co&ucirc;ts &Eacute;lectricit&eacute;</th>
+												<th>Co&ucirc;ts Globaux</th>
+											</tr>
+										</thead>
+										<tbody data-bind="foreach:$root.getTableData($data,4)">
+											<tr>
+												<th data-bind="text:$data.name"></th>
+												<td data-bind="text:$data.eau"></td>
+												<td data-bind="text:$data.energie"></td>
+												<td data-bind="text:$data.total"></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -175,7 +267,7 @@ $(document).ready(function() {
 										<li role="presentation"><a data-toggle="tab"
 											data-bind="click:function(){$root.drawYearPatrimoine(1*$data,'ap');},attr:{href:'#ap_'+$data}">Autres
 												Postes</a></li>
-										<li class="active" role="presentation"><a data-toggle="tab"
+										<li role="presentation"><a data-toggle="tab"
 											data-bind="click:function(){$root.drawYearPatrimoine(1*$data,'unknown');},attr:{href:'#unknown_'+$data}">Non
 												Cat&eacute;goris&eacute;s</a></li>
 
@@ -227,7 +319,7 @@ $(document).ready(function() {
 										<div class="tab-pane fade in"
 											data-bind="attr:{id:'unknown_'+$data}" role="tabpanel">
 											<br> Contenu Graph <span
-												data-bind="text:'Non categorises : ' +$data"></span>
+												data-bind="text:'Non categorisés : ' +$data"></span>
 										</div>
 									</div>
 								</div>

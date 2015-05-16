@@ -90,6 +90,7 @@ Route::group ( array (
 		Route::get ( 'reports/r1/page', 'R1Controller@r1Page' );
 		Route::post ( 'reports/r1/data', 'R1Controller@r1Data' );
 		Route::post ( 'reports/r1/dataYear', 'R1Controller@r1DataYearly' );
+		Route::post ( 'reports/r1/dataPatrimoines', 'R1Controller@r1DataPatrimoines' );
 		
 		Route::get ( 'reports/facture_releve/page', 'factureReleveController@factureRelevePage' );
 		Route::post ( 'reports/facture_releve/data', 'factureReleveController@factureReleveData' );
