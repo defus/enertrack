@@ -1,4 +1,5 @@
 <?php
+    //echo ( "dddddd");die;
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
@@ -17,7 +18,7 @@
 | loading of any our classes "manually". Feels great to relax.
 |
 */
-
+    
 require __DIR__.'/../bootstrap/autoload.php';
 
 /*
@@ -31,6 +32,8 @@ require __DIR__.'/../bootstrap/autoload.php';
 | the responses back to the browser and delight these users.
 |
 */
+//echo __DIR__.'/../bootstrap/autoload.php';
+
 
 $app = require_once __DIR__.'/../bootstrap/start.php';
 
@@ -45,5 +48,5 @@ $app = require_once __DIR__.'/../bootstrap/start.php';
 | and wonderful application we have whipped up for them.
 |
 */
-
+    
 $app->run();

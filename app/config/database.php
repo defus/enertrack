@@ -57,7 +57,7 @@ return array(
 			'host'      => 'localhost',
 			'database'  => 'enertrack',
 			'username'  => 'root',
-			'password'  => '',
+			'password'  => 'root@fm',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

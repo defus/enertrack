@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://localhost:88/enertrack',
+	'url' => 'http://enertrack.tld/',
 
 	/*
 	|--------------------------------------------------------------------------

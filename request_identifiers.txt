@@ -1,0 +1,269 @@
+								I) Répertoire des Requêtes destinées au Indicateurs clés pour une Commune donnée (CUA)
+		
+							A) Requêtes Globales
+		
+R1) consommations  globale(électricité,eau,carburant et lubrifiant) par patrimoine 
+	Paramètres: tailles : nombres d'agents communaux, surface...
+	Objectifs: identification et comparaison des patrimoines selon la consommation
+
+Les tables et colonnes concernées: 
+
+compteur c(CompteurID,EnergieID,FournisseurID,Seuil,Estenergie,Type,BaseID),
+facture f(FactureID,CompteurID,Debutperiode,Finperiode,Totalttc,Prixunitaire,BaseID),
+
+eclairage e(EclairageID,CategorieID,Armoires,Declencheur,TypeTechnologie,BaseID),
+compteureclairage ce,
+
+arriveeau ae,
+compteurarriveeau cae,
+
+espacevert ev,
+espacevert ev,
+
+vehicule v,
+compteurvehicule cv,
+
+batiment b,
+compteurbatiment cb,
+
+posteproduction pp,
+compteurposteproduction cpp,
+
+
+
+R2) consommations  annuelles et trimestrielles(électricité,eau,carburant et lubrifiant) par patrimoine
+	Paramètres: consommation facturées et consommations relevées
+	Objectifs: identification des différences trimestrielles et annuelles des paramètres
+
+Les tables et colonnes concernées:
+
+R3) consommations  globale(électricité,eau,carburant et lubrifiant) par division administrative et par service de la CUA 
+	Paramètres: tailles et tâches : nombres d'agents de la division, nombres de bâtiments
+	Objectifs: identification des consommations annuelles et trimestrielles
+
+Les tables et colonnes concernées:
+
+R4) Moyennes des émissions CO2 trimestrielles et annuelles de la CUA par employé, par patrimoine et par service
+	Paramètres: Aucun
+	Objectifs: Comparaison des émissions
+	
+		B) Les Requêtes concernant l'électricité
+
+Les tables et colonnes concernées:
+
+
+R5) consommations  électriques annuelles et trimestrielles par bâtiment
+	Paramètres: kWh et MAD, nombre d'employés de la commune
+	Objectifs: Comparaison
+
+
+Les tables et colonnes concernées:
+
+
+R6) consommations  électriques annuelles et trimestrielles par éclairage public par Zone géographique
+	Paramètres: kWh et MAD, nombre d'habitants
+	Objectifs: Comparaison
+
+
+Les tables et colonnes concernées:
+
+
+R7) consommations  électriques annuelles et trimestrielles (facturée par le fournisseur et relevée par la CUA)
+	Paramètres: kWh et MAD, valeurs relevées, valeurs facturées
+	Objectifs: Comparaison
+
+
+Les tables et colonnes concernées:
+
+
+R8) Consommation électrique par division et par service administratif, par patrimoine et par groupe de patrimoine selon les cibles
+	Paramètres: kWh et MAD, cibles, priorités
+	Objectifs: Comparaison
+	
+
+Les tables et colonnes concernées:
+
+
+		C) Eau
+R9) Consommations d'eau annuelles et trimestrielles des espaces verts 
+	Paramètres: m3 et MAD
+	Objectifs: Comparaison
+
+
+Les tables et colonnes concernées:
+
+
+	
+R10) Consommations d'eau annuelles et trimestrielles des espaces verts 
+	Paramètres: m3, MAD, nombre d'habitants, Surface
+	Objectifs: Comparaison
+	
+
+Les tables et colonnes concernées:
+
+
+
+R11) Consommations d'eau annuelles et trimestrielles des espaces verts par bâtiment, catégorie de bâtiment, par division et par service administratif  
+	Paramètres: m3 et MAD, nombre d'employés de la commune
+	Objectifs: Comparaison
+	
+
+
+Les tables et colonnes concernées:
+
+
+R12) Hautes saisons (mois et/ou trimestre) de consommation
+	Paramètres: Fréquences ou quantité d'eau consommée
+	Objectifs: Identification
+
+Les tables et colonnes concernées:
+
+	
+		D) Carburants et Lubrifiants
+
+R13) Consommations hebdomadaires, mensuelles, trimestrielles et annuelles de carburant des véhicules et engins (l et MAD), 
+par catégorie de carburant, moyenne calculée par employé de la commune et par habitant et par division et service de la CUA.
+
+R14) Consommations hebdomadaires, mensuelles, trimestrielles et annuelles de lubrifiants (litres) des véhicules et engins de la commune 
+par type de service et par  poste de production et autre poste (selon l’organisation de la CUA et ses priorités de suivi).
+		
+		E) Eclairage Public
+E1) Consommations électriques  annuelles et trimestrielles par armoire 
+	Paramètres: kWh et MAD
+	Objectifs: Comparaison
+
+Les tables et colonnes concernées:
+	
+E2) Consommations électriques  annuelles et trimestrielles par armoire et par types d'éclairages (Voirie, signalisation,carrefour,etc...)
+	Paramètres: kWh et MAD
+	Objectifs: Comparaison
+	
+Les tables et colonnes concernées:
+
+
+	
+E3) Consommations électriques  annuelles et trimestrielles par armoire
+	Paramètres: kWh et MAD et Nombre de Points Lumineux
+	Objectifs: Comparaison
+
+
+Les tables et colonnes concernées:
+
+
+E4) Consommations électriques  annuelles et trimestrielles par armoire et par types de Lampe installées (Sodium, Mercure Haute Pression,etc...)
+	Paramètres: kWh et MAD
+	Objectifs: Comparaison	
+		
+Les tables et colonnes concernées:
+
+
+
+
+E5) Consommations électriques  annuelles et trimestrielles par armoire et par types d'allumage (Allumage par Horloge Astronomique, Allumage Manuelle,etc...)
+	Paramètres: kWh et MAD
+	Objectifs: Comparaison
+		
+
+Les tables et colonnes concernées:
+
+
+
+E6) Les Pannes électriques et les interruptions de Service par Secteur, par armoire et par Zone d'éclairage Public
+	Paramètres: Durées et Fréquences (NDLR: Valeurs moyennes ou toute autre pondération)
+	Objectifs: Identification
+		
+
+Les tables et colonnes concernées:		
+
+
+
+		F) Espaces Verts
+
+F1) Consommations d'eau  annuelles et trimestrielles par arrivée d'eau et par unité d'espace vert 
+	Paramètres: m3 et MAD
+	Objectifs: Comparaison
+
+Les tables et colonnes concernées:
+
+
+
+F2) Consommations d'eau  annuelles et trimestrielles par arrivée d'eau et par unité d'espace vert 
+	Paramètres: m3/m2 et MAD/m2
+	Objectifs: ComparaisonLes tables et colonnes concernées:F3) Différences de valeurs entre d'une part, les compteurs des points d'arrivées d'eau attribuées aux espaces  verts et d'autre part, les  compteurs d'eau attribués aux bâtiments de la CUA
+	Paramètres: m3 et MAD
+	Objectifs: ComparaisonLes tables et colonnes concernées:
+		G) Parc Roulant
+		
+		
+		H) Bâtiments
+
+H1) Consommations électriques  annuelles et trimestrielles par bâtiment, groupe/catégorie de bâtiment et par division/service administratif
+	Paramètres: kWh et MAD
+	Objectifs: Comparaison
+
+
+Les tables et colonnes concernées:
+
+
+
+H2) Top des Consommations électriques  annuelles et trimestrielles par bâtiment
+	Paramètres: kWh
+	Objectifs: Identification
+
+
+Les tables et colonnes concernées:
+
+
+H3) Consommations d'eau  annuelles et trimestrielles par bâtiment, groupe/catégorie de bâtiment et par division/service administratif
+	Paramètres: m3 et MAD
+	Objectifs: Comparaison
+
+
+Les tables et colonnes concernées:
+
+
+
+
+H4) Consommations électriques  annuelles et trimestrielles par bâtiment
+	Paramètres: kWh et MAD, Selon l'adoption de mesures d'efficacité ou pas
+	Objectifs: Comparaison
+
+
+Les tables et colonnes concernées:
+
+
+
+H4) Consommations d'eau  annuelles et trimestrielles par bâtiment
+	Paramètres: m3 et MAD, Selon l'adoption de mesures d'efficacité ou pas
+	Objectifs: Comparaison
+		
+
+
+Les tables et colonnes concernées:
+
+
+								I) Répertoire des Requêtes destinées au Indicateurs clés pour une Commune donnée (CUA)
+								
+							
+							A) Electricité
+							
+							
+							B) Eau
+							
+							
+							C) Carburants et Lubrifiants
+							
+							
+							D) Eclairage Public
+							
+							E) Bâtiments
+							
+							
+							F) Espaces Verts
+							
+							
+							G) Véhicules et Engins
+							
+							
+							
+							
