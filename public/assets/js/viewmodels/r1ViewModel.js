@@ -86,6 +86,34 @@ r1ViewModel.prototype.startLoadingData = function(dataLink, isYearly) {
 
 };
 
+r1ViewModel.prototype.startLoadingPatrimoines = function(dataLink) {
+	var self = this;
+
+	var promesse = $.ajax({
+		url : dataLink,
+		type : "POST",
+		dataType : "JSON",
+		data : {
+			cmd : "get-records"
+		}
+	});
+
+	promesse.done(function(data, status, ss) {
+		// console.log('Done Data', ko.toJSON(self));
+		if ("success" == data.status)
+			self.patrimoinesRecord(data.records);
+		else {
+			console.log('Fail Data', data);
+		}
+	});
+
+	promesse.fail(function(data, status, ss) {
+		console.log('Fail Data', data);
+
+	});
+
+};
+
 r1ViewModel.prototype.handleNoTrimestre = function(year, trimestre) {
 	var self = this;
 	var holder = self.buildTrimestreGraphId(year, trimestre);
@@ -431,7 +459,6 @@ r1ViewModel.prototype.drawYearPatrimoine = function(year, patrimoine) {
 	if (self.drawnPatrimoines().indexOf(year + '' + patrimoine) >= 0)
 		return;
 	// TODO really draw year patrimoine report
-	console.log("Here I'm going to draw it");
 
 	var pieSerieDataCosts = [];
 	var pieSerieDataConso = [];
@@ -439,19 +466,66 @@ r1ViewModel.prototype.drawYearPatrimoine = function(year, patrimoine) {
 
 	ko.utils.arrayForEach(self.patrimoinesRecord(), function(entry) {
 		if (entry && entry.annee == year) {
-			pieSerieDataCosts.push({
-				name : entry.energie,
-				y : 1 * entry['total_' + patrimoine],
-				color : Highcharts.getOptions().colors[couleur]
-			});
-			pieSerieDataConso.push({
-				name : entry.energie,
-				y : 1 * entry['conso_' + patrimoine],
-				color : Highcharts.getOptions().colors[couleur]
-			});
-			color++;
+			if (1 * entry['total_' + patrimoine] > 0)
+				pieSerieDataCosts.push({
+					name : entry.energie,
+					y : 1 * entry['total_' + patrimoine],
+					color : Highcharts.getOptions().colors[couleur]
+				});
+			if (1 * entry['conso_' + patrimoine] > 0)
+				pieSerieDataConso.push({
+					name : entry.energie,
+					y : 1 * entry['conso_' + patrimoine],
+					color : Highcharts.getOptions().colors[couleur]
+				});
+			couleur++;
 		}
 	});
+
+	// console.log(pieSerieDataCosts);
+
+	var costsChartOptions = {
+		chart : {
+			type : 'pie',
+			plotBackgroundColor : null,
+			plotBorderWidth : null,
+			plotShadow : true
+
+		},
+		title : {
+			text : 'Les Coûts énergetiques'
+		},
+		tooltip : {
+			pointFormat : '{series.name}: <b>{point.y:.2f} MAD TTC</b>'
+		},
+		plotOptions : {
+			pie : {
+				allowPointSelect : true,
+				cursor : 'pointer',
+				depth : 35,
+				dataLabels : {
+					enabled : true,
+					format : '{point.name}'
+				},
+				showInLegend : true
+			}
+		},
+		series : [ {
+			type : 'pie',
+			name : 'Coût',
+			data : pieSerieDataCosts
+		} ]
+	};
+
+	console.log("Here I'm going to draw it:", patrimoine + "_" + year);
+
+	// console.log(costsChartOptions);
+	if (pieSerieDataCosts.length > 0)
+		$("#" + (patrimoine + "_" + year)).highcharts(costsChartOptions);
+	else {
+		$("#" + (patrimoine + "_" + year)).html(
+				"<h1>Aucune Consommation pour ce Patrimoine</h1>");
+	}
 
 	self.drawnPatrimoines.push(year + '' + patrimoine);
 
@@ -494,10 +568,9 @@ r1ViewModel.prototype.getTrimestreData = function(year, trimestre) {
 	// TODO get trimestre data
 
 	var retVal = null;
-	console.log('Get Data For ', year, trimestre);
+	// console.log('Get Data For ', year, trimestre);
 
 	retVal = ko.utils.arrayFirst(records, function(entry) {
-
 		return entry && entry.annee == year && entry.trimestre == trimestre;
 	});
 

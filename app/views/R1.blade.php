@@ -33,7 +33,7 @@ $(document).ready(function() {
     var vm = new r1ViewModel();
     ko.applyBindings(vm);
     vm.startLoadingData("/reports/r1/data");
-    vm.startLoadingData("/reports/r1/dataPatrimoines",true);
+    vm.startLoadingPatrimoines("/reports/r1/dataPatrimoines");
     vm.startLoadingData("/reports/r1/dataYear",true);
     //console.log('Done Document',ko.toJSON(vm));
 });

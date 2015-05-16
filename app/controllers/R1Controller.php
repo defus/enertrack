@@ -340,9 +340,9 @@ EOD;
      c.CompteurID AS c_id,
      compteur_ae.CompteurID AS cae_compteur_id,
      energie.EnergieID AS energie_energie_id,
-     energie.Nom AS energie_nom,
+     COALESCE(energie.Nom,"Autre") AS energie_nom,
      energie.Est_energie AS est_energie,
-     energie.Unite AS energie_unites,
+     COALESCE(energie.Unite,"Divers") AS energie_unites,
      ae.ArriveeauID AS ae_id,
      ap.AutreposteID AS ap_id,
      b.BatimentID AS b_id,
@@ -369,7 +369,7 @@ EOD;
      LEFT OUTER JOIN posteproduction pp ON pp.PosteProductionID = compteur_pp.PosteProductionID
      LEFT OUTER JOIN vehicule v ON v.VehiculeID = compteur_v.VehiculeID
      GROUP BY f.FactureID) tt
-    GROUP BY annee
+    GROUP BY annee,energie
     
 EOD;
     
